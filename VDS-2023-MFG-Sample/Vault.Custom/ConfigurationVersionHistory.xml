@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ConfigInfo>
+    <ConfigHistoryInfo Branch="main" Version="2022.0.1">
+      <Changes>
+        <!--minor enhancements in CAD.Library and CAD..QS.Default derived from PDMC-Sample-Configuration-->
+      </Changes>
+    </ConfigHistoryInfo>
+    <ConfigHistoryInfo Branch="main" Version="2022">
+      <Changes>
+        <!--Migration 2022 according slide deck Vault 2022 Data Standard | Updates and Migration-->
+      </Changes>
+    </ConfigHistoryInfo>
+    <ConfigHistoryInfo Branch="Master" Version="2021.2">
+      <Changes>
+        <!--fixed File.XAML issue by removing item search and term search expanders (not part of VDS MFG Sample Standard)
+          New feature - CreateFolder.ps1 copies ACL from template if the user's permissions include ACL Read and ACL Write
+        -->
+      </Changes>
+    </ConfigHistoryInfo>
+    <ConfigHistoryInfo Branch="Master" Version="2021.1">
+      <Changes>
+        <!--Updated all XAML files to match Vault 2022 Update 1 improvements and changes
+        For Details review the slide Deck "Vault Data Standard 2021 - Updates and Migration", available on AKN and ChannelTech -->
+      </Changes>
+    </ConfigHistoryInfo>
+    <ConfigHistoryInfo Branch="Master" Version="2021.26.0.1">
+      <Changes>
+        <!--added workaround for VDS AutoCAD 2021 Listvalues issue
+        added weldbead material support for weldement category asm
+        return Categories sorted
+        comment Trace in FileNameValidation.ps1
+        en-US: fixed PropTranslation for Semi-finished
+        de-DE: fixed comment error in line 192
+        VE: ADSK.QS.Default.ps1: removed version check in OnLog
+        File.xml: iLogic Types.
+        Support GEN-TITLE-DACT-->
+      </Changes>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
+</Configuration>

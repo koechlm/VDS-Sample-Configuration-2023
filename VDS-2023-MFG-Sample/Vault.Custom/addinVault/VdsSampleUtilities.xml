@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VdsSampleUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:VdsSampleUtilities.VltHelpers">
+            <summary>
+            Class extending VDS Vault scripts
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.UserCredentials1(System.String,System.String,System.String,System.String)">
+            <summary>
+            UserCredentials1 and UserCredentials2 differentiate overloads as powershell can't handle
+            UserCredentials1 returns read-write loginuser object
+            </summary>
+            <param name="server">IP Address or DNS Name of ADMS Server</param>
+            <param name="vault">Name of vault to connect to</param>
+            <param name="user">User name</param>
+            <param name="pw">Password</param>
+            <returns>User Credentials</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.UserCredentials2(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            UserCredentials1 and UserCredentials2 differentiate overloads as powershell can't handle
+            UserCredentials2 returns readonly loginuser object
+            </summary>
+            <param name="server">IP Address or DNS Name of ADMS Server</param>
+            <param name="vault">Name of vault to connect to</param>
+            <param name="user">User name</param>
+            <param name="pw">Password</param>
+            <param name="rw">Set to "True" to allow Read/Write access</param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.UpdateFolderProp2(Autodesk.Connectivity.WebServicesTools.WebServiceManager,System.Int64[],Autodesk.Connectivity.WebServices.PropInstParamArray[])">
+            <summary>
+            Deprecated - no longer required, as the overload is removed in 2017 API
+            </summary>
+            <param name="svc"></param>
+            <param name="FldIds"></param>
+            <param name="m_PropArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.mGetLinkedChildren1(Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections.Connection,System.Int64,System.String,System.String)">
+            <summary>
+            LinkManager.GetLinkedChildren has an override list; the input is of type IEntity. 
+            This wrapper allows to input commonly known object types, like Ids and entity names instead.
+            </summary>
+            <param name="con">The utility dll is not connected to Vault; 
+            we need to leverage the established connection to call LinkManager methods</param>
+            <param name="mId">The parent entity's id to get linked children of</param>
+            <param name="mClsId">The parent entity's class name; allowed values are FILE FLDR and CUSTENT. 
+            CO and ITEM cannot have linked children, as they use specific links to related child objects.</param>
+            <param name="mFilter">Limit the search on links to a particular class; providing an empty value "" will result in a search on all types</param>
+            <returns>List of entity Ids</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.GetLinkedChildren2(Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections.Connection,System.Int64[],System.String[])">
+            <summary>
+            Evaluation of overload 2; see mGetLinkedchildren1 for detailed description
+            </summary>
+            <param name="con"></param>
+            <param name="mParEntIds"></param>
+            <param name="mClsIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.mUpdateFileProperties(Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections.Connection,Autodesk.Connectivity.WebServices.File,System.Collections.Generic.Dictionary{Autodesk.Connectivity.WebServices.PropDef,System.Object})">
+            <summary>
+            Update file properties
+            </summary>
+            <param name="conn"></param>
+            <param name="mFile"></param>
+            <param name="mPropDictonary"></param>
+            <returns>True if updated successfully</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.VltHelpers.mGetFileByFullFileName(Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections.Connection,System.String,System.Boolean)">
+            <summary>
+            Downloads Vault file using full file path, e.g. "$/Designs/Base.ipt". Returns full file name in local working folder (download enforces override, if local file exists),
+            returns "FileNotFound if file does not exist at indicated location.
+            Preset Options: Download Children (recursively) = Enabled, Enforce Overwrite = True
+            </summary>
+            <param name="conn">Current Vault Connection</param>
+            <param name="VaultFullFileName">FullFilePath</param>
+            <param name="CheckOut">Optional. File downloaded does NOT check-out as default.</param>
+            <returns>Local path/filename or error statement "FileNotFound"</returns>
+        </member>
+        <member name="T:VdsSampleUtilities.InvHelpers">
+            <summary>
+            Class sharing options to interact with hosting Inventor session
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_GetMainViewModelPropValue(System.Object,System.String,System.String)">
+            <summary>
+            Retrieve property value of main view referenced model
+            </summary>
+            <param name="m_InvApp">Connect to the hosting instance of the VDS dialog</param>
+            <param name="m_ViewModelFullName"></param>
+            <param name="m_PropName">Display Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_GetMainViewModelPath(System.Object)">
+            <summary>
+            Gets the 3D model (ipt/iam/ipn) linked to the main view of the current (active) drawing.
+            Gets the 3D model (iam) linked to the main view of the current (active) presentation.
+            </summary>
+            <param name="m_InvApp">Running host (instance of Inventor) of calling VDS Dialog.</param>
+            <returns>Returns the fullfilename (path and filename incl. extension) of the referenced model as string.</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_RemoveOrphanedSheets(System.Object)">
+            <summary>
+            Delete orphaned drawing sheets. Sheet format consuming workflows likely cause an unused sheet1
+            </summary>
+            <param name="m_InvApp">Inventor Application ($Application)</param>
+            <returns>false on unhandled errors, else true</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_InventorApplication">
+            <summary>
+            Return running Inventor application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_ActiveDocFullFileName(System.Object)">
+            <summary>
+            Return active Inventor document
+            </summary>
+            <param name="m_InvApp">Inventor Application ($Application)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_PlaceComponent(System.Object,System.String)">
+            <summary>
+            Place component in active Inventor assembly document; deprecated: VDS includes 'Insert to CAD' as a default.
+            </summary>
+            <param name="m_InvApp"></param>
+            <param name="m_CompFullFileName"></param>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_FDUActive(System.Object)">
+            <summary>
+            validate active Factory Design Utility AddIn
+            </summary>
+            <param name="mInvApp">Inventor Application ($Application)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_GetFdsKeys(System.Object,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Return FDU key/value pairs to identify Factory Layout or Factory Asset files
+            </summary>
+            <param name="m_InvApp">Inventor Application ($Application)</param>
+            <param name="mFdsKeys">empty dictonary</param>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.InvHelpers.m_GetFdsAcadProps(System.Object,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Return custom iPropertyset for AutoCAD files handled by Inventor FDU
+            </summary>
+            <param name="m_InvApp">Inventor Application ($Application)</param>
+            <param name="mFdsKeys">empty Dictonary of String, String</param>
+            <returns></returns>
+        </member>
+        <member name="T:VdsSampleUtilities.AcadHelpers">
+            <summary>
+            /// Class sharing options to interact with hosting AutoCAD session
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.AcadHelpers.m_ConnectAcad">
+            <summary>
+            Get AutoCAD session hosting; deprecated as VDS >2017 dialogs share the hosting application object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VdsSampleUtilities.AcadHelpers.mFdsDrawing(System.Object)">
+            <summary>
+            Check for FDS Blocks in AutoCAD drawings
+            </summary>
+            <param name="m_AcadApp">AutoCAD Application ($Application)</param>
+            <returns>True for Blocknames containing "FDS"</returns>
+        </member>
+        <member name="M:VdsSampleUtilities.AcadHelpers.m_GoToAcad(System.Object)">
+            <summary>
+            Switch running AutoCAD application
+            </summary>
+            <param name="m_AcadApp">AutoCAD Application ($Application)</param>
+        </member>
+    </members>
+</doc>
