@@ -350,10 +350,10 @@ function InitializeWindow
 function AddinLoaded
 {
 	#Executed when DataStandard is loaded in Inventor/AutoCAD
-	$m_File = $env:TEMP + "\Folder2023.xml"
+	$m_File = "$($env:appdata)\Autodesk\DataStandard 2023\Folder2023.xml"
 	if (!(Test-Path $m_File)){
-		$source = $Env:ProgramData + "\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Folder2023.xml"
-		Copy-Item $source $env:TEMP\Folder2023.xml
+		$source = "$($env:ProgramData)\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Folder2023.xml"
+		Copy-Item $source $m_File
 	}
 }
 
@@ -724,19 +724,10 @@ function mHelp ([Int] $mHContext) {
 function mReadShortCuts {
 	if ($Prop["_CreateMode"].Value -eq $true) {
 		#$dsDiag.Trace(">> Looking for Shortcuts...")
-		$m_Server = $VaultConnection.Server
+		$m_Server = ($VaultConnection.Server).Replace(":", "_").Replace("/", "_")
 		$m_Vault = $VaultConnection.Vault
-		$m_AllFiles = @()
-		$m_FiltFiles = @()
-		$m_Path = $env:APPDATA + '\Autodesk\VaultCommon\Servers\Services_Security_12_16_2021\'
-		$m_AllFiles += Get-ChildItem -Path $m_Path -Filter 'Shortcuts.xml' -Recurse
-		$m_AllFiles | ForEach-Object {
-			if ($_.FullName -like "*" + $m_Server.Replace(":", "_").Replace("/", "_") + "*" -and $_.FullName -like "*"+$m_Vault + "*") 
-			{
-				$m_FiltFiles += $_
-			} 
-		}
-		$global:mScFile = $m_FiltFiles.SyncRoot[$m_FiltFiles.Count-1].FullName
+		$m_Path = "$($env:appdata)\Autodesk\VaultCommon\Servers\Services_Security_12_16_2021\$($m_Server)\Vaults\$($m_Vault)\Objects\"
+		$global:mScFile = $m_Path + "Shortcuts.xml"
 		if (Test-Path $global:mScFile) {
 			#$dsDiag.Trace(">> Start reading Shortcuts...")
 			$global:m_ScXML = New-Object XML 
@@ -745,7 +736,7 @@ function mReadShortCuts {
 			#the shortcuts need to get filtered by type of document.folder and path information related to CAD workspace
 			$global:m_ScCAD = @{}
 			#$dsDiag.Trace("... Filtering Shortcuts...")
-			$m_ScAll | ForEach-Object { 
+			$m_ScAll | ForEach-Object {
 				if (($_.NavigationContextType -eq "Connectivity.Explorer.Document.DocFolder") -and ($_.NavigationContext.URI -like "*"+$global:CAx_Root + "/*"))
 				{
 					try
@@ -783,6 +774,7 @@ function mScClick {
 		if ($m_DesignPathNames.Count -eq 1) { $m_DesignPathNames += "."}
 		mActivateBreadCrumbCmbs $m_DesignPathNames
 		$global:expandBreadCrumb = $true
+		$dsWindow.FindName("lstBoxShortCuts").SelectedItem = $null
 	}
 	catch
 	{
@@ -829,7 +821,7 @@ function mAddShortCutByName([STRING] $mScName)
 	{
 		#$dsDiag.Trace(">> Continue to add ShortCut, creating new from template...")	
 		#read from template
-		$m_File = $env:TEMP + "\Folder2023.xml"
+		$m_File = "$($env:appdata)\Autodesk\DataStandard 2023\Folder2023.xml"
 
 		if (Test-Path $m_File)
 		{
@@ -837,19 +829,17 @@ function mAddShortCutByName([STRING] $mScName)
 			$global:m_XML = New-Object XML
 			$global:m_XML.Load($m_File)
 		}
-		$mShortCut = $global:m_XML.Folder.Shortcut | where { $_.Name -eq "Template"}
+		$mShortCut = $global:m_XML.VDSUserProfile.Shortcut | Where-Object { $_.Name -eq "Template"}
 		#clone the template completely and update name attribute and navigationcontext element
 		$mNewSc = $mShortCut.Clone() #.CloneNode($true)
 		#rename "Template" to new name
 		$mNewSc.Name = $mScName 
-
+		
 		#derive the path from current selection
 		$breadCrumb = $dsWindow.FindName("BreadCrumb")
 		$newURI = "vaultfolderpath:" + $global:CAx_Root
 		foreach ($cmb in $breadCrumb.Children) 
 		{
-			$_N = $cmb.SelectedItem.Name
-			#$dsDiag.Trace(" - selecteditem.Name of cmb: $_N ")
 			if (($cmb.SelectedItem.Name.Length -gt 0) -and !($cmb.SelectedItem.Name -eq "."))
 			{ 
 				$newURI = $newURI + "/" + $cmb.SelectedItem.Name
