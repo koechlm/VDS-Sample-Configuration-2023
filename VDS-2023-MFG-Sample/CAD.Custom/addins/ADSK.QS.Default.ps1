@@ -758,7 +758,7 @@ function mReadShortCuts {
 				}
 			}
 		}
-		$dsDiag.Trace("... returning Shortcuts")
+		#$dsDiag.Trace("... returning Shortcuts")
 		return $global:m_ScCAD
 	}
 }

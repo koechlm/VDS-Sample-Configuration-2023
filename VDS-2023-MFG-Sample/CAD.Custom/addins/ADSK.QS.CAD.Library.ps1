@@ -68,7 +68,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
     {
         $mappedRootPath = '$/'
     }
-	$dsDiag.Trace("mapped root: $($mappedRootPath)")
+	#$dsDiag.Trace("mapped root: $($mappedRootPath)")
 	$mWfVault = $mappedRootPath
 					
 	#get local path of vault workspace path for Inventor
@@ -88,7 +88,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
 	}
 		
 	try {
-		$dsDiag.Trace("mWF: $mWF")
+		#$dsDiag.Trace("mWF: $mWF")
 		$mWFCAD = $mWF + $mCAxRoot
 		#avoid for temporary files
 		if($Prop["_FilePath"].Value -notcontains $mWFCAD)

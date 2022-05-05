@@ -20,7 +20,7 @@ function GetFileBOM($fileID)
 	$propDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId('FILE')
 	$thumbnailPropDef = $propDefs | Where-Object {$_.SysName -eq 'Thumbnail'}
 
-	$dsDiag.Trace(">> Starting GetFileBOM($fileID)")
+	#$dsDiag.Trace(">> Starting GetFileBOM($fileID)")
 	$bom = $vault.DocumentService.GetBOMByFileId($fileID)
 	$cldIds =@()
 	$_ExternalIds = @()
@@ -41,7 +41,7 @@ function GetFileBOM($fileID)
 		}
 		#endregion
 	}
-	$dsDiag.Trace("   cldIds: "+$cldIds.Count)
+	#$dsDiag.Trace("   cldIds: "+$cldIds.Count)
 	$bomItems = @()
 	if($cldIds.Count -gt 0) #the file contains BOM information, so continue
 	{
@@ -101,6 +101,6 @@ function GetFileBOM($fileID)
 		$dsWindow.FindName("txtBlck_Notification").Visibility = "Visible"
 		$dsWindow.FindName("txtBlck_Notification").Text = $UIString["MSDCE_CAD-BOM02"]
 	}
-	$dsDiag.Trace("<< Ending GetFileBOM with $($bomItems.Count) items found")
+	#$dsDiag.Trace("<< Ending GetFileBOM with $($bomItems.Count) items found")
 	return $bomItems
 }

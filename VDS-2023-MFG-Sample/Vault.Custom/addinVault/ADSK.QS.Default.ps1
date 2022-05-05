@@ -300,41 +300,41 @@ function GetNewCustomObjectName
 #Constructs the filename(numschems based or handtyped)and returns it.
 function GetNewFileName
 {
-	$dsDiag.Trace(">> GetNewFileName")
+	#$dsDiag.Trace(">> GetNewFileName")
 	if($dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{	
-		$dsDiag.Trace("read text from TextBox FILENAME")
+		#$dsDiag.Trace("read text from TextBox FILENAME")
 		$fileName = $dsWindow.FindName("FILENAME").Text
-		$dsDiag.Trace("fileName = $fileName")
+		#$dsDiag.Trace("fileName = $fileName")
 	}
 	else{
-		$dsDiag.Trace("-> GenerateNumber")
+		#$dsDiag.Trace("-> GenerateNumber")
 		$fileName = $Prop["_GeneratedNumber"].Value
-		$dsDiag.Trace("fileName = $fileName")
+		#$dsDiag.Trace("fileName = $fileName")
 		#VDS MFG Sample
 			If($Prop["_XLTN_PARTNUMBER"]) { $Prop["_XLTN_PARTNUMBER"].Value = $Prop["_GeneratedNumber"].Value }
 		#VDS MFG Sample
 	}
 	$newfileName = $fileName + $Prop["_FileExt"].Value
-	$dsDiag.Trace("<< GetNewFileName $newfileName")
+	#$dsDiag.Trace("<< GetNewFileName $newfileName")
 	return $newfileName
 }
 
 function GetNewFolderName
 {
-	$dsDiag.Trace(">> GetNewFolderName")
+	#$dsDiag.Trace(">> GetNewFolderName")
 	if($dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{	
-		$dsDiag.Trace("read text from TextBox FOLDERNAME")
+		#$dsDiag.Trace("read text from TextBox FOLDERNAME")
 		$folderName = $dsWindow.FindName("FOLDERNAME").Text
-		$dsDiag.Trace("folderName = $folderName")
+		#$dsDiag.Trace("folderName = $folderName")
 	}
 	else{
-		$dsDiag.Trace("-> GenerateNumber")
+		#$dsDiag.Trace("-> GenerateNumber")
 		$folderName = $Prop["_GeneratedNumber"].Value
-		$dsDiag.Trace("folderName = $folderName")
+		#$dsDiag.Trace("folderName = $folderName")
 	}
-	$dsDiag.Trace("<< GetNewFolderName $folderName")
+	#$dsDiag.Trace("<< GetNewFolderName $folderName")
 	return $folderName
 }
 
@@ -469,7 +469,7 @@ function ShouldEnableNumSchms
 #define the parametrisation for the number generator here
 function GenerateNumber
 {
-	$dsDiag.Trace(">> GenerateNumber")
+	#$dsDiag.Trace(">> GenerateNumber")
 	$selected = $dsWindow.FindName("NumSchms").Text
 	if($selected -eq "") { return "na" }
 
@@ -478,9 +478,9 @@ function GenerateNumber
 		"Sequential" { $NumGenArgs = @(""); break; }
 		default      { $NumGenArgs = @(""); break; }
 	}
-	$dsDiag.Trace("GenerateFileNumber($($ns.SchmID), $NumGenArgs)")
+	#$dsDiag.Trace("GenerateFileNumber($($ns.SchmID), $NumGenArgs)")
 	$vault.DocumentService.GenerateFileNumber($ns.SchmID, $NumGenArgs)
-	$dsDiag.Trace("<< GenerateNumber")
+	#$dsDiag.Trace("<< GenerateNumber")
 }
 
 #define here how the numbering preview should look like
