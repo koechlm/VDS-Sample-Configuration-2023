@@ -357,7 +357,6 @@
         		Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
         		Visibility="{Binding Visibility, ElementName=NumSchms}" BorderThickness="1,1,1,0" Margin="5,0,0,0" />
             <ComboBox x:Name="NumSchms" Grid.Column="3"
-        		SelectedIndex="0"
         		DisplayMemberPath="Name"
         		SelectedValuePath="Name"
         		SelectedValue="{Binding Prop[_NumSchm].Value}"

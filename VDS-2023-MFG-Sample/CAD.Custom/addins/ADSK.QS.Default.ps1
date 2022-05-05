@@ -25,6 +25,9 @@ function InitializeWindow
 	{
 		"InventorWindow"
 		{
+			#support given file name and path for Inventor ShrinkWrap file (_SuggestedVaultPath is empty for these)
+			$global:mShrnkWrp = $false
+
 			InitializeBreadCrumb
 			#	there are some custom functions to enhance functionality:
 			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
@@ -581,9 +584,15 @@ function GetNumSchms
 			if ($Prop["_NumSchm"].Value) { $Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name} #note - functional dialogs don't have the property _NumSchm, therefore we conditionally set the value
 			$dsWindow.FindName("NumSchms").IsEnabled = $true
 			$dsWindow.FindName("NumSchms").SelectedValue = $_FilteredNumSchems[0].Name
+			#add the "None" scheme to allow user interactive file name input
 			$noneNumSchm = New-Object 'Autodesk.Connectivity.WebServices.NumSchm'
 			$noneNumSchm.Name = $UIString["LBL77"] # None 
 			$_FilteredNumSchems += $noneNumSchm
+			
+			#Inventor ShrinkWrap workflows suggest a file name; allow user overrides
+			if ($dsWindow.Name -eq "InventorWindow" -and $global:mShrnkWrp -eq $true) {
+				if ($Prop["_NumSchm"].Value) { $Prop["_NumSchm"].Value = $_FilteredNumSchems[1].Name } # None 	
+			}
 
 			#reverse order for these cases; none is added latest; reverse the list, if None is pre-set to index = 0
 			#If($dsWindow.Name-eq "InventorWindow" -and $Prop["DocNumber"].Value -notlike "Assembly*" -and $Prop["_FileExt"].Value -eq ".iam") #you might find better criteria based on then numbering scheme
