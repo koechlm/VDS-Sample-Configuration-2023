@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<WPF:DSWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:WPF="clr-namespace:dataStandard.UI.View;assembly=dataStandard.UI"
+              xmlns:share="clr-namespace:dataStandard.UI.ViewModel;assembly=dataStandard.UI"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              mc:Ignorable="d"
+              Name="InventorHarnessWindow"
+              Title="{Binding UIString[LBL44]}"
+              Background="#F0F0F0" WindowStyle="ToolWindow" ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+              Topmost="True">
+    <WPF:DSWindow.Resources>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="BorderBrush" Value="#FFABADB3" />
+            <Setter Property="BorderThickness" Value="1,1,1,0" />
+            <Setter Property="Padding" Value="5,2,5,2" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BorderBrush" Value="#ff0000" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                </Trigger>
+                <Trigger Property="Validation.HasError" Value="false">
+                    <Setter Property="BorderBrush" Value="#FFABADB3" />
+                    <Setter Property="BorderThickness" Value="0,1,1,0" />
+                </Trigger>
+                <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
+            <Setter Property="BorderBrush" Value="#FFABADB3" />
+            <Setter Property="BorderThickness" Value="0,1,1,0" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CreateMode}" Value="True">
+                    <Setter Property="IsExpanded" Value="False" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsGeneratedFileName}" Value="False">
+                    <Setter Property="IsExpanded" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding EditMode}" Value="True">
+                    <Setter Property="IsExpanded" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
+            <Setter Property="Height" Value="26.0" />
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="0,1,1,0" />
+        </Style>
+        <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="0,15,2,5" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </WPF:DSWindow.Resources>
+    <WPF:DSWindow.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding PsCmd[mHelp(120)]}" />
+    </WPF:DSWindow.InputBindings>
+    <WPF:DSWindow.Style>
+        <Style TargetType="{x:Type WPF:DSWindow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CreateMode}"
+                             Value="True">
+                    <Setter Property="Title"
+                            Value="New File" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CreateMode}"
+                             Value="False">
+                    <Setter Property="Title"
+                            Value="{Binding PathAndFileNameHandler.FileName, StringFormat=Edit File Datasheet - \'\{0\}\'}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </WPF:DSWindow.Style>
+    <Grid x:Name="grdMain" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="130*" />
+            <RowDefinition Height="33*" />
+            <RowDefinition Height="40*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              MinWidth="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--Grid for DSNumSchmCtrl-->
+        <Grid x:Name="grdNumbering" Grid.ColumnSpan="2" Margin="0,0,0,10" Background="#FFCDCDCD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="140" Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="200" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblNumbering" Content="{Binding UIString[LBL10], FallbackValue=Numbering}"
+                   Visibility="{Binding Visibility, ElementName=NumSchms}" />
+            <ComboBox x:Name="NumSchms" DisplayMemberPath="Name" SelectedIndex="0"
+                      ItemsSource="{Binding PsList[GetNumSchms], Mode=OneTime}" Grid.Column="1"
+                      IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}" />
+            <Label Grid.Row="1" Grid.Column="0" Content="{Binding UIString[LBL31], FallbackValue=Number}"
+                   Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" />
+            <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="1" Grid.Column="1"
+                                 Scheme="{Binding SelectedItem, ElementName=NumSchms}"
+                                 Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 GeneratedNumberProperty="DocNumber" Style="{StaticResource NumSchmCtrlStyle}"
+                                 BorderThickness="0,1,1,1" />
+        </Grid>
+        <!--Grid for DocumentTypes-->
+        <Grid x:Name="grdLeft" Grid.Column="0" Grid.Row="1"
+              Background="#FFF0F0F0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Expander Header="{Binding UIString[LBL45]}"
+                      ToolTip="{Binding UIString[LBL46]}"
+                      BorderBrush="#FFBFBBBB"
+                      Background="#FFE4E5E9"
+                      IsExpanded="{Binding ActiveSelectionIsHarnessAssemblies, Mode=OneTime}">
+                <ListBox BorderBrush="#FFF0F0F0"
+                         SelectionMode="Extended"
+                         share:SharedSelectionGroup.ShareSelection="HarnessAssemblies"
+                         ItemsSource="{Binding HarnessAssemblies}" />
+            </Expander>
+            <Expander Grid.Row="1"
+                      Header="{Binding UIString[LBL47]}"
+                      BorderBrush="#FFBFBBBB"
+                      Background="#FFE4E5E9"
+                      ToolTip="{Binding UIString[LBL48]}"
+                      IsExpanded="{Binding ActiveSelectionIsHarnessParts, Mode=OneTime}">
+                <ListBox BorderBrush="#FFF0F0F0"
+                         SelectionMode="Extended"
+                         share:SharedSelectionGroup.ShareSelection="HarnessParts"
+                         ItemsSource="{Binding HarnessParts}" />
+            </Expander>
+        </Grid>
+        <GridSplitter Grid.Column="0"
+                      BorderBrush="#FFF0F0F0" Width="0" Grid.Row="1" />
+        <Border Grid.Column="1"
+        	Grid.Row="1" MaxWidth="750" Margin="5,0,0,0" BorderBrush="#FFABADB3" BorderThickness="0,0,0,1" VerticalAlignment="Top" Background="Black">
+            <Grid x:Name="grdRight"
+        		Background="#FFF0F0F0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition
+        				MinWidth="320" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblTitle" Content="{Binding UIString[LBL2], FallbackValue=Title}" Grid.Column="0"
+        			Grid.Row="0" />
+                <TextBox x:Name="txtTitle" Text="{WPF:ValidatedBinding Prop[Title].Value}" Grid.Column="1" Grid.Row="0" />
+                <Label x:Name="lblDescription" Content="{Binding UIString[LBL3], FallbackValue=Description}"
+        			Grid.Column="0" Grid.Row="1" />
+                <TextBox Text="{Binding Prop[Description].Value}"
+        			Grid.Column="1"
+        			Grid.Row="1"
+        			x:Name="Description"
+        			MaxHeight="50"
+        			AcceptsReturn="True" />
+                <Label x:Name="lblPartNumber" Content="{Binding UIString[LBL16], FallbackValue=Part Number}"
+        			Grid.Column="0" Grid.Row="2" />
+                <TextBox x:Name="txtPartNumber" Grid.Column="1" Grid.Row="2" Text="{Binding Prop[Part Number].Value}" />
+                <Label x:Name="lblStockNumber" Content="{Binding UIString[LBL76], FallbackValue=Stock Number}"
+        			Grid.Column="0" Grid.Row="3" />
+                <TextBox x:Name="txtStockNumber"
+        			Text="{Binding Prop[Stock Number].Value, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"
+        			Grid.Row="3" />
+                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Grid.Row="4" />
+                <TextBox x:Name="FILENAME" Grid.Row="4" Grid.Column="1"
+        			IsEnabled="{Binding SingleElementIsSelected}"
+        			Text="{WPF:ValidatedBinding Prop[DocNumber].Value}"
+        			Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" />
+            </Grid>
+        </Border>
+
+        <!--Grid for Data Sheet-->
+        <!--End Grid for Data Sheet-->
+        <GroupBox x:Name="GroupPath" Header="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0"
+                  ToolTip="Local Path" Margin="-6,0,0,0">
+            <TextBox Text="{Binding PathAndFileNameHandler.Path}"
+                     IsReadOnly="True"
+                     Background="#F0F0F0" BorderThickness="1" Margin="0,0,-6,0" />
+        </GroupBox>
+        <Grid x:Name="grdButton" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource ButtonGridStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition MinWidth="50" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOK" Command="{Binding CloseWindowCommand, ElementName=InventorHarnessWindow}"
+                    IsEnabled="{Binding IsValid}"
+                    ToolTipService.ShowOnDisabled="True"
+                    ToolTip="{Binding UIString[LBL35]}"
+                    Content="{Binding UIString[BTN1], FallbackValue=OK}" Height="24" IsDefault="True" MinWidth="80"
+                    Grid.Column="2" />
+            <Button x:Name="btnCancel" Command="{Binding CancelWindowCommand, ElementName=InventorHarnessWindow}"
+                    Content="{Binding UIString[BTN2], FallbackValue=Esc}" Height="24" IsCancel="True" MinWidth="80"
+                    Grid.Column="3" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+            <Button x:Name="btnHelp" Content="{Binding UIString[MSDCE_BTN1], FallbackValue=Help}" 
+                    Command="{Binding PsCmd[mHelp(140)]}" Height="24" ToolTip="F1" />
+        </Grid>
+    </Grid>
+</WPF:DSWindow>

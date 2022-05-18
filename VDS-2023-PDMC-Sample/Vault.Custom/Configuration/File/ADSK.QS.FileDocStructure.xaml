@@ -1,0 +1,64 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             x:Name="MainWindow" d:DesignWidth="212" d:DesignHeight="172" Background="White"
+             behaviours:TabTitleBehavior.TabTitle="$UIString[ADSK-DocStructure_00]">
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <TreeView x:Name="Uses" Background="{x:Null}" Focusable="False" >
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="False"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Icon}"/>
+                                <Label Content="{Binding Name}" Grid.Column="1" />
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </ScrollViewer>
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <TreeView x:Name="WhereUsed" ItemsSource="{Binding SelectedItem.Parents, ElementName=Uses, Mode=OneWay}" Background="{x:Null}" Focusable="False">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="False"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Parents}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Icon}"/>
+                                <Label Content="{Binding Name}" Grid.Column="1" />
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding PsCmd[mUwUsdCopyToClipBoard]}" Header="{Binding UIString[ADSK-DocStructure_01], FallbackValue='Copy File Name to Clipboard'}"/>
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
+                </TreeView>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

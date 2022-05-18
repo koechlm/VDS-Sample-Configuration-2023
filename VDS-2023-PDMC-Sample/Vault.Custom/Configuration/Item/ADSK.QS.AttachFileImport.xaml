@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
+             xmlns:WPF="clr-namespace:CreateObject.WPF;assembly=CreateObject" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             x:Name="MainWindow"
+             behaviours:TabTitleBehavior.TabTitle="$UIString[ADSK-ItemFileImport_06]"
+             d:DesignWidth="475">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="#FFABADB3"/>
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#ff0000"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#FFABADB3"/>
+            <Setter Property="BorderThickness" Value="0,1,1,0"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <Grid ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="0*"/>
+            </Grid.RowDefinitions>
+            <ProgressBar x:Name="mImportProgress" Value="0"/>
+            <DockPanel ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinWidth="300" MinHeight="300" Grid.Row="3" >
+                <Image x:Name="mDragAreaEnabled" AllowDrop="True" ToolTip="{Binding UIString[ADSK-ItemFileImport_07], FallbackValue='Drop Files here to import and attach.'}" Stretch="Fill" StretchDirection="DownOnly" MaxHeight="300" MaxWidth="300"/>
+                </DockPanel>
+            <DockPanel ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinWidth="300" MinHeight="300" Grid.Row="3" >
+                <Image x:Name="mDragAreaDisabled" AllowDrop="False" Stretch="Fill" StretchDirection="DownOnly" MaxHeight="300" MaxWidth="300"/>
+            </DockPanel>
+            <TextBlock x:Name="txtActionInfo" Grid.Row="1" TextWrapping="Wrap" Text="{Binding UIString[ADSK-ItemFileImport_05]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtStatusInfo" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" Width="300" Visibility="Collapsed"/>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ConfigInfo>
+    <ConfigHistoryInfo Branch="PDMC-Sample" Version="2022">
+      <Changes>
+        <!--migrated to 2022-->
+      </Changes>
+    </ConfigHistoryInfo>
+    <ConfigHistoryInfo Branch="Advanced PDMC" Version="2021.1.0">
+      <Changes>
+        <!--added Revision Tab and rules on change description, designer, checked by/data, and approved by/date-->
+      </Changes>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
+</Configuration>
