@@ -253,10 +253,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\Sendung\ADSK.QS.CUSTENT.Datasheet.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Vault.Custom\Configuration\Task\ADSK.QS.CUSTENT.Datasheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

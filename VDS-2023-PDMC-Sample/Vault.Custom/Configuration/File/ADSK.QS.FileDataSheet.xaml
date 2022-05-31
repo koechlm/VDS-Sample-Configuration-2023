@@ -182,9 +182,9 @@
     </UserControl.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="140"/>
-            <ColumnDefinition MinWidth="140" Width="4*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*" MinWidth="140"/>
+            <ColumnDefinition Width="3*" MinWidth="200"/>
+            <ColumnDefinition Width="2*" MinWidth="140"/>
         </Grid.ColumnDefinitions>
         <Grid ToolTip="{Binding UIString[LBL73], FallbackValue='General Properties'}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,0,0,0">
             <Grid.RowDefinitions>
@@ -200,8 +200,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="120" />
-                <ColumnDefinition MinWidth="140" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Label Content="{Binding UIString[LBL73], FallbackValue=System Properties}" Height="Auto" BorderThickness="0"/>
             <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0" Grid.Row="1" />
@@ -238,14 +238,14 @@
 				HorizontalGridLinesBrush="WhiteSmoke" 
 				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" Grid.Row="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="140" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="1*"  IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="15" />
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}"  Width="*" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*"  MaxWidth="400" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
@@ -264,24 +264,22 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblActiveClass" Content="{Binding UIString[Adsk.QS.Classification_06], FallbackValue=Active Classification}" Height="24" Grid.Row="2" BorderThickness="1,1,0,0"/>
-            <TextBox x:Name="txtActiveClass" IsHitTestVisible="False" Height="24" Text="{Binding Prop[_XLTN_CLASS].Value}" Grid.Row="2" Grid.Column="1" BorderThickness="1,1,1,0" Margin="0"/>
-            <Label x:Name="lblClassProps" Content="{Binding UIString[Adsk.QS.Classification_07], FallbackValue=Class Properties}" Grid.Row="3" Height="Auto" BorderThickness="1,1,0,1"/>
-            <DataGrid x:Name="dtgrdClassProps" Grid.Row="3" AutoGenerateColumns="False" Grid.Column="1" SelectionUnit="Cell" HorizontalGridLinesBrush="#FFEEEEF2" VerticalGridLinesBrush="#FFE7E8EC" BorderThickness="1" Grid.ColumnSpan="3" BorderBrush="#FFABADB3">
+            <TextBox x:Name="txtActiveClass" IsHitTestVisible="False" Height="24" Text="{Binding Prop[_XLTN_CLASS].Value}" Grid.Row="2" Grid.Column="1" BorderThickness="1"/>
+            <Label x:Name="lblClassProps" Content="{Binding UIString[Adsk.QS.Classification_07], FallbackValue=Class Properties}" Grid.Row="3" Height="Auto" BorderThickness="1,0,0,1"/>
+            <DataGrid x:Name="dtgrdClassProps" Grid.Row="3" AutoGenerateColumns="False" Grid.Column="1" SelectionUnit="Cell" HorizontalGridLinesBrush="#FFEEEEF2" VerticalGridLinesBrush="#FFE7E8EC" BorderThickness="1,0,1,1" Grid.ColumnSpan="3" BorderBrush="#FFABADB3">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ClassPropName" Binding="{Binding Key, Mode=OneWay}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="Auto">
+                    <DataGridTextColumn x:Name="ClassPropName" Binding="{Binding Key, Mode=OneWay}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="1*" MinWidth="100">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[Adsk.QS.Classification_01], FallbackValue=Property Name, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="ClassPropValue" Binding="{Binding Value, Mode=OneWay}" CellStyle="{StaticResource ClassificationDataGridCellStyle}"  Width="*">
+                    <DataGridTextColumn x:Name="ClassPropValue" Binding="{Binding Value, Mode=OneWay}" CellStyle="{StaticResource ClassificationDataGridCellStyle}"  Width="2*" MinWidth="100">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[Adsk.QS.Classification_02], FallbackValue=Property Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />

@@ -309,8 +309,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition MinWidth="200" MaxWidth="800"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <GroupBox Header="{Binding UIString[ClassTerms_07],FallbackValue=Classification}" Grid.ColumnSpan="2" BorderThickness="1">
             <Grid x:Name="grdContentFilter">
@@ -343,8 +343,8 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" MinWidth="120" />
-                    <ColumnDefinition MinWidth="180" MaxWidth="180" />
+                    <ColumnDefinition Width="1*" MinWidth="140" />
+                    <ColumnDefinition Width="2*" MinWidth="200" MaxWidth="400" />
                 </Grid.ColumnDefinitions>
                 <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0" />
                 <ComboBox x:Name="Categories" 
@@ -401,16 +401,16 @@
 				ScrollViewer.CanContentScroll="False"
                 EnableRowVirtualization="False"
 				HorizontalGridLinesBrush="WhiteSmoke" 
-				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray" >
+				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="140" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="1*" MinWidth="140" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}" MinWidth="200" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding Value}" Width="2*" MinWidth="200" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"

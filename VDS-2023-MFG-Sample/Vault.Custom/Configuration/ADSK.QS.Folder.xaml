@@ -186,12 +186,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="183.55" />
-                        <ColumnDefinition Width="116.45"/>
-                        <ColumnDefinition MaxWidth="500" />
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="Auto" MaxWidth="500" />
                     </Grid.ColumnDefinitions>
-                    <Grid x:Name="grdSystemProps" ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" Grid.ColumnSpan="2">
+                    <Grid x:Name="grdSysProps" ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -202,8 +201,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="1*" MinWidth="140"/>
+                            <ColumnDefinition Width="2*" MinWidth="200"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="0" Grid.Column="0" />
                         <ComboBox x:Name="Categories" Grid.Row="0" Grid.Column="1"
@@ -245,7 +244,7 @@
                         <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="6" IsReadOnly="True"
                     BorderThickness="0,1,1,1" IsTabStop="False" Height="Auto" />
                     </Grid>
-                    <DataGrid Grid.Column="2" x:Name="DSDynCatPropGrid"
+                    <DataGrid Grid.Column="1" x:Name="DSDynCatPropGrid"
                 ItemsSource="{Binding DynamicProperties}"
                 ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}"
                 AutoGenerateColumns="False"
@@ -253,11 +252,11 @@
                 ScrollViewer.CanContentScroll="True"
                 EnableRowVirtualization="False"
                 HorizontalGridLinesBrush="WhiteSmoke"
-                VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray" MaxWidth="500"
+                VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" MaxWidth="500"
                 Margin="5,0,0,0" MaxHeight="500">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
-                        MinWidth="140" Width="1*" IsReadOnly="True">
+                            <DataGridTextColumn Binding="{Binding DispName}" Width="1*"  MinWidth="140" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
+                         IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -265,8 +264,7 @@
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Value}" MaxWidth="400" Width="2*"
-                        CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
+                            <DataGridTextColumn Binding="{Binding Value}" Width="2*" MaxWidth="400" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -279,7 +277,7 @@
                     </DataGrid>
                     <Grid x:Name="grdComments" Grid.ColumnSpan="3" Grid.Row="1" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="{Binding ColumnDefinitions/ActualWidth, ElementName=grdSysProps, Mode=OneWay}"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" BorderThickness="1,1,0,1" VerticalAlignment="Top"/>

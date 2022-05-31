@@ -520,8 +520,8 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition  />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition  Width="2*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grdGeneralProps" Margin="0"
@@ -540,9 +540,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="140" />
-                            <ColumnDefinition Width="*"
-                                  MinWidth="180" MaxWidth="180" />
+                            <ColumnDefinition Width="1*" MinWidth="140" />
+                            <ColumnDefinition Width="2*" MinWidth="200" MaxWidth="400" />
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="2" Grid.Column="0" />
                         <ComboBox x:Name="Categories" Grid.Row="2" Grid.Column="1"
@@ -626,16 +625,16 @@
                         VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray" MaxWidth="500"
                         Margin="5,0,0,0" BorderThickness="1" MaxHeight="400">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
-                                    MinWidth="140" Width="Auto" IsReadOnly="True">
+                            <DataGridTextColumn Binding="{Binding DispName}" Width="1*" MinWidth="140" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
+                                    IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DataContext.UIString[LBL64], FallbackValue=Property, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Value}" Width="*"
-                                    CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True" MaxWidth="500">
+                            <DataGridTextColumn Binding="{Binding Value}" Width="2*" MinWidth="200" MaxWidth="400"
+                                    CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True" >
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -1194,8 +1193,8 @@
                         <ColumnDefinition Width="130"/>
                         <ColumnDefinition Width="235*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblRevision" Content="{Binding UIString[LBL12], FallbackValue=Revision}"/>
-                    <TextBox x:Name="txtItemRevision" Grid.Column="1" IsReadOnly="True" Background="White"/>
+                    <Label x:Name="lblRevision" Content="{Binding UIString[LBL12], FallbackValue=Revision}" BorderThickness="1,0"/>
+                    <TextBox x:Name="txtItemRevision" Grid.Column="1" IsReadOnly="True" Background="White" BorderThickness="0,0,1,0"/>
                     <Label x:Name="lblItemNumber" Content="{Binding UIString[LBL31], FallbackValue=Number}" Grid.Row="1"/>
                     <TextBox x:Name="txtItemNumber" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" IsReadOnly="True" Background="White"/>
                     <Label x:Name="lblItemTitle" Content="{Binding UIString[Adsk.QS.ItemSearch_02], FallbackValue=Title}" Grid.Row="2"/>
@@ -1204,11 +1203,11 @@
                     <TextBox x:Name="txtItemDescription" Grid.Column="1" Grid.Row="3" IsReadOnly="True" Background="White"/>
                     <Label x:Name="lblItemUnits" Content="{Binding UIString[Adsk.QS.ItemSearch_23], FallbackValue=Units}"  Grid.Row="4" BorderThickness="1"/>
                     <TextBox x:Name="txtItemUnits" Grid.Column="1" Grid.Row="4" BorderThickness="0,1,1,1" IsReadOnly="True" Background="White"/>
-                    <Border x:Name="brdItemThumbnail" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="#FFABADB3" Margin="5,0" Height="96" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                    <Border x:Name="brdItemThumbnail" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1,0,1,1" BorderBrush="#FFABADB3" Margin="5,0" Height="96" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
                         <Image x:Name="ItemThumbnail" VerticalAlignment="Top"/>
                     </Border>
-                    <Label x:Name="lblItemCategory" Content="{Binding UIString[Adsk.QS.ItemSearch_05], FallbackValue=Category Name}" BorderThickness="1,1,1,0" Grid.Column="3"/>
-                    <TextBox x:Name="txtItemCategory" Grid.Column="4" IsReadOnly="True" Background="White" />
+                    <Label x:Name="lblItemCategory" Content="{Binding UIString[Adsk.QS.ItemSearch_05], FallbackValue=Category Name}" BorderThickness="1,0" Grid.Column="3"/>
+                    <TextBox x:Name="txtItemCategory" Grid.Column="4" IsReadOnly="True" Background="White" BorderThickness="0,0,1,0" />
                     <Label x:Name="lblItemLfcState" Content="{Binding UIString[LBL14], FallbackValue=Lifecycle State}" Grid.Column="3" Grid.Row="1"/>
                     <TextBox x:Name="txtItemLfcState" Grid.Column="4" Grid.Row="1" IsReadOnly="True" Background="White"/>
                     <Label x:Name="lblItemLastUpdatedBy" Content="{Binding UIString[Adsk.QS.ItemSearch_24], FallbackValue=Last Updated By}" Grid.Column="3" Grid.Row="2"/>

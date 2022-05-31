@@ -333,7 +333,7 @@
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
         		GeneratedNumberProperty="DocNumber"
         		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-        		Style="{StaticResource NumSchmCtrlStyle}" BorderThickness="0,1,1,1" />
+        		Style="{StaticResource NumSchmCtrlStyle}" BorderThickness="0,1,1,1" BorderBrush="#FFABADB3" />
         </Grid>
         <TabControl x:Name="tabCtrlMain" Grid.ColumnSpan="2" Grid.Column="1" Margin="6,5,0,0" Grid.Row="2" MaxWidth="700">
             <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue=Category Properties}" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -347,7 +347,7 @@
             			ScrollViewer.CanContentScroll="False"
                         EnableRowVirtualization="False"
             			HorizontalGridLinesBrush="WhiteSmoke"
-            			VerticalGridLinesBrush="WhiteSmoke" MaxHeight="350">
+            			VerticalGridLinesBrush="WhiteSmoke" MaxHeight="350" BorderBrush="#FFABADB3">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}"
             					CellStyle="{StaticResource DynamicDataGridLabelStyle}" MinWidth="140"

@@ -146,7 +146,7 @@
             <WPF:DSNumSchemeCtrl Grid.Row="1" Grid.Column="1" x:Name="DSNumSchmsCtrl"
                                  Scheme="{Binding ElementName=NumSchms, Path=SelectedItem}"
                                  IsEnabled="{Binding ElementName=NumSchms, Path=IsEnabled}"
-                                 GeneratedNumberProperty="DocNumber" BorderThickness="0,1,1,1" />
+                                 GeneratedNumberProperty="DocNumber" BorderThickness="0,1,1,1" BorderBrush="#FFABADB3" />
         </Grid>
         <!--Grid for DocumentTypes-->
         <Grid x:Name="grdLeft" Grid.Column="0" Grid.Row="1"

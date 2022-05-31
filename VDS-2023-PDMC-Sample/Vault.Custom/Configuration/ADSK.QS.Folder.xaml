@@ -238,9 +238,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="183.55" />
-                        <ColumnDefinition Width="116.45"/>
-                        <ColumnDefinition MaxWidth="500" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grdSystemProps" ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" Grid.ColumnSpan="2">
@@ -254,8 +253,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="1*" MinWidth="140"/>
+                            <ColumnDefinition Width="2*" MinWidth="200" MaxWidth="400"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="0" Grid.Column="0" />
                         <ComboBox x:Name="Categories" Grid.Row="0" Grid.Column="1"
@@ -303,7 +302,7 @@
                 ScrollViewer.CanContentScroll="True"
                 EnableRowVirtualization="False"
                 HorizontalGridLinesBrush="WhiteSmoke"
-                VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray" MaxWidth="500"
+                VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" MaxWidth="500"
                 Margin="5,0,0,0" MaxHeight="500">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
@@ -333,7 +332,7 @@
                     </DataGrid>
                     <Grid x:Name="grdComments" Grid.ColumnSpan="3" Grid.Row="1" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="{Binding ColumnDefinitions/ActualWidth, ElementName=grdSystemProps, Mode=OneWay}"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" BorderThickness="1,1,0,1" VerticalAlignment="Top"/>

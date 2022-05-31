@@ -149,7 +149,7 @@
                                  Scheme="{Binding SelectedItem, ElementName=NumSchms}"
                                  Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                                  GeneratedNumberProperty="DocNumber" Style="{StaticResource NumSchmCtrlStyle}"
-                                 BorderThickness="0,1,1,1" />
+                                 BorderThickness="0,1,1,1" BorderBrush="#FFABADB3" />
         </Grid>
         <!--Grid for DocumentTypes-->
         <Grid x:Name="grdLeft" Grid.Column="0" Grid.Row="1"

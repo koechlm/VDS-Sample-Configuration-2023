@@ -219,8 +219,8 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grdGeneralProps" Margin="0"
               ToolTip="{Binding UIString[], FallbackValue=Siblings}"
@@ -234,9 +234,9 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="140" />
-                            <ColumnDefinition Width="*"
-                                  MinWidth="180" MaxWidth="220" />
+                            <ColumnDefinition Width="1*" MinWidth="140" />
+                            <ColumnDefinition Width="2*"
+                                  MinWidth="200" MaxWidth="400" />
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding UIString[LBL6], FallbackValue=Filename}" Grid.Column="0"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" Height="Auto" />
@@ -257,7 +257,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="mDerivatives1" AutoGenerateColumns="False" IsReadOnly="True" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Grid.Row="1" ScrollViewer.CanContentScroll="True">
+                        <DataGrid x:Name="mDerivatives1" AutoGenerateColumns="False" IsReadOnly="True" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Grid.Row="1" ScrollViewer.CanContentScroll="True" BorderBrush="#FFABADB3">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="{Binding DataContext.UIString[LBL58], FallbackValue=Preview}">
                                     <DataGridTemplateColumn.HeaderTemplate>

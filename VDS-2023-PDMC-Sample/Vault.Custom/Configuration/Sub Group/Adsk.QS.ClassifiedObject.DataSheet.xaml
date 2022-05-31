@@ -50,7 +50,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">
+                                <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True">
                                     <ComboBoxItem Content="True"/>
                                     <ComboBoxItem Content="False"/>
                                 </ComboBox>
@@ -90,7 +90,7 @@
                     <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}"/>
                 </Trigger>
                 <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Background" Value="#F0F0F0"/>
+                    <Setter Property="Background" Value="White"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -128,63 +128,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*" MinWidth="140"/>
+            <ColumnDefinition Width="3*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" LastChildFill="False" Grid.RowSpan="2" Grid.Column="1">
-            <DataGrid x:Name="dataGrid" MaxHeight="350" 
-        		ItemsSource="{Binding DynamicProperties}" 
-        		AutoGenerateColumns="False" 
-        		HeadersVisibility="Column" 
-        		ScrollViewer.CanContentScroll="True" 
-        		HorizontalGridLinesBrush="WhiteSmoke" 
-        		VerticalGridLinesBrush="WhiteSmoke" DockPanel.Dock="Top" BorderBrush="Gray">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Name}" Width="Auto" MinWidth="140" IsReadOnly="True">
-                        <DataGridTextColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-                            </DataTemplate>
-                        </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}"  Width="Auto" MinWidth="240" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
-                        <DataGridTextColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-                            </DataTemplate>
-                        </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
-        <DockPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.Row="1" Margin="10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" MinWidth="120" />
-                    <ColumnDefinition MinWidth="140" />
-                </Grid.ColumnDefinitions>
-                <Label Content="{Binding UIString[LBL19], FallbackValue=Name}" Grid.Column="0" Grid.Row="1" />
-                <TextBox Text="{Binding Prop[_XLTN_NAME].Value}" Grid.Column="1" Grid.Row="1" />
-                <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0"/>
-                <TextBox Text="{Binding Prop[_XLTN_CATEGORY NAME].Value}" x:Name="Cat" Grid.Column="1" VerticalAlignment="Stretch" />
-                <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="2" />
-                <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="2" />
-                <Label Content="{Binding UIString[LBL33], FallbackValue=Date Created}" Grid.Column="0" Grid.Row="3" />
-                <TextBox Text="{Binding Prop[_XLTN_CREATE DATE].Value}" Grid.Column="1" Grid.Row="3" />
-                <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Column="0" Grid.Row="4" />
-                <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="4" />
-            </Grid>
-        </DockPanel>
-        <DockPanel Margin="10,0" LastChildFill="False">
-            <TreeView VerticalContentAlignment="Center" VerticalAlignment="Top" MinWidth="300" IsEnabled="False" >
+        <DockPanel Margin="5,0" LastChildFill="False">
+            <TreeView VerticalContentAlignment="Center" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=grdSysProps, Mode=OneWay}" IsEnabled="False" BorderBrush="#FFABADB3" >
                 <TreeViewItem x:Name="treeViewItemSegment" Header="{Binding Prop[_XLTN_SEGMENT].Value, FallbackValue=Segment}" Style="{StaticResource treeViewItemStyle}">
                     <TreeViewItem x:Name="treeViewItemMainGroup" Header="{Binding Prop[_XLTN_MAINGROUP].Value, FallbackValue=MainGroup}" Style="{StaticResource treeViewItemStyle}">
                         <TreeViewItem x:Name="treeViewItemGroup" Header="{Binding Prop[_XLTN_GROUP].Value, FallbackValue=Group}" Style="{StaticResource treeViewItemStyle}">
@@ -193,6 +141,57 @@
                     </TreeViewItem>
                 </TreeViewItem>
             </TreeView>
+        </DockPanel>
+        <DockPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.Row="1" Margin="5">
+            <Grid x:Name="grdSysProps">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Label Content="{Binding UIString[LBL19], FallbackValue=Name}" Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,0" BorderBrush="#FFABADB3" Height="26" />
+                <TextBox Text="{Binding Prop[_XLTN_NAME].Value}" Grid.Column="1" Grid.Row="1" BorderThickness="1,1,1,0" Background="White" />
+                <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0" BorderThickness="1,1,0,0" BorderBrush="#FFABADB3" Height="26"/>
+                <TextBox Text="{Binding Prop[_XLTN_CATEGORY NAME].Value}" x:Name="Cat" Grid.Column="1" VerticalAlignment="Stretch" BorderThickness="1,1,1,0" Background="White" />
+                <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="2" BorderThickness="1,1,0,0" BorderBrush="#FFABADB3" Height="26" />
+                <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="2" BorderThickness="1,1,1,0" Background="White" />
+                <Label Content="{Binding UIString[LBL33], FallbackValue=Date Created}" Grid.Column="0" Grid.Row="3" BorderThickness="1,1,0,0" BorderBrush="#FFABADB3" Height="26" />
+                <TextBox Text="{Binding Prop[_XLTN_CREATE DATE].Value}" Grid.Column="1" Grid.Row="3" BorderThickness="1,1,1,0" Background="White" />
+                <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Column="0" Grid.Row="4" BorderThickness="1,1,0,1" BorderBrush="#FFABADB3" Height="26" />
+                <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="4" Background="White" />
+            </Grid>
+        </DockPanel>
+        <DockPanel Margin="5,0,5,5" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" LastChildFill="False" Grid.RowSpan="2" Grid.Column="1">
+            <DataGrid x:Name="dataGrid" MaxHeight="350" 
+        		ItemsSource="{Binding DynamicProperties}" 
+        		AutoGenerateColumns="False" 
+        		HeadersVisibility="Column" 
+        		ScrollViewer.CanContentScroll="True" 
+        		HorizontalGridLinesBrush="WhiteSmoke" 
+        		VerticalGridLinesBrush="WhiteSmoke" DockPanel.Dock="Top" BorderBrush="#FFABADB3" Margin="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Width="1*" MinWidth="140" IsReadOnly="True">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Background="White"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*" MinWidth="200" CellStyle="{StaticResource DynamicDataGridCellStyle}" >
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Background="White"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
     </Grid>
 </UserControl>

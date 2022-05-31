@@ -341,8 +341,8 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition MaxWidth="500" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grdGeneralProps" Margin="0"
@@ -361,9 +361,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="140" />
-                            <ColumnDefinition Width="*"
-                                  MinWidth="180" MaxWidth="180" />
+                            <ColumnDefinition Width="1*" MinWidth="140" />
+                            <ColumnDefinition Width="2*" MinWidth="200" />
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="2" Grid.Column="0" />
                         <ComboBox x:Name="Categories" Grid.Row="2" Grid.Column="1"
@@ -444,19 +443,18 @@
                   ScrollViewer.CanContentScroll="True"
                     EnableRowVirtualization="False"
                   HorizontalGridLinesBrush="WhiteSmoke"
-                  VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray" MaxWidth="500"
+                  VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" MaxWidth="500"
                   Margin="5,0,0,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
-                                    MinWidth="140" Width="Auto" IsReadOnly="True">
+                            <DataGridTextColumn Binding="{Binding DispName}" Width="1*" MinWidth="140" CellStyle="{StaticResource DynamicDataGridLabelStyle}"
+                                    IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Value}" MinWidth="300" Width="*"
-                                    CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
+                            <DataGridTextColumn Binding="{Binding Value}" Width="2*" MinWidth="200" MaxWidth="400" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock

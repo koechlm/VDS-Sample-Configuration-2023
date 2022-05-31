@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:WPF="clr-namespace:CreateObject.WPF;assembly=CreateObject"
     x:Name="MainWindow"
-    behaviours:TabTitleBehavior.TabTitle="$UIString[LBL36]" >
+    behaviours:TabTitleBehavior.TabTitle="$UIString[LBL36]" Height="282.911" >
     <UserControl.Resources>
         <Style x:Key="DynamicDataGridCellStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
@@ -180,12 +180,12 @@
             <Setter Property="Margin" Value="0,15,2,5" />
         </Style>
     </UserControl.Resources>
-    <Grid Margin="5">
+    <Grid Margin="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="140"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*" MinWidth="340"/>
+            <ColumnDefinition Width="3*" MinWidth="340"/>
         </Grid.ColumnDefinitions>
-        <Grid ToolTip="{Binding UIString[LBL73], FallbackValue='General Properties'}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,0,0,0">
+        <Grid ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,0,0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="21"/>
                 <RowDefinition Height="Auto" />
@@ -199,8 +199,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="120" />
-                <ColumnDefinition MinWidth="140" />
+                <ColumnDefinition Width="1*"  />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Label Content="{Binding UIString[LBL73], FallbackValue=System Properties}" Height="Auto" BorderThickness="0"/>
             <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0" Grid.Row="1" />
@@ -220,31 +220,31 @@
             <Border Grid.Row="9" Grid.ColumnSpan="2" BorderBrush="#FFABADB3" BorderThickness="1" Visibility="{Binding IsLoaded, ElementName=image, Mode=OneWay}" Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                    >
                 <Image x:Name="image"
-                    Source="{Binding Prop[_XLTN_THUMBNAIL].Value}" Stretch="UniformToFill"/>
+                        Source="{Binding Prop[_XLTN_THUMBNAIL].Value}" Stretch="UniformToFill"/>
             </Border>
         </Grid>
-        <Grid Grid.Column="1" Margin="5,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
+        <Grid Grid.Column="1" Margin="5,0,5,5" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="21"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="{Binding UIString[LBL63], FallbackValue=Category Properties}" BorderThickness="0" Height="Auto"/>
             <DataGrid x:Name="DSDynCatPropGrid" ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}"
-				ItemsSource="{Binding DynamicProperties}" 
-				AutoGenerateColumns="False" 
-				HeadersVisibility="Column"
-				ScrollViewer.CanContentScroll="True" 
-				HorizontalGridLinesBrush="WhiteSmoke" 
-				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" Grid.Row="1" HorizontalContentAlignment="Stretch">
+                    ItemsSource="{Binding DynamicProperties}" 
+                    AutoGenerateColumns="False" 
+                    HeadersVisibility="Column"
+                    ScrollViewer.CanContentScroll="True" 
+                    HorizontalGridLinesBrush="WhiteSmoke" 
+                    VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="140" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding DispName}" Width="1*" MinWidth="140" IsReadOnly="True" CellStyle="{StaticResource DynamicDataGridLabelStyle}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="15" />
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}"  Width="*" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*"  MinWidth="200" CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />

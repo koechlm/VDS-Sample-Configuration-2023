@@ -185,7 +185,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="grdClassification" Grid.ColumnSpan="1" MaxWidth="600" HorizontalAlignment="Left">
+        <Grid x:Name="grdClassification" Grid.ColumnSpan="1" MaxWidth="600">
             <Grid.RowDefinitions>
                 <RowDefinition Height="21"/>
                 <RowDefinition Height="Auto"/>
@@ -194,22 +194,23 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblActiveClass" Content="{Binding UIString[Adsk.QS.Classification_06], FallbackValue=Active Classification}" Height="24" Grid.Row="2" BorderThickness="1,1,0,0"/>
-            <TextBox x:Name="txtActiveClass" IsHitTestVisible="False" Height="24" Text="{Binding Prop[_XLTN_CLASS].Value}" Grid.Row="2" Grid.Column="1" BorderThickness="1,1,1,0" Margin="0"/>
+            <TextBox x:Name="txtActiveClass" IsHitTestVisible="False" Height="24" Text="{Binding Prop[_XLTN_CLASS].Value}" Grid.Row="2" Grid.Column="1" BorderThickness="1,1,1,0"/>
             <Label x:Name="lblClassProps" Content="{Binding UIString[Adsk.QS.Classification_07], FallbackValue=Class Properties}" Grid.Row="3" Height="Auto" BorderThickness="1,1,0,1"/>
             <DataGrid x:Name="dtgrdClassProps" Grid.Row="3" AutoGenerateColumns="False" Grid.Column="1" SelectionUnit="Cell" HorizontalGridLinesBrush="#FFEEEEF2" VerticalGridLinesBrush="#FFE7E8EC" BorderThickness="1" Grid.ColumnSpan="3" BorderBrush="#FFABADB3">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ClassPropName" Binding="{Binding Key, Mode=OneWay}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="Auto">
+                    <DataGridTextColumn x:Name="ClassPropName" Binding="{Binding Key, Mode=OneWay}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="1*" MinWidth="100">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[Adsk.QS.Classification_01], FallbackValue=Property Name, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="ClassPropValue" Binding="{Binding Value, Mode=OneWay}" CellStyle="{StaticResource ClassificationDataGridCellStyle}"  Width="*">
+                    <DataGridTextColumn x:Name="ClassPropValue" Binding="{Binding Value, Mode=OneWay}" CellStyle="{StaticResource ClassificationDataGridCellStyle}"  Width="2*" MinWidth="140" MaxWidth="250
+                                        ">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[Adsk.QS.Classification_02], FallbackValue=Property Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
@@ -219,7 +220,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="{Binding UIString[Adsk.QS.Classification_14], FallbackValue='Classification of Primary File'}" BorderThickness="0" Grid.ColumnSpan="2" Height="Auto"/>
-            <TextBox x:Name="txtClassificationStatus" Height="Auto" TextWrapping="Wrap" Background="#FFFFFFE1" BorderThickness="1" Padding="5,0,0,0" MinHeight="24" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtClassificationStatus" Height="Auto" TextWrapping="Wrap" Background="#FFFFFFE1" BorderThickness="1,1,1,0" Padding="5,0,0,0" MinHeight="24" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </UserControl>
