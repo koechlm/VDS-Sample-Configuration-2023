@@ -149,7 +149,7 @@
 				HeadersVisibility="Column"
 				ScrollViewer.CanContentScroll="True" 
 				HorizontalGridLinesBrush="WhiteSmoke" 
-				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray">
+				VerticalGridLinesBrush="WhiteSmoke" BorderBrush="#FFABADB3">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding DispName}" Width="1*" MinWidth="140" CellStyle="{StaticResource DynamicDataGridLabelStyle}" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
