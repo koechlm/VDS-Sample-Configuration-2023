@@ -2,7 +2,7 @@
 #=============================================================================#
 # PowerShell script sample for Vault Data Standard                            
 #			 Autodesk Vault - VDS-PDMC-Sample 2022  								  
-# This sample is based on VDS 2022 RTM and adds functionality and rules		  
+# This sample is based on VDS 2023 RTM and adds functionality and rules		  
 #                                                                             
 # Copyright (c) Autodesk - All rights reserved.                               
 #                                                                             
@@ -319,7 +319,7 @@ function InitializeWindow
 		{
 			$_t = $Prop["Internal ID"].Value
 
-			$mTargetFile = Get-Content "$($env:appdata)\Autodesk\DataStandard 2022\mStrTabClick.txt"
+			$mTargetFile = Get-Content "$($env:appdata)\Autodesk\DataStandard 2023\mStrTabClick.txt"
 
 			#create search conditions for 
 			$srchConds = New-Object autodesk.Connectivity.WebServices.SrchCond[] 1

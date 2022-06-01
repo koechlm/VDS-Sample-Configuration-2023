@@ -11,7 +11,7 @@
 #endregion
 
 #an ECO likely links multiple tasks; the user needs to select one from the list; the selection writes the txt file
-$mTargetObject = Get-Content "$($env:appdata)\Autodesk\DataStandard 2022\mECOTabClick.txt"
+$mTargetObject = Get-Content "$($env:appdata)\Autodesk\DataStandard 2023\mECOTabClick.txt"
 
 	$srchCondAll = @()		
 	$mSearchString = "FLC-Task"
@@ -72,5 +72,5 @@ $vaultContext.GoToLocation = $location
 	$mSelItem = $null
     $mOutFile = "mECOTabClick.txt"
 	
-	$mSelItem | Out-File "$($env:appdata)\Autodesk\DataStandard 2022\$($mOutFile)"
+	$mSelItem | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\$($mOutFile)"
 	

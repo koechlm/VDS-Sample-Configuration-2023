@@ -1,7 +1,7 @@
 #region disclaimer =============================================================================
 # PowerShell script sample for Vault Data Standard
 #			 Autodesk Vault - VDS-PDMC-Sample 2022
-# This sample is based on VDS 2022 RTM and adds functionality and rules
+# This sample is based on VDS 2023 RTM and adds functionality and rules
 #
 # Copyright (c) Autodesk - All rights reserved.
 #

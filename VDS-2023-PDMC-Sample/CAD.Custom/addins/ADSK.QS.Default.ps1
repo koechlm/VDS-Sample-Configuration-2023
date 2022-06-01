@@ -1,7 +1,7 @@
 ﻿#=============================================================================
 # PowerShell script sample for Vault Data Standard                            
 #			 Autodesk Vault - PDMC-Sample Configuration 2022  								  
-# This sample is based on VDS 2022 RTM adding functionality and rules    
+# This sample is based on VDS 2023 RTM adding functionality and rules    
 #                                                                             
 # Copyright (c) Autodesk - All rights reserved.                               
 #                                                                             
@@ -370,7 +370,7 @@ function InitializeWindow {
 
 function AddinLoaded {
 	#activate or create the user's VDS profile
-	$m_File = "$($env:appdata)\Autodesk\DataStandard 2022\Folder2023.xml"
+	$m_File = "$($env:appdata)\Autodesk\DataStandard 2023\Folder2023.xml"
 	if (!(Test-Path $m_File)) {
 		$source = "$($Env:ProgramData)\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Folder2023.xml"
 		Copy-Item $source $m_File
@@ -777,7 +777,7 @@ function mAddShortCutByName([STRING] $mScName)
 	{
 		#$dsDiag.Trace(">> Continue to add ShortCut, creating new from template...")	
 		#read from template
-		$m_File = "$($env:appdata)\Autodesk\DataStandard 2022\Folder2023.xml"
+		$m_File = "$($env:appdata)\Autodesk\DataStandard 2023\Folder2023.xml"
 
 		if (Test-Path $m_File)
 		{

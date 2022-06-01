@@ -1,7 +1,7 @@
 #region disclaimer =============================================================================
 # PowerShell script sample for Vault Data Standard
 #			 Autodesk Vault - VDS-PDMC-Sample 2022
-# This sample is based on VDS 2022 RTM and adds functionality and rules
+# This sample is based on VDS 2023 RTM and adds functionality and rules
 #
 # Copyright (c) Autodesk - All rights reserved.
 #
@@ -322,7 +322,7 @@ function mAddClassification()
 
 				
 	$value = $dsWindow.FindName("cmbAvailableClasses").SelectedItem.Id
-	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2022\mFileClassId.txt"
+	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\mFileClassId.txt"
 
 	mGetClsDfltValues
 	
@@ -371,7 +371,7 @@ function mRemoveClassification()
 	
 	#write the highest level Custent Id to a text file for post-close event
 	$value = -1
-	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2022\mFileClassId.txt"
+	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\mFileClassId.txt"
 
 	#$dsDiag.Trace("...remove classification finished.")
 }

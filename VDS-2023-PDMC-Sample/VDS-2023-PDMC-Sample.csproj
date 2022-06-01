@@ -691,8 +691,6 @@
     <Content Include="HelpFiles\Vault.html" />
     <Resource Include="Vault.Custom\About.ico" />
     <Content Include="Vault.Custom\addinVault\UsesWhereUsed.dll" />
-    <Content Include="Vault.Custom\addinVault\VdsSampleUtilities.dll" />
-    <Resource Include="Vault.Custom\addinVault\VdsSampleUtilities.xml" />
     <Resource Include="Vault.Custom\ADSKMetaImport.ico" />
     <Resource Include="Vault.Custom\cancel.ico" />
     <Resource Include="Vault.Custom\Claim-add.ico" />
