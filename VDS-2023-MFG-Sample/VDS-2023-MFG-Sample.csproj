@@ -121,9 +121,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Vault.Custom\addinVault\ADSK.Org.Pers.Link.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.Default.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileBOM.ps1" />
+    <None Include="Vault.Custom\addinVault\ADSK.QS.Org.Pers.Link.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.ReserveFileNumber.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.VLT.Library.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateCustomObject.ps1" />
@@ -213,15 +213,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Vault.Custom\Configuration\ADSK.QS.Folder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObject.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Vault.Custom\Configuration\ADSK.QS.File.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.Folder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
