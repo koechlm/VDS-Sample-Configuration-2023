@@ -498,7 +498,18 @@ function OnTabContextChanged
 		if ($mTargetLnks.Count -gt 0) {
 			$mEcoParentFldId = $vault.DocumentService.GetFolderById($mTargetLnks[0].ParentId).Id
 			$mFldrProps = New-Object 'system.collections.generic.dictionary[[string],[object]]'
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+			
+			#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
+			$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
+			if (! (Test-Path $mVdsUtilities)) {
+				#the basic utility installation only
+				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
+			}
+			Else {
+				#the extended utility activation
+				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+			}
+
 			$_mVltHelpers = New-Object VdsSampleUtilities.VltHelpers
 			$_mVltHelpers.GetFolderProps($vaultConnection, $mEcoParentFldId, [ref]$mFldrProps)
 			$dsWindow.FindName("dtgrdParentFolder").ItemsSource = $mFldrProps
@@ -515,7 +526,17 @@ function OnTabContextChanged
 	{
 		$mCoId = $VaultContext.SelectedObject.Id
 		
-		[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+		#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
+		$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
+		if (! (Test-Path $mVdsUtilities)) {
+			#the basic utility installation only
+			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
+		}
+		Else {
+			#the extended utility activation
+			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+		}
+
 		$_mVltHelpers = New-Object VdsSampleUtilities.VltHelpers
 
 		#to get links of COs to CUSTENT we need to analyse the CUSTENTS for linked children of type CO

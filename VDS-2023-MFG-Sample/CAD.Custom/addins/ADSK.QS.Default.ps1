@@ -29,8 +29,18 @@ function InitializeWindow
 			$global:mShrnkWrp = $false
 
 			InitializeBreadCrumb
-			#	there are some custom functions to enhance functionality:
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+
+			#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
+			$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
+			if (! (Test-Path $mVdsUtilities)) {
+				#the basic utility installation only
+				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
+			}
+			Else {
+				#the extended utility activation
+				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+			}
+
 			$_mInvHelpers = New-Object VdsSampleUtilities.InvHelpers 
 
 			#	initialize the context for Drawings or presentation files as these have Vault Option settings		
@@ -310,7 +320,18 @@ function InitializeWindow
 
 					#region FDU Support ------------------
 					$_FdsUsrData = $Document.UserData #Items FACT_* are added by FDU
-					[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+
+					#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
+					$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
+					if (! (Test-Path $mVdsUtilities)) {
+						#the basic utility installation only
+						[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
+					}
+					Else {
+						#the extended utility activation
+						[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+					}
+
 					$_mAcadHelpers = New-Object VdsSampleUtilities.AcadHelpers
 					$_FdsBlocksInDrawing = $_mAcadHelpers.mFdsDrawing($Application)
 					If($_FdsUsrData.Get_Item("FACT_FactoryDocument") -and $_FdsBlocksInDrawing )
