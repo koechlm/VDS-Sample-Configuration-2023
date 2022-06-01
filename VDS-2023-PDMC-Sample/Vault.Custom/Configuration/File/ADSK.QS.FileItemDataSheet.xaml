@@ -112,7 +112,7 @@
     <Grid x:Name="grdAssignedItemMain" Background="#FFF0F0F0" Height="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" MinWidth="694" Width="{Binding ActualWidth, ElementName=grdMain, Mode=OneWay}" Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition MinHeight="100"/>
         </Grid.RowDefinitions>
         <Grid x:Name="grdStatus">

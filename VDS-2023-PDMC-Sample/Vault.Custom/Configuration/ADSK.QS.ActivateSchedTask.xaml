@@ -127,7 +127,7 @@
         </RichTextBox>
         <DataGrid x:Name="dataGrdSchedTasks" AutoGenerateColumns="False" IsReadOnly="True" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Grid.Row="1" BorderBrush="#FFABADB3">
             <DataGrid.Columns>
-                <DataGridTemplateColumn  Header="{Binding DataContext.UIString[], FallbackValue=Server Task Name}" Width="1*" MinWidth="200" >
+                <DataGridTemplateColumn  Header="{Binding DataContext.UIString[], FallbackValue=Server Task Name}" Width="1*" MinWidth="200"  MaxWidth="250">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DataContext.UIString[], FallbackValue=Server Task Name, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Margin="10,0"/>
@@ -139,7 +139,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{Binding DataContext.UIString[], FallbackValue=Server Task Name}" Width="2*" MinWidth="200">
+                <DataGridTemplateColumn Header="{Binding DataContext.UIString[], FallbackValue=Server Task Name}" Width="2*" MinWidth="200" MaxWidth="250">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DataContext.UIString[], FallbackValue=Server Task Description, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
