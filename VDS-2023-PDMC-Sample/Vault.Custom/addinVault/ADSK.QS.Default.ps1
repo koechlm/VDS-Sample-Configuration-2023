@@ -1237,10 +1237,10 @@ function mFindFolder($FolderName, $rootFolder)
 #added by 2022 Update 1 - to resolve issue with cloaked template folders for users, Update 2 added support for Vault Office
 function GetTemplateFolders
 {
-	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\File.xml"
+	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Configuration\ADSK.QS.File.xml"
 
 	if ($_IsOfficeClient) {
-		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\FileOffice.xml"
+		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Configuration\ADSK.QS.FileOffice.xml"
 	}
 
 	$xmldata = [xml](Get-Content $xmlpath)

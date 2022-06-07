@@ -678,10 +678,10 @@ function mFindFolder($FolderName, $rootFolder)
 
 function GetTemplateFolders
 {
-	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\File.xml"
+	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Configuration\ADSK.QS.File.xml"
 
 	if ($_IsOfficeClient) {
-		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\FileOffice.xml"
+		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Configuration\ADSK.QS.FileOffice.xml"
 	}
 
 	$xmldata = [xml](Get-Content $xmlpath)
