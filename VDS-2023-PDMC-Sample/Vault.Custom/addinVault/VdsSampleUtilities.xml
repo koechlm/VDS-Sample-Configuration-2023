@@ -4,6 +4,85 @@
         <name>VdsSampleUtilities</name>
     </assembly>
     <members>
+        <member name="T:VdsSampleUtilities.EventHandlers">
+            <summary>
+            Event Handler Extension for VDS-PDMC-Sample Configuration environment
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.EventHandlers.OnLoad">
+            <summary>
+            Events registration
+            </summary>
+        </member>
+        <member name="T:VdsSampleUtilities.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:VdsSampleUtilities.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:VdsSampleUtilities.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:VdsSampleUtilities.Properties.Resources.Open_Settings_16_Dark">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:VdsSampleUtilities.Properties.Resources.Open_Settings_16_Light">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:VdsSampleUtilities.Properties.Resources.Vault_Pro">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:VdsSampleUtilities.Settings">
+            <summary>
+            Registered configuration points
+            </summary>
+        </member>
+        <member name="F:VdsSampleUtilities.Settings.mSettingName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.Settings.Save">
+            <summary>
+            Write configuration points to external file.
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.Settings.Load">
+            <summary>
+            Read configuration points from external file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VdsSampleUtilities.Util">
+            <summary>
+            SDK sample utilities
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.Util.DoAction(System.Action)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+        </member>
+        <member name="M:VdsSampleUtilities.Util.GetAssemblyPath">
+            <summary>
+            Get the parent application's installation path
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:VdsSampleUtilities.VltHelpers">
             <summary>
             Class extending VDS Vault scripts
@@ -210,6 +289,33 @@
             Switch running AutoCAD application
             </summary>
             <param name="m_AcadApp">AutoCAD Application ($Application)</param>
+        </member>
+        <member name="T:VdsSampleUtilities.VdsSampleAdminForm">
+            <summary>
+            User interface for administrators; supports themes
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.VdsSampleAdminForm.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VdsSampleUtilities.VdsSampleAdminForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:VdsSampleUtilities.VdsSampleAdminForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:VdsSampleUtilities.VdsSampleAdminForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
         </member>
     </members>
 </doc>
