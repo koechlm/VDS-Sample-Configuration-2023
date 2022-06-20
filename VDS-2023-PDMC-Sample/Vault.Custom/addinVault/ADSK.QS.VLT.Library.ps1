@@ -10,36 +10,7 @@
 #endregion
 
 #region - version history
-
-#Version Info - VDS-MFG-Sample CAD Library 2022.2
-	# added function mGetParentProjectFldr
-
-#Version Info - VDS-PDMC-Sample CAD Library 2022.1
-	# added methods mGetCustentPropValue and mGetCustentPropDefId
-
-#Version Info - VDS-PDMC-Sample CAD Library 2022
-	# migrated paths to 2022
-
-#Version Info - VDS Quickstart CAD Library 2021.1
-	#new functions mGetCUsPermissions and mCopyEntACL
-
-# Version Info - VDS-PDMC-Sample Vault Library 2019.2
-	# added mRecursivelyCreateFolders - create folder structures using folder template(s)
-
-# Version Info - VDS-PDMC-Sample Vault Library 2019.1.1
-	# fixed failure in getting PropertyTranslations for default DSLanguages settings
-	# added mGetProjectFolderPropToVaultFile
-
-# Version Info - VDS-PDMC-Sample Vault Library 2019.1.0
-	# new name, aligned to VDS-PDMC-Sample naming convention and added CAD extension library
-
-# Version Info - VDS-PDMC-Sample Extension 2019.1.0
-	# new function mSearchCustentOfCat([String]$mCatDispName)
-	# new function mSearchItemOfCat([String]$mCatDispName)
-
-# Version Info - VDS-PDMC-Sample Extension 2019.0.0
-	# new function ADSK.GroupMemberOf()
-
+# Latest change: mGetCUsPermissions -> switch from Dispname to Id for any language compatibility
 #endregion
 
 #retrieve property value given by displayname from folder (ID)
@@ -474,7 +445,7 @@ function mGetCUsPermissions
 
     Foreach($item in $mAllPermisObjects)
 	{
-		$mAllPermissions += $item.Descr
+		$mAllPermissions += $item.Id
 	}
 	return $mAllPermissions
 }
