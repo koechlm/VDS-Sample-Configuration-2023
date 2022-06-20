@@ -435,6 +435,8 @@
     <Resource Include="Vault\NewStandardFolder.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Vault.Custom\addinVault\VdsSampleUtilities.dll" />
+    <Resource Include="Vault.Custom\addinVault\VdsSampleUtilities.xml" />
     <Resource Include="CAD.Custom\Configuration\AutoCadDynamicProperties.xml" />
     <Resource Include="CAD.Custom\Configuration\InventorDynamicProperties.xml" />
     <Content Include="HelpFiles\C.1GeneralInformation.html" />
