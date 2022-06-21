@@ -866,9 +866,9 @@ function mInitializeFGContext {
 	$mFrmDocs | ForEach-Object {
 		#$dsDiag.Trace(">> Frame Assy $mC")
 		$mFrmDcProps = $_.Properties.Properties
-		$mProp = $mFrmDcProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mProp = $mFrmDcProps | Where-Object { $_.Name -eq "Title" }
 		$mProp.Value = $UIString["LBL55"]
-		$mProp = $mFrmDcProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mFrmDcProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_01"]
 		#$dsDiag.Trace("Frames Assy end <<") 
 	}
@@ -877,9 +877,9 @@ function mInitializeFGContext {
 	$mSkltnDocs | ForEach-Object {
 		#$dsDiag.Trace(">> Skeleton Assy $mC")
 		$mSkltnDcProps = $_.Properties.Properties
-		$mProp = $mSkltnDcProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mProp = $mSkltnDcProps | Where-Object { $_.Name -eq "Title" }
 		$mProp.Value = $UIString["LBL56"]
-		$mProp = $mSkltnDcProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mSkltnDcProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_04"]
 		#$dsDiag.Trace("Skeleton end <<") 
 	}
@@ -888,7 +888,7 @@ function mInitializeFGContext {
 	$mFrmMmbrDocs | ForEach-Object {
 		#$dsDiag.Trace(">> FrameMember Assy $mC")
 		$mFrmMmbrDcProps = $_.Properties.Properties
-		$mProp = $mFrmMmbrDcProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mProp = $mFrmMmbrDcProps | Where-Object { $_.Name -eq "Title" }
 		$mProp.Value = $UIString["MSDCE_FrameMember_01"]
 		#$dsDiag.Trace("FrameMembers $mC end <<") 
 	}
@@ -902,11 +902,11 @@ function mInitializeDAContext {
 	$mDsgnAccAssys | ForEach-Object {
 		#$dsDiag.Trace(">> DA Assy $mC")
 		$mDsgnAccAssyProps = $_.Properties.Properties
-		$mTitleProp = $mDsgnAccAssyProps | Where-Object-Object { $_.Name -eq "Title" }
-		$mPartNumProp = $mDsgnAccAssyProps | Where-Object-Object { $_.Name -eq "Part Number" }
+		$mTitleProp = $mDsgnAccAssyProps | Where-Object { $_.Name -eq "Title" }
+		$mPartNumProp = $mDsgnAccAssyProps | Where-Object { $_.Name -eq "Part Number" }
 		$mTitleProp.Value = $UIString["MSDCE_BOMType_01"]
 		$mPartNumProp.Value = "" #delete the value to get the new number
-		$mProp = $mDsgnAccAssyProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mDsgnAccAssyProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_01"] + " " + $mPartNumProp.Value
 		#$dsDiag.Trace("DA Assy $mC end <<")
 	}
@@ -914,11 +914,11 @@ function mInitializeDAContext {
 	$mDsgnAccParts | ForEach-Object {
 		#$dsDiag.Trace(">> DA component $mC")
 		$mDsgnAccProps = $_.Properties.Properties
-		$mTitleProp = $mDsgnAccProps | Where-Object-Object { $_.Name -eq "Title" }
-		$mPartNumProp = $mDsgnAccProps | Where-Object-Object { $_.Name -eq "Part Number" }
+		$mTitleProp = $mDsgnAccProps | Where-Object { $_.Name -eq "Title" }
+		$mPartNumProp = $mDsgnAccProps | Where-Object { $_.Name -eq "Part Number" }
 		$mTitleProp.Value = $mPartNumProp.Value
 		$mPartNumProp.Value = "" #delete the value to get the new number
-		$mProp = $mDsgnAccProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mDsgnAccProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $mTitleProp.Value
 		#$dsDiag.Trace("DA Component $mC end <<")
 	}
@@ -930,33 +930,33 @@ function mInitializeTPContext {
 	$mRunAssys = $dsWindow.DataContext.RunAssemblies
 	$mRunAssys | ForEach-Object {
 		$mRunAssyProps = $_.Properties.Properties
-		$mTitleProp = $mRunAssyProps | Where-Object-Object { $_.Name -eq "Title" } 
+		$mTitleProp = $mRunAssyProps | Where-Object { $_.Name -eq "Title" } 
 		$mTitleProp.Value = $UIString["LBL41"]
-		$mPartNumProp = $mRunAssyProps | Where-Object-Object { $_.Name -eq "Part Number" }
+		$mPartNumProp = $mRunAssyProps | Where-Object { $_.Name -eq "Part Number" }
 		$mPartNumProp.Value = "" #delete the value to get the new number
-		$mProp = $mRunAssyProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mRunAssyProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_01"] + " " + $UIString["MSDCE_TubePipe_01"]
 	}
 	$mRouteParts = @()
 	$mRouteParts = $dsWindow.DataContext.RouteParts
 	$mRouteParts | ForEach-Object {
 		$mRouteProps = $_.Properties.Properties
-		$mTitleProp = $mRouteProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mTitleProp = $mRouteProps | Where-Object { $_.Name -eq "Title" }
 		$mTitleProp.Value = $UIString["LBL42"]
-		$mPartNumProp = $mRouteProps | Where-Object-Object { $_.Name -eq "Part Number" }
+		$mPartNumProp = $mRouteProps | Where-Object { $_.Name -eq "Part Number" }
 		$mPartNumProp.Value = "" #delete the value to get the new number
-		$mProp = $mRouteProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mRouteProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_00"] + " " + $UIString["LBL42"]
 	}
 	$mRunComponents = @()
 	$mRunComponents = $dsWindow.DataContext.RunComponents
 	$mRunComponents | ForEach-Object {
 		$mRunCompProps = $_.Properties.Properties
-		$mTitleProp = $mRunCompProps | Where-Object-Object { $_.Name -eq "Title" }
-		$m_StockProp = $mRunCompProps | Where-Object-Object { $_.Name -eq "Stock Number" }
+		$mTitleProp = $mRunCompProps | Where-Object { $_.Name -eq "Title" }
+		$m_StockProp = $mRunCompProps | Where-Object { $_.Name -eq "Stock Number" }
 		$mTitleProp.Value = $UIString["LBL43"]
-		$mPartNumProp = $mRunCompProps | Where-Object-Object { $_.Name -eq "Part Number" }
-		$m_PL = $mRunCompProps | Where-Object-Object { $_.Name -eq "PL" }
+		$mPartNumProp = $mRunCompProps | Where-Object { $_.Name -eq "Part Number" }
+		$m_PL = $mRunCompProps | Where-Object { $_.Name -eq "PL" }
 		$mPartNumProp.Value = $m_StockProp.Value + " - " + $m_PL.Value
 	}
 }
@@ -966,18 +966,18 @@ function mInitializeCHContext {
 	$mHrnsAssys = $dsWindow.DataContext.HarnessAssemblies
 	$mHrnsAssys | ForEach-Object {
 		$mHrnsAssyProps = $_.Properties.Properties
-		$mTitleProp = $mHrnsAssyProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mTitleProp = $mHrnsAssyProps | Where-Object { $_.Name -eq "Title" }
 		$mTitleProp.Value = $UIString["LBL45"]
-		$mProp = $mHrnsAssyProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mHrnsAssyProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_00"] + " " + $UIString["LBL45"]
 	}
 	$mHrnsParts = @()
 	$mHrnsParts = $dsWindow.DataContext.HarnessParts
 	$mHrnsParts | ForEach-Object {
 		$mHrnsPrtProps = $_.Properties.Properties
-		$mTitleProp = $mHrnsPrtProps | Where-Object-Object { $_.Name -eq "Title" }
+		$mTitleProp = $mHrnsPrtProps | Where-Object { $_.Name -eq "Title" }
 		$mTitleProp.Value = $UIString["LBL47"]
-		$mProp = $mHrnsPrtProps | Where-Object-Object { $_.Name -eq "Description" }
+		$mProp = $mHrnsPrtProps | Where-Object { $_.Name -eq "Description" }
 		$mProp.Value = $UIString["MSDCE_BOMType_00"] + " " + $UIString["LBL47"]
 	}
 }
