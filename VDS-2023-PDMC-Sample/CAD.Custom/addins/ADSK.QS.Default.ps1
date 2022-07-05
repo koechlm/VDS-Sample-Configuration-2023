@@ -631,7 +631,7 @@ function OnPostCloseDialog {
 			}
 
 			if ($Prop["_CreateMode"].Value -and !$Prop["Part Number"].Value) { #we empty the part number on initialize: if there is no other function to provide part numbers we should apply the Inventor default
-				$Prop["Part Number"].Value = $dsWindow.DataContext.PathAndFileNameHandler.FileNameNoExtension
+				$Prop["Part Number"].Value = $Prop["DocNumber"].Value
 			}
 			#sketched drawings (no model view) don't get a Part Number from the model, but the part number is not empty and equals the displayname of the new drawing, e.g. "Drawing1"
 			if ($Prop["_CreateMode"].Value -and $Document.ReferencedFiles.Count -eq 0 -and @(".DWG", ".IDW", ".IPN") -contains $Prop["_FileExt"].Value) {
