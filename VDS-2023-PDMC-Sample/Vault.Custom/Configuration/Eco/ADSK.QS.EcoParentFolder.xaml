@@ -174,7 +174,7 @@
             </Grid>
             <Grid x:Name="grdComments" Grid.ColumnSpan="2" Grid.Row="3" Margin="10,10,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition x:Name="CommentGridLabelCol" Width="{Binding ColumnDefinitions/ActualWidth, ElementName=grdStaticProps, Mode=OneWay}"/>
+                    <ColumnDefinition x:Name="CommentGridLabelCol" Width="{Binding ActualWidth, ElementName=label1, Mode=OneWay}"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" BorderThickness="1,1,0,1" VerticalAlignment="Top"/>
