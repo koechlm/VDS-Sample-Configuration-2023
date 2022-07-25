@@ -5,40 +5,45 @@
              xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
              behaviours:TabTitleBehavior.TabTitle="$UIString[LBL36]">
     <UserControl.Resources>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
-            <Setter Property="Margin" Value="0,0,0,0" />
-            <Setter Property="Height" Value="24" />
-            <Setter Property="Padding" Value="5,3,3,2"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="BorderBrush" Value="#FFABADB3"/>
-            <Setter Property="BorderThickness" Value="1,1,1,0"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="BorderBrush" Value="#ff0000"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="Margin" Value="0,0,0,0"/>
-            <Setter Property="Height" Value="24" />
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="5,0"/>
-            <Setter Property="BorderBrush" Value="#FFABADB3"/>
-            <Setter Property="BorderThickness" Value="0,1,1,0"/>
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Padding" Value="5,3,3,2"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="BorderBrush" Value="#FFABADB3"/>
+                <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#ff0000"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="Margin" Value="0,0,0,0"/>
+                <Setter Property="Height" Value="24" />
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0"/>
+                <Setter Property="BorderBrush" Value="#FFABADB3"/>
+                <Setter Property="BorderThickness" Value="0,1,1,0"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid Margin="5">
+        <Grid x:Name="grdMain" Margin="5" MinWidth="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -48,8 +53,8 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="140" />
-                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="1*" MinWidth="140" />
+                <ColumnDefinition Width="2*" MinWidth="280" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0">
                 <Label.Content>

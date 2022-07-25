@@ -3,7 +3,14 @@
                 x:Name="MainWindow"
              xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
              behaviours:TabTitleBehavior.TabTitle="$UIString[LBL37]">
-    <DataGrid Name="AssoicatedFiles" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="Auto" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DataGrid Name="AssoicatedFiles" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="Auto">
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="..." MinWidth="25" MaxWidth="25" >
                 <DataGridTemplateColumn.CellTemplate>

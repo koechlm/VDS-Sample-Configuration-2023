@@ -4,178 +4,183 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 x:Name="FileWindow"
                 xmlns:WPF="clr-namespace:CreateObject.WPF;assembly=CreateObject"
-                AllowsTransparency="False" Background="#F0F0F0" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+                AllowsTransparency="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight" 
+                Style="{DynamicResource ThemedWindowStyle}">
     <Window.Resources>
-        <WPF:IsMoreThanZeroConverter x:Key="MoreThanZeroConverter"/>
-        <WPF:InverseBoolConverter x:Key="BoolConvert"/>
-        <Style x:Key="DynamicDataGridCellStyle" TargetType="{x:Type DataGridCell}">
-            <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                </Trigger>
-                <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static DataGrid.FocusBorderBrushKey}}" />
-                </Trigger>
-                <DataTrigger Binding="{Binding Typ}" Value="String">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" CharacterCasing="{Binding Case}" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Typ}" Value="DateTime">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Typ}" Value="Numeric">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <WPF:IsMoreThanZeroConverter x:Key="MoreThanZeroConverter"/>
+            <WPF:InverseBoolConverter x:Key="BoolConvert"/>
+            <Style x:Key="DynamicDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                    </Trigger>
+                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static DataGrid.FocusBorderBrushKey}}" />
+                    </Trigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="String">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" CharacterCasing="{Binding Case}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="DateTime">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="Numeric">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0"
                                          Height="25" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Typ}" Value="Bool">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True">
-                                    <ComboBoxItem Content="True" />
-                                    <ComboBoxItem Content="False" />
-                                </ComboBox>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ListValues.Count, Converter={StaticResource MoreThanZeroConverter}}" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value}"
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="Bool">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True">
+                                        <ComboBoxItem Content="True" />
+                                        <ComboBoxItem Content="False" />
+                                    </ComboBox>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ListValues.Count, Converter={StaticResource MoreThanZeroConverter}}" Value="True">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value}"
                                           IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}">
-            <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
-            <Setter Property="Height" Value="22" />
-            <Setter Property="Margin" Value="0,4,0,0" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="IsHitTestVisible" Value="False" />
-        </Style>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
-            <Setter Property="Margin" Value="0,0,0,0" />
-            <Setter Property="Padding" Value="5,3,3,2" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="BorderBrush" Value="#FFABADB3" />
-            <Setter Property="BorderThickness" Value="1,1,1,0" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="BorderBrush" Value="#ff0000" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="Margin" Value="0,0,0,0" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="#FFABADB3" />
-            <Setter Property="BorderThickness" Value="0,1,1,0" />
-            <Setter Property="Padding" Value="5,3,3,2" />
-            <Setter Property="TextWrapping" Value="Wrap"></Setter>
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip"
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+                <Setter Property="Height" Value="22" />
+                <Setter Property="Margin" Value="0,4,0,0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+            <Style x:Key="DataStandartLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="Padding" Value="5,3,3,2" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="BorderBrush" Value="#FFABADB3" />
+                <Setter Property="BorderThickness" Value="1,1,1,0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="#ff0000" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource DataStandartLabelStyle}"/>
+            <Style x:Key="DataStandartTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="BorderBrush" Value="#FFABADB3" />
+                <Setter Property="BorderThickness" Value="0,1,1,0" />
+                <Setter Property="Padding" Value="5,3,3,2" />
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
                             Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
-                </Trigger>
-                <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-            <Setter Property="Margin" Value="0,0,0,0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
-            <Setter Property="BorderBrush" Value="#FFABADB3" />
-            <Setter Property="BorderThickness" Value="0,1,1,0" />
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip"
+                    </Trigger>
+                    <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource DataStandartTextBoxStyle}"/>
+            <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DataStandartTextBoxStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                        <Setter Property="BorderBrush" Value="Red" />
+                        <Setter Property="BorderThickness" Value="1,1,1,1" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DataStandartComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="BorderBrush" Value="#FFABADB3" />
+                <Setter Property="BorderThickness" Value="0,1,1,0" />
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
                             Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type DatePicker}">
-            <Setter Property="Height" Value="22" />
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip"
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource DataStandartComboBoxStyle}"/>
+            <Style x:Key="DocTypeStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource DataStandartComboBoxStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding EditMode}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="TemplateCbStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource DataStandartComboBoxStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CreateMode}" Value="True">
+                        <Setter Property="ItemsSource" Value="{Binding Templates}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding EditMode}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=TemplateTB, Path=Visibility}" Value="Visible">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
+                <Setter Property="Height" Value="22" />
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
                             Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
-                    <Setter Property="BorderBrush" Value="Red" />
-                    <Setter Property="BorderThickness" Value="1,1,1,1" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="0,1,1,0" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding EditMode}" Value="True">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DocTypeStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding EditMode}" Value="True">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="TemplateCbStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding CreateMode}" Value="True">
-                    <Setter Property="ItemsSource" Value="{Binding Templates}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding EditMode}" Value="True">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=TemplateTB, Path=Visibility}" Value="Visible">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                <Setter Property="BorderBrush" Value="Gray" />
+                <Setter Property="BorderThickness" Value="0,1,1,0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding EditMode}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
     </Window.Resources>
     <Grid x:Name="grdMain" Margin="5" MinWidth="900">
         <Grid.RowDefinitions>
@@ -224,7 +229,7 @@
                       Style="{StaticResource DocTypeStyle}" />
             <Label Content="{Binding UIString[LBL9], FallbackValue=Templates}" Grid.Row="2" Grid.Column="0" >
                 <Label.Style>
-                    <Style TargetType="{x:Type Label}">
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource DataStandartLabelStyle}">
                         <Setter Property="BorderBrush" Value="#FFABADB3" />
                         <Setter Property="BorderThickness" Value="1,1,1,0" />
                         <Style.Triggers>
@@ -244,7 +249,7 @@
                           SelectedItem="{Binding SelectedTemplate}" Style="{StaticResource TemplateCbStyle}" />
             <TextBox x:Name="TemplateTB" Grid.Row="2" Grid.Column="1" Text="{Binding UIString[LBL28]}" IsHitTestVisible="False">
                 <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource DataStandartTextBoxStyle}">
                         <Setter Property="TextWrapping" Value="Wrap"></Setter>
                         <Setter Property="Visibility" Value="Collapsed" />
                         <Style.Triggers>
@@ -255,7 +260,6 @@
                                     <Condition Binding="{Binding CreateMode}" Value="True" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible" />
-                                <Setter Property="Background" Value="#F0F0F0" />
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -293,8 +297,7 @@
                   HeadersVisibility="Column"
                   ScrollViewer.CanContentScroll="False"
                   EnableRowVirtualization="False"
-                  HorizontalGridLinesBrush="WhiteSmoke"
-                  VerticalGridLinesBrush="WhiteSmoke" BorderBrush="Gray"
+                  BorderBrush="Gray"
                   Margin="5,0,0,0" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}"

@@ -427,7 +427,7 @@ function GetTemplateFolders
 {
 	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\File.xml"
 
-	if ($Prop["_IsOfficeClient"].Value) {
+	if ($_IsOfficeClient) {
 		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\FileOffice.xml"
 	}
 
