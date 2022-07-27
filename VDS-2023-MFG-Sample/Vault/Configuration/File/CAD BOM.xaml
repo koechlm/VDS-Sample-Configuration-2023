@@ -13,12 +13,6 @@
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="#ff0000"/>
-                        <Setter Property="Margin" Value="0,0,0,0"/>
-                        <Setter Property="Height" Value="26"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

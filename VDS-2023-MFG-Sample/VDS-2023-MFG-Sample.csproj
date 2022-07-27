@@ -59,6 +59,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SDK 2023 Refs\Autodesk.Connectivity.WebServices.dll</HintPath>
     </Reference>
+    <Reference Include="Autodesk.DataManagement.Client.Framework.Forms">
+      <HintPath>..\SDK 2023 Refs\Autodesk.DataManagement.Client.Framework.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="Common, Version=28.0.83.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SDK 2023 Refs\Common.dll</HintPath>
@@ -233,11 +236,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.CAD BOM.xaml">
+    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.FileDataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.FileDataSheet.xaml">
+    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.CAD BOM.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

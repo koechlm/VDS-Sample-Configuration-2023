@@ -58,6 +58,9 @@
     <Reference Include="Autodesk.Connectivity.WebServices">
       <HintPath>..\SDK 2023 Refs\Autodesk.Connectivity.WebServices.dll</HintPath>
     </Reference>
+    <Reference Include="Autodesk.DataManagement.Client.Framework.Forms">
+      <HintPath>..\SDK 2023 Refs\Autodesk.DataManagement.Client.Framework.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="Common">
       <HintPath>..\SDK 2023 Refs\Common.dll</HintPath>
     </Reference>

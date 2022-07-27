@@ -10,13 +10,6 @@
                 <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Padding" Value="5,3,3,2"/>
-                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="BorderBrush" Value="#FFABADB3"/>
-                <Setter Property="BorderThickness" Value="1,1,1,0"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
                         <Setter Property="BorderThickness" Value="1"/>
@@ -26,14 +19,6 @@
             </Style>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
                 <Setter Property="IsReadOnly" Value="True"/>
-                <Setter Property="Margin" Value="0,0,0,0"/>
-                <Setter Property="Height" Value="24" />
-                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Padding" Value="5,0"/>
-                <Setter Property="BorderBrush" Value="#FFABADB3"/>
-                <Setter Property="BorderThickness" Value="0,1,1,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
@@ -61,25 +46,25 @@
                     <AccessText TextWrapping="Wrap" Text="{Binding UIString[LBL20], FallbackValue=Number}"/>
                 </Label.Content>
             </Label>
-            <TextBox Text="{Binding Prop[_XLTN_NUMBER].Value}" Grid.Row="0" Grid.Column="1" ></TextBox>
+            <TextBox Text="{Binding Prop[_XLTN_NUMBER].Value}" Grid.Row="0" Grid.Column="1" Margin="0,1" ></TextBox>
             <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="1" />
-            <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="1" />
+            <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="1" Margin="0,1" />
             <Label Content="{Binding UIString[LBL21],FallbackValue=Due Date}" Grid.Row="2" Grid.Column="0" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Prop[_XLTN_DUE DATE].Value}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Prop[_XLTN_DUE DATE].Value}" Margin="0,1" />
             <Label Grid.Column="0" Grid.Row="3" >
                 <Label.Content>
                     <AccessText TextWrapping="Wrap" Text="{Binding UIString[LBL22],FallbackValue=Title}"/>
                 </Label.Content>
             </Label>
-            <TextBox Text="{Binding PsVal[ItemTitle], Mode=OneWay}" Grid.Column="1" Grid.Row="3" />
+            <TextBox Text="{Binding PsVal[ItemTitle], Mode=OneWay}" Grid.Column="1" Grid.Row="3" Margin="0,1" />
             <Label Grid.Column="0" Grid.Row="4">
                 <Label.Content>
                     <AccessText TextWrapping="Wrap" Text="{Binding UIString[LBL32],FallbackValue=Description}"/>
                 </Label.Content>
             </Label>
-            <TextBox Text="{Binding PsVal[ItemDescription], Mode=OneWay}" Grid.Column="1" Grid.Row="4" Name="Description" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <TextBox Text="{Binding PsVal[ItemDescription], Mode=OneWay}" Grid.Column="1" Grid.Row="4" Name="Description" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,1"/>
             <Label Content="{Binding UIString[LBL7],FallbackValue=Comment}" Grid.Column="0" Grid.Row="5" BorderThickness="1" Height="Auto" />
-            <TextBox Grid.Row="5" Text="{Binding Prop[_XLTN_COMMENT].Value}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1" MinHeight="50" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0,1,1,1" />
+            <TextBox Grid.Row="5" Text="{Binding Prop[_XLTN_COMMENT].Value}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1" MinHeight="50" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,1" />
         </Grid>
     </ScrollViewer>
 </UserControl>
