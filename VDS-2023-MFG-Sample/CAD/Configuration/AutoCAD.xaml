@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     Style="{DynamicResource ThemedWindowStyle}"
-    x:Name="AutoCADWindow" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True"
+    x:Name="AutoCADWindow" WindowStyle="ToolWindow" ShowInTaskbar="True" 
     ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <WPF:DSWindow.Resources>
         <ResourceDictionary>
@@ -29,7 +29,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" Height="20.75" CharacterCasing="{Binding Case}" />
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" CharacterCasing="{Binding Case}" Padding="5,0,0,0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -38,19 +38,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Typ}" Value="Boolean">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True">
-                                        <ComboBoxItem Content="True" />
-                                        <ComboBoxItem Content="False" />
-                                    </ComboBox>
+                                    <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -59,8 +47,29 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0"
-                                   Height="25" />
+                                    <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="Boolean" >
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0">
+                                        <!--<ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" >-->
+                                        <ComboBoxItem Content="True" />
+                                        <ComboBoxItem Content="False" />
+                                    </ComboBox>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="Decimal">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -70,7 +79,18 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value, StringFormat=N}"
-                                      IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />
+                                        IsEditable="False" BorderThickness="0" />
+                                    <!--IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />-->
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Name}" Value="Material">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value}"
+                                  IsEditable="False" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -79,19 +99,9 @@
             </Style>
             <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
-                <Setter Property="Height" Value="Auto" />
-                <Setter Property="Margin" Value="0,2,0,0" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Padding" Value="5,3,3,2" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="BorderBrush" Value="#FFABADB3" />
-                <Setter Property="BorderThickness" Value="1,1,1,0" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
                         <Setter Property="BorderThickness" Value="1" />
@@ -100,20 +110,15 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Padding" Value="5,3,3,2" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Height" Value="23" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
-                  Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
                     <Trigger Property="Validation.HasError" Value="false">
-                        <Setter Property="BorderBrush" Value="#FFABADB3" />
-                        <Setter Property="BorderThickness" Value="0,1,1,0" />
+                        <Setter Property="BorderThickness" Value="1" />
                     </Trigger>
                     <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
@@ -121,38 +126,31 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="BorderBrush" Value="#FFABADB3" />
-                <Setter Property="BorderThickness" Value="0,1,1,0" />
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
-                  Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
-                <Setter Property="Height" Value="22" />
+                <Setter Property="Height" Value="24" />
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
-                  Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
             </Style>
-            <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
+            <!--<Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
                 <Setter Property="BorderBrush" Value="Gray" />
-                <Setter Property="BorderThickness" Value="0,1,1,0" />
-            </Style>
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>-->
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </WPF:DSWindow.Resources>
@@ -186,10 +184,10 @@
         <Grid x:Name="grdGeneralProps" Grid.Row="1"
           ToolTip="{Binding UIString[LBL73], FallbackValue='General Properties'}" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="24" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -197,56 +195,44 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <Label Content="{Binding UIString[LBL8], FallbackValue=Category}"
-             Grid.Row="0"
-             Grid.Column="0" />
-            <ComboBox x:Name="Categories"
-                DisplayMemberPath="Name"
-                SelectedValuePath="Name"
-                SelectedItem="{Binding DynamicPropertiesCategory}"
-                SelectedValue="{Binding Prop[_Category].Value}"
-                ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
-                Grid.Column="1"
-                IsEnabled="{Binding CreateMode}" />
-            <Label Grid.Row="1"
-             Grid.Column="0"
-             Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
-             Visibility="{Binding Visibility, ElementName=NumSchms}" Height="Auto" />
+            <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="Categories" Grid.Row="0" Grid.Column="1"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding DynamicPropertiesCategory}"
+                      SelectedValuePath="Name"
+                      SelectedValue="{Binding Prop[_Category].Value}"
+                      ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
+                      IsEnabled="{Binding CreateMode}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
+                   Visibility="{Binding Visibility, ElementName=NumSchms}"  />
             <ComboBox x:Name="NumSchms" Grid.Column="1" Grid.Row="1"
-                DisplayMemberPath="Name"
-                SelectedValuePath="Name"
-                SelectedValue="{Binding Prop[_NumSchm].Value}"
-                ItemsSource="{Binding PsList[GetNumSchms]}"
-                IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
-                Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="Name"
+                      SelectedValue="{Binding Prop[_NumSchm].Value}"
+                      ItemsSource="{Binding PsList[GetNumSchms]}"
+                      IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
+                      Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Label Grid.Row="2" Grid.Column="0" Content="{Binding UIString[LBL31], FallbackValue=Number}"
-             Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" Height="Auto" />
-            <WPF:DSNumSchemeCtrl Grid.Row="2"
-                           Grid.Column="1"
-                           x:Name="DSNumSchmsCtrl"
-                           Scheme="{Binding ElementName=NumSchms, Path=SelectedItem}"
-                           IsEnabled="{Binding ElementName=NumSchms, Path=IsEnabled}"
-                           GeneratedNumberProperty="GEN-TITLE-DWG"
-                           Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Style="{StaticResource NumSchmCtrlStyle}" />
-            <Label Content="{Binding UIString[LBL6], FallbackValue=File Name}"
-             Grid.Row="3"
-             Grid.Column="0"
-             Visibility="{Binding Visibility, ElementName=FILENAME }" />
-            <TextBox Grid.Row="3"
-               Grid.Column="1"
-               x:Name="FILENAME"
+                   Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" />
+            <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="2" Grid.Column="1"
+                                 Scheme="{Binding SelectedItem, ElementName=NumSchms}"
+                                 IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
+                                 GeneratedNumberProperty="GEN-TITLE-DWG"
+                                 Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <!--Style="{StaticResource NumSchmCtrlStyle}"-->
+            <Label Content="{Binding UIString[LBL6], FallbackValue=File Name}" 
+                   Grid.Row="3" Grid.Column="0" Visibility="{Binding Visibility, ElementName=FILENAME }" />
+            <TextBox x:Name="FILENAME" Grid.Row="3" Grid.Column="1"                
                Text="{WPF:ValidatedBinding Prop[GEN-TITLE-DWG].Value}"
                IsReadOnly="{Binding EditMode}"
                Visibility="{Binding NumSchmFieldsEmpty, ElementName=DSNumSchmsCtrl, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Label x:Name="lblComments" Content="{Binding UIString[Comments], FallbackValue=Comments}" Grid.Row="4" BorderThickness="1" Height="Auto"/>
-            <TextBox x:Name="txtComments" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Prop[Comments].Value}" BorderThickness="0,1,1,1"
-               VerticalContentAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="50"/>
+            <Label x:Name="lblComments" Content="{Binding UIString[Comments], FallbackValue=Comments}" Grid.Row="4" />
+            <TextBox x:Name="txtComments" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Prop[Comments].Value}"  
+                     VerticalContentAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="50" />
             <Border
-          BorderBrush="Green"
-          Visibility="{Binding CopyMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="5"
-          Margin="0,5,0,0" Grid.ColumnSpan="2">
-                <Image Source="{Binding Prop[Thumbnail].Value}" />
+                Visibility="{Binding CopyMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="5"
+                Margin="0,5,0,0" Grid.ColumnSpan="2">
+                <Image Source="{Binding Prop[Thumbnail].Value}" Width="200"/>
             </Border>
         </Grid>
         <Grid x:Name="DSDynCatPropGrid" MinHeight="80" Grid.Column="1" Margin="5,0,0,0" Grid.Row="1"
@@ -265,16 +251,16 @@
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock
-                    Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
                     <DataGridTemplateColumn Header="Property Value"
-                  CellStyle="{StaticResource DynamicDataGridCellStyle}" Width="2*">
+                        CellStyle="{StaticResource DynamicDataGridCellStyle}" Width="2*" >
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock
-                    Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold" />
                             </DataTemplate>
                         </DataGridTemplateColumn.HeaderTemplate>
                     </DataGridTemplateColumn>
