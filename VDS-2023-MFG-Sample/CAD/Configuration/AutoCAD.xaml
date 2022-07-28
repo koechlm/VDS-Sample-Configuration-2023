@@ -110,15 +110,14 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
-                <Setter Property="Height" Value="23" />
+                <Setter Property="Height" Value="24" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip"
-                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                        <Setter Property="BorderBrush" Value="Red" />
                     </Trigger>
                     <Trigger Property="Validation.HasError" Value="false">
-                        <Setter Property="BorderThickness" Value="1" />
                     </Trigger>
                     <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
