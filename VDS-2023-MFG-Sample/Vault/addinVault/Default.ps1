@@ -221,7 +221,7 @@ function NameCustomValidation()
 		}
 		"CustomObjectWindow"
 		{
-			$nameProp = "_FileName"
+			$nameProp = "_CustomObjectName"
 		}
 	}
 	$folderName = $Prop[$nameProp].Value
