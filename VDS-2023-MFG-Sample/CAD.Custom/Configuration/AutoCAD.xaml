@@ -80,6 +80,17 @@
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding Name}" Value="GEN-TITLE-NR">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" 
+                                    ToolTip="{Binding DataContext.UIString[LBL27], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, FallbackValue='[Assigned]'}" 
+                                    IsReadOnly="True" IsTabStop="False"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding Name}" Value="GEN-TITLE-CHKD">
                         <Setter Property="Template">
                             <Setter.Value>
@@ -98,31 +109,8 @@
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}" Value="Document Code">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" Height="20.75" Background="White" 
-                                    ToolTip="{Binding DataContext.UIString[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, FallbackValue='Select the document tag for automatic naming'}" 
-                                    IsReadOnly="False" IsTabStop="True"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}" Value="Document Class">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" Height="20.75" Background="WhiteSmoke" 
-                                    ToolTip="{Binding DataContext.UIString[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, FallbackValue='Select the document tag for automatic naming'}" 
-                                    IsReadOnly="True" IsTabStop="False"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
                 </Style.Triggers>
             </Style>
-
             <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                 <Setter Property="IsHitTestVisible" Value="False" />
@@ -236,10 +224,6 @@
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
             </Style>
-            <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
-                <Setter Property="Height" Value="26.0" />
-                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
-            </Style>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <Style x:Key="btnScEnabled" TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButtonStyle}">
                 <Setter Property="IsEnabled" Value="True" />
@@ -250,7 +234,7 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="btnNewScStyle" TargetType="Image">
+            <Style x:Key="btnScImage" TargetType="Image">
                 <Setter Property="Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Plus_disabled.ico"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, ElementName=btnNewSc}" Value="True">
@@ -272,37 +256,6 @@
                         Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
                         <Setter Property="Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsLight\FolderView_32.png"/>
                     </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="ProjectFavorites" TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding EditMode}" Value="True">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding CreateMode}" Value="True"/>
-                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
-                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="IDW"/>
-                        </MultiDataTrigger.Conditions>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </MultiDataTrigger>
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding CreateMode}" Value="True"/>
-                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
-                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="DWG"/>
-                        </MultiDataTrigger.Conditions>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </MultiDataTrigger>
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding CreateMode}" Value="True"/>
-                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
-                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="IPN"/>
-                        </MultiDataTrigger.Conditions>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
             <Style x:Key="grdShortCutPaneStyle" TargetType="{x:Type Grid}" >
@@ -372,7 +325,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="0,0,0,5" BorderThickness="0" Header="Folder" MaxWidth="700"
+        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="0,0,0,5" BorderThickness="0" Header="{Binding UIString[LBL1], FallbackValue=Folder}" MaxWidth="700"
                   Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1">
             <Grid Margin="0,3,0,0">
                 <Grid.ColumnDefinitions>
@@ -439,22 +392,21 @@
         		Scheme="{Binding SelectedItem, ElementName=NumSchms}"
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
         		GeneratedNumberProperty="GEN-TITLE-DWG"
-        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-        		Style="{StaticResource NumSchmCtrlStyle}" />
+        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
-        <TabControl x:Name="tabCtrlMain" MinHeight="80" Grid.Column="1" Grid.Row="2"
-        	Grid.ColumnSpan="2" Margin="0,5,0,0" MaxWidth="700">
-            <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue=Category Properties}" >
+        <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5,0,0"  
+                    MinHeight="80" MaxWidth="700" >
+            <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue='Category Properties'}" >
                 <AdornerDecorator>
                     <Grid x:Name="DSDynCatPropGrid" MinHeight="80" MinWidth="694"
         			ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}">
-                        <DataGrid x:Name="DSDynamicCategoryProperties" MinHeight="260"
+                        <DataGrid x:Name="DSDynamicCategoryProperties" 
         				AutoGenerateColumns="False"
         				HeadersVisibility="Column"
         				ItemsSource="{Binding DynamicProperties}"
         				ScrollViewer.CanContentScroll="False"
                         EnableRowVirtualization="False"
-                        VerticalAlignment="Top" MaxHeight="350">
+                        VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}" 
                                     CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" IsReadOnly="True">
@@ -477,7 +429,7 @@
                                 <DataGridTemplateColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}" MinWidth="25" >
                                     <DataGridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding DataContext.UIString[], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding DataContext.UIString[BTN3], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                 </DataGridTemplateColumn>
@@ -489,20 +441,20 @@
         </TabControl>
         <Expander x:Name="expFilePath" Header="{Binding UIString[LBL6]}" Grid.ColumnSpan="2"
 			ToolTip="{Binding UIString[MSDCE_TT05]}" Style="{StaticResource ExpanderStyle}" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0">
-            <Grid x:Name="grdFilePath" Margin="0" RenderTransformOrigin="0.5,0.5" ToolTip="{Binding UIString[MSDCE_TT05]}" VerticalAlignment="Top">
+            <Grid x:Name="grdFilePath" Margin="0" ToolTip="{Binding UIString[MSDCE_TT05]}" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="169*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
                 <TextBox x:Name="FILENAME" Grid.Column="1" 	Style="{StaticResource Required}"
                          Text="{WPF:ValidatedBinding Prop[GEN-TITLE-DWG].Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>
-                <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" BorderThickness="1" />
+                <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" />
                 <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" />
             </Grid>
         </Expander>
@@ -544,7 +496,7 @@
                         ToolTipService.ShowOnDisabled="True" ToolTip="{Binding UIString[MSDCE_TT20]}"
                         Style="{StaticResource btnScEnabled}"
                         Command="{Binding PsCmd[mAddSc]}">
-                        <Image x:Name="btnNewScImg" Style="{StaticResource btnNewScStyle}"/>
+                        <Image x:Name="btnNewScImg" Style="{StaticResource btnScImage}"/>
                     </Button>
                     <ListBox x:Name="lstBoxShortCuts" Grid.Row="1" MinWidth="180" Margin="0" ItemsSource="{Binding PsVal[mReadShortCuts]}" ToolTip="{Binding UIString[MSDCE_TT23]}"  
                         MaxWidth="300" Grid.ColumnSpan="2" DisplayMemberPath="Key" SelectedValuePath="Key" IsSynchronizedWithCurrentItem="True" >

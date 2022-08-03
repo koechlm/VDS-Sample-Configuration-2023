@@ -285,6 +285,10 @@
   <UIString ID="MSDCE_TT23">Klicken zum Aktivieren / Löschen über Kontextmenü</UIString>
   <!--VDS Sample ShortCut Pane end-->
 
+  <!--VDS Sample Vault Folder Browser-->
+  <UIString ID="ADSK.VLT.FLD.BRWSR_TT">Vault Ordner Browser zur Auswahl in Baumstruktur ... </UIString>
+  <!--VDS Sample Vault Folder Browser End-->
+
   <!--VDS Sample Multitab Dialogs-->
   <UIString ID="MSDCE_MultiTab_01">Eigenschaften</UIString>
   <!--VDS Sample Multitab Dialogs end-->
