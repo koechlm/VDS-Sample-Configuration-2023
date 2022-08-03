@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     Style="{DynamicResource ThemedWindowStyle}"
-    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="ThreeDBorderWindow">
     <WPF:DSWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,9 +21,8 @@
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                        <Setter Property="Foreground"
-                  Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                        <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />-->
                         <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                     </Trigger>
                     <Trigger Property="IsKeyboardFocusWithin" Value="True">
@@ -33,7 +32,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" Height="20.75" CharacterCasing="{Binding Case}" />
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" CharacterCasing="{Binding Case}" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -51,7 +50,8 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">
+                                    <!--<ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">-->
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}"  BorderThickness="0">
                                         <ComboBoxItem Content="True" />
                                         <ComboBoxItem Content="False" />
                                     </ComboBox>
@@ -74,7 +74,8 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value, StringFormat=N}"
-                                      IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />
+                                        IsEditable="False" BorderThickness="0" />
+                                    <!--IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />-->
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -124,9 +125,6 @@
 
             <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
-                <Setter Property="Height" Value="Auto" />
-                <Setter Property="Margin" Value="0,2,0,0" />
-                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="IsHitTestVisible" Value="False" />
             </Style>
             <Style x:Key="DynamicDataGridBtnCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
@@ -134,60 +132,16 @@
                 <Setter Property="IsHitTestVisible" Value="False" />
                 <Setter Property="Width" Value="Auto"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding Name}" Value="GEN-TITLE-NR">
+                    <DataTrigger Binding="{Binding Name}" Value="MyPropName">
                         <Setter Property="IsHitTestVisible" Value="True" />
                         <Setter Property="Width" Value="Auto"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <Button Content="{Binding DataContext.UIString[], FallbackValue=' . . . ', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                    Command="{Binding DataContext.PsCmd[mInitializeItemSearch -Context Part_Number], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                       CommandParameter="Part Number" 
-                                    ToolTip="{Binding DataContext.UIString[Adsk.QS.ItemSearch_10], FallbackValue='Expand Item Query Builder', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                    Grid.Column="1" Padding="5,1" Background="White" BorderThickness="1" BorderBrush="#FFB4B4B4" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}" Value="GEN-TITLE-DWG">
-                        <Setter Property="IsHitTestVisible" Value="True" />
-                        <Setter Property="Width" Value="Auto"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Button Content="{Binding DataContext.UIString[], FallbackValue=' . . . ', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                    Command="{Binding DataContext.PsCmd[mInitializeItemSearch -Context Part_Number], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                       CommandParameter="Part Number"
-                                    ToolTip="{Binding DataContext.UIString[Adsk.QS.ItemSearch_10], FallbackValue='Expand Item Query Builder', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                    Grid.Column="1" Padding="5,1" Background="White" BorderThickness="1" BorderBrush="#FFB4B4B4" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}" Value="GEN-TITLE-DES1">
-                        <Setter Property="IsHitTestVisible" Value="True" />
-                        <Setter Property="Width" Value="Auto"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Button Content=" . . . " Command="{Binding DataContext.PsCmd[mInitializeTermCatalog], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    ToolTip="{Binding DataContext.UIString[ClassTerms_TT05], FallbackValue='Select from Catalog...', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Grid.Column="1" 
-                                    IsTabStop="False" MinWidth="20" Background="White" BorderThickness="1" BorderBrush="#FFB4B4B4" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                    </Button>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}" Value="Document Code">
-                        <Setter Property="IsHitTestVisible" Value="True" />
-                        <Setter Property="Width" Value="Auto"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Button Content=" . . . " Command="{Binding DataContext.PsCmd[mInitializeIEC61355], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    ToolTip="{Binding DataContext.UIString[Adsk.IEC61355.TT01], FallbackValue='Apply ISO 61355 classification scheme.', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Grid.Column="1" 
-                                    IsTabStop="False" MinWidth="20" Background="White" BorderThickness="1" BorderBrush="#FFB4B4B4" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                    </Button>
+                                    <Button Content="{Binding DataContext.UIString[], FallbackValue=. . ., RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    Command="{Binding DataContext.PsCmd[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Right"
+                                    ToolTip="{Binding DataContext.UIString[], FallbackValue='No ToolTip set', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    Grid.Column="1" Padding="5,1" MinWidth="20"/>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -195,12 +149,6 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Padding" Value="5,3,3,2" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="BorderThickness" Value="1,1,1,0" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
                         <Setter Property="BorderThickness" Value="1" />
@@ -209,19 +157,14 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
-                <Setter Property="Margin" Value="0,0,0,0" />
                 <Setter Property="Height" Value="24" />
-                <Setter Property="Padding" Value="5,3,3,2" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip"
-                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                        <Setter Property="BorderBrush" Value="Red" />
                     </Trigger>
                     <Trigger Property="Validation.HasError" Value="false">
-                        <Setter Property="BorderThickness" Value="0,1,1,0" />
                     </Trigger>
                     <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
@@ -238,24 +181,19 @@
             </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
                 <Setter Property="Height" Value="24" />
-                <Setter Property="Margin" Value="0,0,0,0" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
-                <!--<Setter Property="BorderBrush" Value="#FFABADB3" />
-                <Setter Property="BorderThickness" Value="0,1,1,0" />-->
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
                             Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
+                    <DataTrigger Binding="{Binding ListValues.Count, Converter={StaticResource MoreThanZeroConverter}}" Value="False">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ThemedComboBoxItemStyle}"/>
             <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
                 <Setter Property="Height" Value="25.5" />
-                <!--<Setter Property="BorderThickness" Value="0" />-->
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
@@ -263,27 +201,47 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButtonStyle}" />
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource ThemedCheckBoxStyle}"/>
+            <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}"/>
+            <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource ThemedDataGridStyle}"/>
             <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBoxStyle}"/>
             <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}" />
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource ThemedRadioButtonBaseStyle}"/>
+            <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ThemedScrollViewerStyle}" />
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemedTextBlockStyle}"/>
             <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource ThemedTabControlStyle}"/>
-            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource ThemedBaseControlStyle}" />
-            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" />
+            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" >
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
+                        <Setter Property="BorderBrush" Value="#FFABADB3"/>
+                        <Setter Property="Background" Value="WhiteSmoke" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
+                        <Setter Property="BorderBrush" Value="#FF323A48"/>
+                        <Setter Property="Background" Value="#FF454F61" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
+                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                        <Setter Property="Background" Value="White" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ThemedListBoxItemStyle}"/>
             <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
-            
-
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
             </Style>
             <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
                 <Setter Property="Height" Value="26.0" />
                 <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
-                <!--<Setter Property="BorderBrush" Value="Gray" />
-                <Setter Property="BorderThickness" Value="1" />-->
             </Style>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <Style x:Key="btnScEnabled" TargetType="{x:Type Button}">
+            <Style x:Key="btnScEnabled" TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButtonStyle}">
                 <Setter Property="IsEnabled" Value="True" />
                 <Setter Property="ToolTip" Value="{Binding UIString[MSDCE_TT20]}"/>
                 <Style.Triggers>
@@ -317,6 +275,37 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="ProjectFavorites" TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding EditMode}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CreateMode}" Value="True"/>
+                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
+                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="IDW"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CreateMode}" Value="True"/>
+                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
+                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="DWG"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CreateMode}" Value="True"/>
+                            <Condition Binding="{Binding IsChecked, ElementName=GFN4Special}" Value="False"/>
+                            <Condition Binding="{Binding PathAndFileNameHandler.EXT}" Value="IPN"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="grdShortCutPaneStyle" TargetType="{x:Type Grid}" >
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding EditMode}" Value="True">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -383,14 +372,15 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="-10,4,0,5" BorderThickness="0" Header="Folder" MaxWidth="700"
+        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="0,0,0,5" BorderThickness="0" Header="Folder" MaxWidth="700"
                   Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1">
-            <Grid Margin="4,0,0,0">
+            <Grid Margin="0,3,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnVaultBrowser" Command="{Binding PsCmd[mVaultBrowser]}" Height="24" Width="24" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Button x:Name="btnVaultBrowser" Command="{Binding PsCmd[mVaultBrowser]}" Height="24" Width="24" Margin="0" 
+                        HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="{Binding UIString[ADSK.VLT.FLD.BRWSR_TT], FallbackValue='Open Vault Folder Browser'}" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -399,23 +389,20 @@
                     </Grid>
                 </Button>
                 <WrapPanel x:Name="BreadCrumb"
-                    ItemWidth="Auto" Grid.Column="1" Margin="2,0,0,0" >
+                    ItemWidth="Auto" Grid.Column="1" Margin="5,0,0,0" >
                     <WrapPanel.Resources>
                         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
                             <Setter Property="Margin" Value="-1,0,0,0" />
-                            <Setter Property="ToolTip"
-                                Value="{Binding SelectedValue.Name, RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="ToolTip" Value="{Binding SelectedValue.Name, RelativeSource={RelativeSource Self}}" />
                         </Style>
                     </WrapPanel.Resources>
                 </WrapPanel>
-
             </Grid>
-
         </GroupBox>
         <Grid x:Name="grdGeneralProps"
         	ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="24" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -427,18 +414,17 @@
             </Grid.ColumnDefinitions>
             <Label Content="{Binding UIString[LBL8], FallbackValue=Category}"
         		Grid.Row="0"
-        		Grid.Column="0" Height="Auto" BorderThickness="1" />
+        		Grid.Column="0" />
             <ComboBox x:Name="Categories" Grid.Row="0" Grid.Column="1"
         		DisplayMemberPath="Name"
         		SelectedItem="{Binding DynamicPropertiesCategory}"
         		SelectedValuePath="Name"
         		SelectedValue="{Binding Prop[_Category].Value}"
         		ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
-        		IsEnabled="{Binding CreateMode}" BorderThickness="1"/>
-            <Label
-        		Grid.Column="2"
-        		Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
-        		Visibility="{Binding Visibility, ElementName=NumSchms}" BorderThickness="1,1,1,0" Margin="5,0,0,0" />
+        		IsEnabled="{Binding CreateMode}" />
+            <Label Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
+        		Grid.Column="2"        		
+        		Visibility="{Binding Visibility, ElementName=NumSchms}" Margin="5,0,0,0" />
             <ComboBox x:Name="NumSchms" Grid.Column="3"
         		SelectedIndex="0"
         		DisplayMemberPath="Name"
@@ -446,9 +432,9 @@
         		SelectedValue="{Binding Prop[_NumSchm].Value}"
         		ItemsSource="{Binding PsList[GetNumSchms], Mode=OneTime}"
         		IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
-        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" BorderThickness="1" />
+        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Label Grid.Row="1" Grid.Column="2" Content="{Binding UIString[LBL31], FallbackValue=Number}"
-        		Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" Height="Auto" BorderThickness="1" Margin="5,0,0,0" />
+        		Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" Margin="5,0,0,0" />
             <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="1" Grid.Column="4"
         		Scheme="{Binding SelectedItem, ElementName=NumSchms}"
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
@@ -470,26 +456,31 @@
                         EnableRowVirtualization="False"
                         VerticalAlignment="Top" MaxHeight="350">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding DispName}"
-        						CellStyle="{StaticResource DynamicDataGridLabelStyle}"
-        						Width="*" IsReadOnly="True">
+                                <DataGridTextColumn Binding="{Binding DispName}" 
+                                    CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" IsReadOnly="True">
                                     <DataGridTextColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <TextBlock
-        									Text="{Binding DataContext.UIString[LBL64], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+        									Text="{Binding DataContext.UIString[LBL64], FallbackValue=Name, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold" />
                                         </DataTemplate>
                                     </DataGridTextColumn.HeaderTemplate>
                                 </DataGridTextColumn>
                                 <DataGridTemplateColumn Header="Property Value"
-        						CellStyle="{StaticResource DynamicDataGridCellStyle}" MinWidth="300" Width="2*" >
+        						    CellStyle="{StaticResource DynamicDataGridCellStyle}" MinWidth="300" Width="2*" >
                                     <DataGridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <TextBlock
-        									Text="{Binding DataContext.UIString[LBL65], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+        									Text="{Binding DataContext.UIString[LBL65], FallbackValue=Value , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}" MinWidth="25"  />
+                                <DataGridTemplateColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}" MinWidth="25" >
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding DataContext.UIString[], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -512,7 +503,7 @@
                          Text="{WPF:ValidatedBinding Prop[GEN-TITLE-DWG].Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>
                 <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" BorderThickness="1" />
-                <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" BorderThickness="0,1,1,1" />
+                <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" />
             </Grid>
         </Expander>
         <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" Style="{StaticResource ResourceKey=ButtonGridStyle}"
@@ -535,8 +526,7 @@
             <Button x:Name="btnHelp" Content="{Binding UIString[MSDCE_BTN1], FallbackValue=Help}" 
                     Command="{Binding PsCmd[mHelp(200)]}" ToolTip="F1" Height="24" />
         </Grid>
-        <Expander x:Name="expShortCutPane" Header="" Grid.RowSpan="5" ExpandDirection="Left" IsExpanded="True"
-        	Style="{StaticResource ProjectFavorites}" ToolTip="{Binding UIString[MSDCE_TT24]}">
+        <Grid x:Name="grdShortCutPane" Grid.RowSpan="5" ToolTip="{Binding UIString[MSDCE_TT24]}" Style="{StaticResource grdShortCutPaneStyle}" >
             <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0">
                 <Grid Width="180">
                     <Grid.ColumnDefinitions>
@@ -557,7 +547,7 @@
                         <Image x:Name="btnNewScImg" Style="{StaticResource btnNewScStyle}"/>
                     </Button>
                     <ListBox x:Name="lstBoxShortCuts" Grid.Row="1" MinWidth="180" Margin="0" ItemsSource="{Binding PsVal[mReadShortCuts]}" ToolTip="{Binding UIString[MSDCE_TT23]}"  
-                        MaxWidth="300" Grid.ColumnSpan="2" DisplayMemberPath="Key" SelectedValuePath="Key">
+                        MaxWidth="300" Grid.ColumnSpan="2" DisplayMemberPath="Key" SelectedValuePath="Key" IsSynchronizedWithCurrentItem="True" >
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="{Binding UIString[MSDCE_BTN3], FallbackValue=Activate}" Command="{Binding PsCmd[mRemoveSc]}">
@@ -570,6 +560,6 @@
                     </ListBox>
                 </Grid>
             </GroupBox>
-        </Expander>
+        </Grid>
     </Grid>
 </WPF:DSWindow>
