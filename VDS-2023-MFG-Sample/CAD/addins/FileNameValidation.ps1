@@ -60,6 +60,12 @@ function FileNameCustomValidation
     
     $rootFolder = GetVaultRootFolder
 
+    if($Prop["$($propertyName)"].Value.Length -lt 1 -and $dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	{
+        $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["VAL1"])"
+		return $false
+	}
+
     $fileName = $Prop["_FileName"].Value
     if ($fileName.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ne -1)
     {
