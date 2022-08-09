@@ -18,6 +18,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <!--#region themed styles for CAD dialog standard controls-->
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
@@ -29,6 +30,7 @@
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
                 <Setter Property="Height" Value="24" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="4,0,0,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
@@ -41,7 +43,16 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                        <Setter Property="BorderBrush" Value="Red" />
+                        <Setter Property="BorderThickness" Value="1,1,1,1" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
+                <Setter Property="Height" Value="24"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
@@ -49,67 +60,50 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}">
+            <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ThemedComboBoxItemStyle}"/>
+            <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding CreateMode}" Value="True">
-                        <Setter Property="IsExpanded" Value="False" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsGeneratedFileName}" Value="False">
-                        <Setter Property="IsExpanded" Value="True" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding EditMode}" Value="True">
-                        <Setter Property="IsExpanded" Value="False" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
-                        <Setter Property="Background" Value="#FFE4E5E9"/>
-                        <Setter Property="BorderBrush" Value="#FFBFBBBB"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                        <Setter Property="Background" Value="#FF353E4D"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                        <Setter Property="Background" Value="#d9d9d9"/>
-                    </DataTrigger>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                    </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="NumberingGridStyle" TargetType="{x:Type Grid}">
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButtonStyle}" />
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource ThemedCheckBoxStyle}"/>
+            <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}"/>
+            <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource ThemedDataGridStyle}"/>
+            <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBoxStyle}"/>
+            <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}" />
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource ThemedRadioButtonBaseStyle}"/>
+            <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ThemedScrollViewerStyle}" />
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemedTextBlockStyle}"/>
+            <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource ThemedTabControlStyle}"/>
+            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" >
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
                         Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
-                        <Setter Property="Background" Value="#FFCDCDCD"/>
+                        <Setter Property="BorderBrush" Value="#FFABADB3"/>
+                        <Setter Property="Background" Value="WhiteSmoke" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=CurrentTheme,
                         Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                        <Setter Property="Background" Value="#FF2E3440"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                        <Setter Property="Background" Value="#d9d9d9"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
-                        <Setter Property="Background" Value="#FFCDCDCD"/>
-                        <Setter Property="BorderBrush" Value="#FFBFBBBB"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                        <Setter Property="Background" Value="#FF2E3440"/>
                         <Setter Property="BorderBrush" Value="#FF323A48"/>
+                        <Setter Property="Background" Value="#FF454F61" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
                         Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                        <Setter Property="Background" Value="#D9D9D9"/>
                         <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                        <Setter Property="Background" Value="White" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ThemedListBoxItemStyle}"/>
+            <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
             <Style TargetType="{x:Type Border}" >
                 <Setter Property="BorderThickness" Value="1"/>
                 <Style.Triggers>
@@ -124,6 +118,23 @@
                     <DataTrigger Binding="{Binding Path=CurrentTheme,
                         Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
                         <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion themed styles for CAD dialog standard controls-->        
+            <Style x:Key="NumberingGridStyle" TargetType="{x:Type Grid}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
+                        <Setter Property="Background" Value="#FFCDCDCD"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
+                        <Setter Property="Background" Value="#FF2E3440"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
+                        <Setter Property="Background" Value="#d9d9d9"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

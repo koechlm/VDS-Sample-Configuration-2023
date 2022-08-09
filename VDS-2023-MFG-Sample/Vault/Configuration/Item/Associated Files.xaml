@@ -1,8 +1,10 @@
 ﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                x:Name="MainWindow"
-             xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
-             behaviours:TabTitleBehavior.TabTitle="$UIString[LBL37]">
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            x:Name="MainWindow"
+            xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
+            xmlns:wpfUtilities="clr-namespace:Autodesk.DataManagement.Client.Framework.Forms.Controls.WPF.Utilities;assembly=Autodesk.DataManagement.Client.Framework.Forms"
+            xmlns:winFormTheme="clr-namespace:Autodesk.DataManagement.Client.Framework.Forms.SkinUtils;assembly=Autodesk.DataManagement.Client.Framework.Forms"
+            behaviours:TabTitleBehavior.TabTitle="$UIString[LBL37]">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

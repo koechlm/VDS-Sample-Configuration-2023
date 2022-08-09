@@ -1,10 +1,12 @@
 ﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-             xmlns:WPF="clr-namespace:CreateObject.WPF;assembly=CreateObject"
-             x:Name="MainWindow"
-             behaviours:TabTitleBehavior.TabTitle="$UIString[LBL36]">
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:behaviours="clr-namespace:Common.Wpf;assembly=Common"
+            xmlns:wpfUtilities="clr-namespace:Autodesk.DataManagement.Client.Framework.Forms.Controls.WPF.Utilities;assembly=Autodesk.DataManagement.Client.Framework.Forms"
+            xmlns:winFormTheme="clr-namespace:Autodesk.DataManagement.Client.Framework.Forms.SkinUtils;assembly=Autodesk.DataManagement.Client.Framework.Forms"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+            xmlns:WPF="clr-namespace:CreateObject.WPF;assembly=CreateObject"
+            x:Name="MainWindow"
+            behaviours:TabTitleBehavior.TabTitle="$UIString[LBL36]">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -63,29 +65,113 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
-                <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
-                <Setter Property="IsHitTestVisible" Value="False" />
-            </Style>
-            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
+            <!--#region themed styles for VE datasheet standard controls-->
+            <Style x:Key="DataStandardLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="#ff0000"/>
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="#ff0000" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
-                <Setter Property="IsReadOnly" Value="True"/>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource DataStandardLabelStyle}"/>
+            <Style x:Key="DataStandardTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
                 <Setter Property="Height" Value="24" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="4,0,0,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                         <Setter Property="BorderBrush" Value="Red" />
+                    </Trigger>
+                    <Trigger Property="Validation.HasError" Value="false">
+                    </Trigger>
+                    <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource DataStandardTextBoxStyle}"/>
+            <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DataStandardTextBoxStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                        <Setter Property="BorderBrush" Value="Red" />
+                        <Setter Property="BorderThickness" Value="1,1,1,1" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DataStandardComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
+                <Setter Property="Height" Value="24"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource DataStandardComboBoxStyle}"/>
+            <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ThemedComboBoxItemStyle}"/>
+            <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
+                            Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButtonStyle}" />
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource ThemedCheckBoxStyle}"/>
+            <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}"/>
+            <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource ThemedDataGridStyle}"/>
+            <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBoxStyle}"/>
+            <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}" />
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource ThemedRadioButtonBaseStyle}"/>
+            <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ThemedScrollViewerStyle}" />
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemedTextBlockStyle}"/>
+            <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource ThemedTabControlStyle}"/>
+            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" >
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
+                        <Setter Property="BorderBrush" Value="#FFABADB3"/>
+                        <Setter Property="Background" Value="WhiteSmoke" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
+                        <Setter Property="BorderBrush" Value="#FF323A48"/>
+                        <Setter Property="Background" Value="#FF454F61" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
+                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                        <Setter Property="Background" Value="White" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ThemedListBoxItemStyle}"/>
+            <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
+            <Style TargetType="{x:Type Border}" >
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
+                        <Setter Property="BorderBrush" Value="#FFBFBBBB"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
+                        <Setter Property="BorderBrush" Value="#FF323A48"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
+                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion themed styles for VE datasheet standard controls-->
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="grdMain" Margin="0,5,5,0" MinWidth="650">
