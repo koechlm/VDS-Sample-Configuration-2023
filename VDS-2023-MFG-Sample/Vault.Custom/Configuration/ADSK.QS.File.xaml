@@ -265,7 +265,7 @@
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
             </Style>
-            <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}">
                 <Setter Property="IsExpanded" Value="True" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding CreateMode}" Value="True">
@@ -425,8 +425,8 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Expander x:Name="expFilePath" Grid.ColumnSpan="2" Header="{Binding UIString[LBL6], FallbackValue=File Name}" Grid.Row="2"
-                  Style="{StaticResource ExpanderStyle}" VerticalAlignment="Bottom">
-                        <Grid Background="#FFE5E5E5">
+                            Style="{StaticResource ExpanderStyle}" VerticalAlignment="Bottom">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
@@ -435,15 +435,11 @@
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Column="0"
-            		 Grid.Row="1" BorderThickness="1" />
-                            <TextBox Text="{WPF:ValidatedBinding Prop[_FilePath].Value}" IsReadOnly="True"
-            		IsTabStop="False" Grid.Row="1" Grid.Column="1" BorderThickness="0,1,1,1" />
-                            <Label Content="{Binding UIString[LBL6], FallbackValue=Filename}" Grid.Column="0"
-            		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" />
-                            <TextBox x:Name="FILENAME" Text="{WPF:ValidatedBinding Name}"
-            		IsTabStop="False" Style="{StaticResource Required}"
-            		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" Grid.Column="1" />
+                            <Label Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Column="0" Grid.Row="1" BorderThickness="1" />
+                            <TextBox Text="{WPF:ValidatedBinding Prop[_FilePath].Value}" IsReadOnly="True" IsTabStop="False" Grid.Row="1" Grid.Column="1" />
+                            <Label Content="{Binding UIString[LBL6], FallbackValue=Filename}" Grid.Column="0" Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" />
+                            <TextBox x:Name="FILENAME" Text="{WPF:ValidatedBinding Name}" IsTabStop="False" Style="{StaticResource Required}"
+            		            Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" Grid.Column="1" />
                         </Grid>
                     </Expander>
                     <Grid x:Name="ButtonGrid" Style="{StaticResource ButtonGridStyle}" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,5,2,5">
