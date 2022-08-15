@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     Style="{DynamicResource ThemedWindowStyle}"
-    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="ThreeDBorderWindow">
+    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" >
     <WPF:DSWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -374,7 +374,7 @@
         		SelectedValuePath="Name"
         		SelectedValue="{Binding Prop[_Category].Value}"
         		ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
-        		IsEnabled="{Binding CreateMode}" />
+        		IsEnabled="{Binding CreateMode}" Margin="0,1" />
             <Label Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
         		Grid.Column="2"        		
         		Visibility="{Binding Visibility, ElementName=NumSchms}" Margin="5,0,0,0" />
@@ -385,14 +385,14 @@
         		SelectedValue="{Binding Prop[_NumSchm].Value}"
         		ItemsSource="{Binding PsList[GetNumSchms], Mode=OneTime}"
         		IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
-        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
             <Label Grid.Row="1" Grid.Column="2" Content="{Binding UIString[LBL31], FallbackValue=Number}"
         		Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" Margin="5,0,0,0" />
             <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="1" Grid.Column="4"
         		Scheme="{Binding SelectedItem, ElementName=NumSchms}"
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
         		GeneratedNumberProperty="DocNumber"
-        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
         </Grid>
         <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5,0,0"  
                     MinHeight="80" MaxWidth="700" >
