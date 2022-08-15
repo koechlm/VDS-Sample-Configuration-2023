@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     Style="{DynamicResource ThemedWindowStyle}"
-    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="ThreeDBorderWindow">
+    x:Name="AutoCADWindow" ShowInTaskbar="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" >
     <WPF:DSWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,8 +21,6 @@
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />-->
                         <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                     </Trigger>
                     <Trigger Property="IsKeyboardFocusWithin" Value="True">
@@ -136,6 +134,7 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            <!--#region themed styles for CAD dialog standard controls-->
             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
@@ -147,6 +146,7 @@
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
                 <Setter Property="Height" Value="24" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="4,0,0,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
@@ -160,6 +160,9 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
+                <Setter Property="Height" Value="24" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="4,0,0,0"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
                         <Setter Property="BorderBrush" Value="Red" />
@@ -168,20 +171,19 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
-                <Setter Property="Height" Value="24" />
+                <Setter Property="Height" Value="24"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
                             Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
-                    <DataTrigger Binding="{Binding ListValues.Count, Converter={StaticResource MoreThanZeroConverter}}" Value="False">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ThemedComboBoxItemStyle}"/>
             <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePickerStyle}">
-                <Setter Property="Height" Value="25.5" />
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip"
@@ -221,6 +223,24 @@
             </Style>
             <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ThemedListBoxItemStyle}"/>
             <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
+            <Style TargetType="{x:Type Border}" >
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
+                        <Setter Property="BorderBrush" Value="#FFBFBBBB"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
+                        <Setter Property="BorderBrush" Value="#FF323A48"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=CurrentTheme,
+                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
+                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion themed styles for CAD dialog standard controls-->
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
             </Style>
@@ -374,7 +394,7 @@
         		SelectedValuePath="Name"
         		SelectedValue="{Binding Prop[_Category].Value}"
         		ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
-        		IsEnabled="{Binding CreateMode}" />
+        		IsEnabled="{Binding CreateMode}" Margin="0,1" />
             <Label Content="{Binding UIString[LBL10], FallbackValue=Number Scheme}"
         		Grid.Column="2"        		
         		Visibility="{Binding Visibility, ElementName=NumSchms}" Margin="5,0,0,0" />
@@ -385,16 +405,16 @@
         		SelectedValue="{Binding Prop[_NumSchm].Value}"
         		ItemsSource="{Binding PsList[GetNumSchms], Mode=OneTime}"
         		IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
-        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        		Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
             <Label Grid.Row="1" Grid.Column="2" Content="{Binding UIString[LBL31], FallbackValue=Number}"
         		Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" Margin="5,0,0,0" />
             <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="1" Grid.Column="4"
         		Scheme="{Binding SelectedItem, ElementName=NumSchms}"
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
         		GeneratedNumberProperty="GEN-TITLE-DWG"
-        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
         </Grid>
-        <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5,0,0"  
+        <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="6,5,0,0"  
                     MinHeight="80" MaxWidth="700" >
             <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue='Category Properties'}" >
                 <AdornerDecorator>
