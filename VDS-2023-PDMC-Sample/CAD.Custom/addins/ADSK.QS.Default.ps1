@@ -752,7 +752,7 @@ function mScClick {
 		if ($m_DesignPathNames.Count -eq 1) { $m_DesignPathNames += "." }
 		mActivateBreadCrumbCmbs $m_DesignPathNames
 		$global:expandBreadCrumb = $true
-		$dsWindow.FindName("lstBoxShortCuts").SelectedItem = $null
+		#$dsWindow.FindName("lstBoxShortCuts").SelectedItem = $null
 	}
 	catch {
 		$dsDiag.Trace("mScClick function - error reading selected value")
