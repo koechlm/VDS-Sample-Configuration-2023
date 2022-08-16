@@ -162,7 +162,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="24" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140"/>
@@ -184,7 +184,10 @@
         <TextBox Grid.Column="1" Grid.Row="4" x:Name="Range" VerticalScrollBarVisibility="Auto" MinHeight="150" MaxHeight="150" IsEnabled="True" IsReadOnly="True" 
                  ToolTip="{Binding UIString[ADSK-RSRVNUMBERS_TT32], FallbackValue=CTRL-V to insert @ target}" />
         
-        <RichTextBox Grid.Column="2" Margin="10,0,0,0" Grid.RowSpan="6" Width="170">
+        <RichTextBox Grid.Column="2" Margin="10,0,0,0" Grid.RowSpan="5" Width="170">
+            <RichTextBox.Resources>
+                <Style TargetType="RichTextBox" BasedOn="{StaticResource ThemedBaseControlStyle}" />
+            </RichTextBox.Resources>
             <FlowDocument>
                 <Paragraph>
                     <Run FontWeight="Bold" Text="{Binding UIString[ADSK-RSRVNUMBERS_MSG03], FallbackValue=Instructions...}"/>

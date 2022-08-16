@@ -149,7 +149,6 @@
     <None Include="Vault\addinVault\Menus\Select Folder.ps1" />
     <None Include="Vault\addinVault\Menus\ShowAboutDialog.ps1" />
     <None Include="Vault\addinVault\Menus\ShowLog.ps1" />
-    <None Include="Vault\CustomEntityDefinitions.json" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="CAD.Custom\Configuration\AutoCAD-Vanilla\AutoCAD.xaml">

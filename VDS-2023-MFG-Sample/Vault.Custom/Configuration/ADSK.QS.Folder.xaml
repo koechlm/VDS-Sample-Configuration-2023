@@ -8,7 +8,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         Style="{DynamicResource ThemedWindowStyle}"
-        x:Name="FolderWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        x:Name="FolderWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" d:DesignWidth="900">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,8 +20,6 @@
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />-->
                         <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                     </Trigger>
                     <Trigger Property="IsKeyboardFocusWithin" Value="True">
@@ -40,7 +38,8 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" BorderThickness="0" />
+                                    <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" BorderThickness="0" 
+                                                Width="Auto" HorizontalAlignment="Left" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -207,8 +206,7 @@
                 <Setter Property="Padding" Value="5,0,0,0"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip"
-          Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -262,9 +260,6 @@
                 </Style.Triggers>
             </Style>
             <!--#endregion themed styles for VE dialog standard controls-->
-            <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
-                <Setter Property="Margin" Value="0,15,2,5" />
-            </Style>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
@@ -300,7 +295,7 @@
                             <ColumnDefinition Width="1*" MinWidth="140"/>
                             <ColumnDefinition Width="2*" MinWidth="200" MaxWidth="400"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="label" Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="0" Grid.Column="0" />
+                        <Label x:Name="lblCategory" Content="{Binding UIString[LBL8], FallbackValue=Categories}" Grid.Row="0" Grid.Column="0" />
                         <ComboBox x:Name="Categories" Grid.Row="0" Grid.Column="1"
                             DisplayMemberPath="Name" SelectedItem="{Binding DynamicPropertiesCategory}"
                             SelectedValuePath="Name" SelectedValue="{Binding Prop[_Category].Value}"
@@ -335,7 +330,7 @@
                         <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Column="0" Grid.Row="6" />
                         <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="6" IsReadOnly="True" IsTabStop="False" Margin="0,1" />
                     </Grid>
-                    <Grid x:Name="DSDynCatPropGrid" MinHeight="80" MinWidth="694"
+                    <Grid x:Name="DSDynCatPropGrid" MinHeight="80" 
         			        ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}" Grid.Column="1" Margin="5,0,0,0">
                         <DataGrid x:Name="DSDynamicCategoryProperties" 
         				        AutoGenerateColumns="False"
@@ -343,10 +338,10 @@
         				        ItemsSource="{Binding DynamicProperties}"
         				        ScrollViewer.CanContentScroll="False"
                                 EnableRowVirtualization="False"
-                                VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" >
+                                VerticalAlignment="Top" MaxHeight="350" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}" 
-                                    CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" IsReadOnly="True">
+                                        CellStyle="{StaticResource DynamicDataGridLabelStyle}" MinWidth="140" Width="*" IsReadOnly="True">
                                     <DataGridTextColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -378,10 +373,10 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" VerticalAlignment="Top" Width="{Binding ColumnDefinitions/ActualWidth, ElementName=grdGeneralProps, Mode=OneWay}" />
+                        <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=lblCategory, Mode=OneWay}" />
                         <TextBox x:Name="txtComments" Text="{Binding Prop[_XLTN_COMMENTS].Value}" Height="Auto" TextWrapping="Wrap" MinHeight="62" BorderThickness="1" Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top"/>
                     </Grid>
-                    <Grid x:Name="ButtonGrid" Grid.ColumnSpan="3" Grid.Row="2" Style="{StaticResource ButtonGridStyle}">
+                    <Grid x:Name="ButtonGrid" Grid.ColumnSpan="3" Grid.Row="2" Margin="0,15,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80" />
                             <ColumnDefinition />

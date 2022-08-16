@@ -223,9 +223,6 @@
                 </Style.Triggers>
             </Style>
             <!--#endregion themed styles for CAD dialog standard controls-->
-            <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
-                <Setter Property="Margin" Value="0,15,2,5"/>
-            </Style>
             <Style x:Key="NumSchmCtrlStyle" TargetType="{x:Type WPF:DSNumSchemeCtrl}">
                 <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
             </Style>
@@ -451,7 +448,7 @@
                 <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" IsTabStop="False" />
             </Grid>
         </Expander>
-        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" Style="{StaticResource ResourceKey=ButtonGridStyle}" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" Margin="6,15,2,5">
+        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" Margin="5,15,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />

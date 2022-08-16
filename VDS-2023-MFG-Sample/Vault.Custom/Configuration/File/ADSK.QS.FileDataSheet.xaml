@@ -11,7 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Autodesk.DataManagement.Client.Framework.Forms;component/Controls/WPF/ControlTemplates/MergedResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="DynamicDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
+            <Style x:Key="DynamicDataGridCellReadOnlyStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
                 <Setter Property="Height" Value="24"></Setter>
                 <Style.Triggers>
@@ -26,7 +26,7 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <TextBox Text="{WPF:ValidatedBinding Value}" 
-                                         VerticalContentAlignment="Center" BorderThickness="0" />
+                                         VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -36,7 +36,7 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" IsHitTestVisible="False" IsTabStop="False" 
-                                                Width="Auto" HorizontalAlignment="Left" Margin="5,0,0,0" BorderThickness="0" />
+                                                BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -45,7 +45,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0" Height="25" />
+                                    <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0" Height="25" IsReadOnly="True"/>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -54,7 +54,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" >
                                         <ComboBoxItem Content="True"/>
                                         <ComboBoxItem Content="False"/>
                                     </ComboBox>
@@ -175,9 +175,6 @@
                 </Style.Triggers>
             </Style>
             <!--#endregion themed styles for VE datasheet standard controls-->
-            <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
-                <Setter Property="Margin" Value="0,15,2,5" />
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Margin="5">
@@ -202,18 +199,18 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Label Content="{Binding UIString[LBL8], FallbackValue=Category}" Grid.Column="0" Grid.Row="0" />
-            <TextBox Text="{Binding Prop[_XLTN_CATEGORY NAME].Value}" x:Name="Cat" Grid.Column="1" Grid.Row="0" Margin="0,1" />
+            <TextBox Text="{Binding Prop[_XLTN_CATEGORY NAME].Value}" x:Name="Cat" Grid.Column="1" Grid.Row="0" Margin="0,1" IsReadOnly="True" />
             <Label Content="{Binding UIString[LBL19], FallbackValue=Name}" Grid.Column="0" Grid.Row="1" />
-            <TextBox Text="{Binding Prop[_XLTN_NAME].Value}" Grid.Column="1" Grid.Row="1" Margin="0,1" />
+            <TextBox Text="{Binding Prop[_XLTN_NAME].Value}" Grid.Column="1" Grid.Row="1" Margin="0,1" IsReadOnly="True" />
             <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="3" />
-            <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="3" Margin="0,1" />
+            <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="3" Margin="0,1" IsReadOnly="True" />
             <Label Content="{Binding UIString[LBL33], FallbackValue=Date Created}" Grid.Column="0" Grid.Row="4" />
-            <TextBox Text="{Binding Prop[_XLTN_DATE VERSION CREATED].Value}" Grid.Column="1" Grid.Row="4" Margin="0,1" />
+            <TextBox Text="{Binding Prop[_XLTN_DATE VERSION CREATED].Value}" Grid.Column="1" Grid.Row="4" Margin="0,1" IsReadOnly="True" />
             <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Column="0" Grid.Row="5"  />
-            <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="5" Margin="0,1"  />
+            <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="5" Margin="0,1" IsReadOnly="True"  />
             <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Grid.Row="7" Height="Auto" />
-            <TextBox Grid.Row="7" Text="{Binding Prop[_XLTN_COMMENTS].Value}" x:Name="Comments" Grid.Column="1" VerticalScrollBarVisibility="Auto" MinHeight="50" MaxHeight="60" TextWrapping="Wrap" AcceptsReturn="True" Padding="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" Height="Auto" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Prop[_XLTN_REVISION].Value}" Margin="0,1"/>
+            <TextBox Grid.Row="7" Text="{Binding Prop[_XLTN_COMMENTS].Value}" x:Name="Comments" Grid.Column="1" VerticalScrollBarVisibility="Auto" MinHeight="50" MaxHeight="60" TextWrapping="Wrap" AcceptsReturn="True" Padding="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" Height="Auto" IsReadOnly="True" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Prop[_XLTN_REVISION].Value}" Margin="0,1" IsReadOnly="True"/>
             <Label Content="{Binding UIString[LBL12], FallbackValue=Revision}" Grid.Row="2"/>
             <Border Grid.Row="8" Grid.ColumnSpan="2" Visibility="{Binding IsLoaded, ElementName=image, Mode=OneWay}" Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                 <Image x:Name="image"
@@ -237,7 +234,7 @@
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*" CellStyle="{StaticResource DynamicDataGridCellStyle}" MinWidth="200" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*" CellStyle="{StaticResource DynamicDataGridCellReadOnlyStyle}" MinWidth="200" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL65], FallbackValue=Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
