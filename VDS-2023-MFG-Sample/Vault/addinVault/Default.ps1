@@ -396,7 +396,7 @@ function GetNumSchms
 		}
 		catch [System.Exception]
 		{		
-			#[System.Windows.MessageBox]::Show($error)
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		}
 	}
 }

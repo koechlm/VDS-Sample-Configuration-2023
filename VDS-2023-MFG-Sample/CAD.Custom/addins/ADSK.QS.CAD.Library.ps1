@@ -58,7 +58,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
 		$mWF = $vault.DocumentService.GetRequiredWorkingFolderLocation()
 	}
 	else {
-		[System.Windows.MessageBox]::Show("Copy Project Property Expects Enforced Working Folder & IPJ!" , "Inventor VDS Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Copy Project Property Expects Enforced Working Folder & IPJ!" , "Inventor VDS Client")
 		return
 	}
 		
@@ -89,7 +89,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
 		}	
 	}
 	catch { 
-		[System.Windows.MessageBox]::Show("Failed retreiving the target Vault folder's path of this new file" , "Inventor VDS Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Failed retreiving the target Vault folder's path of this new file" , "Inventor VDS Client")
 	}			
 			
 	If ($mProjectFound -eq $true) {

@@ -640,7 +640,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 			Import-Module powerVault
 		}
 		catch{
-		   [System.Windows.MessageBox]::Show("This feature requires powerVault installed; check for its availability", "Extension Title")
+		   [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("This feature requires powerVault installed; check for its availability", "VDS Sample Configuration")
 		   return
 		}
 
@@ -653,18 +653,15 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 			#check that the item is editable for the current user, if not, we shouldn't add the files, before we try to attach
 			try{
 				$vault.ItemService.EditItems(@($item.RevId))
-				#[System.Windows.MessageBox]::Show("Item is accessible", "Item-File Attachment Import")
 				$_ItemIsEditable = $true
 			}
 			catch {
-				#[System.Windows.MessageBox]::Show("Item is NOT accessible", "Item-File Attachment Import")
 				$_ItemIsEditable = $false
 			}
 			If($_ItemIsEditable)
 			{
 				$vault.ItemService.UndoEditItems(@($item.RevId))
 				$vault.ItemService.DeleteUncommittedItems($true)
-				#[System.Windows.MessageBox]::Show("Item Lock Removed to continue", "Item-File Attachment Import")
 			}
 			
 			[System.Windows.DataObject]$mDragData = $e.Data
@@ -710,7 +707,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 							$mTargetPath = mGetFolderNumber $_newFile 3 #hand over the file number (name) and number of files / folder
 						}
 						catch { 
-							[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
+							[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
 						}
 						#add extension to number
 						$_newFile = $_newFile + $m_Ext
@@ -751,7 +748,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 				$dsWindow.FindName("mImportProgress").Value = (($_n/$_NumFiles)*100)
 				If ($mCADWarning)
 				{
-					[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import")
+					[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import", "OK")
 				}
 			}
 			$mFileList = $null
@@ -959,7 +956,7 @@ function GetNumSchms
 		}
 		catch [System.Exception]
 		{		
-			#[System.Windows.MessageBox]::Show($error)
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		}
 	}
 }
@@ -1176,7 +1173,7 @@ function mHelp ([Int] $mHContext) {
 	}
 	Catch
 	{
-		[System.Windows.MessageBox]::Show("Help Target not found", "Vault VDS-PDMC-Sample Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Help Target not found", "Vault VDS-PDMC-Sample Client")
 	}
 }
 function mResetTemplates

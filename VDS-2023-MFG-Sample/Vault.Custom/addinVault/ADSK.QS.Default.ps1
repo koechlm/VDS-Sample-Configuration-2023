@@ -431,7 +431,7 @@ function GetNumSchms
 		}
 		catch [System.Exception]
 		{		
-			#[System.Windows.MessageBox]::Show($error)
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		}
 	}
 }
@@ -618,7 +618,7 @@ function mHelp ([Int] $mHContext) {
 	}
 	Catch
 	{
-		[System.Windows.MessageBox]::Show("Help Target not found", "VDS MFG Sample Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Help Target not found", "VDS MFG Sample Client")
 	}
 }
 function mResetTemplates

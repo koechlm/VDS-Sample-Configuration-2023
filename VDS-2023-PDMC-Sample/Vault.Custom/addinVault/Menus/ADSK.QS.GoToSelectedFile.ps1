@@ -34,7 +34,7 @@ $srchConds = New-Object autodesk.Connectivity.WebServices.SrchCond[] 1
 $mSearchResult = $vault.DocumentService.FindFilesBySearchConditions($srchConds,$null, $null,$true,$true,[ref]$bookmark,[ref]$searchStatus)
 	If (!$mSearchResult) 
 	{ 
-		[System.Windows.MessageBox]::Show([String]::Format($UIString["ADSK-DocStructure_02"], $mVal, $_ReplacedByFilePropDispName), $UIString["ADSK-GoToSource_MNU00"])
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError([String]::Format($UIString["ADSK-DocStructure_02"], $mVal, $_ReplacedByFilePropDispName), $UIString["ADSK-GoToSource_MNU00"])
 		return
 	}
 

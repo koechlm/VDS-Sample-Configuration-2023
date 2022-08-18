@@ -132,7 +132,6 @@ function InitializeWindow {
 					
 					# Read FDS related internal meta data; required to manage particular workflows
 					If ($_mInvHelpers.m_FDUActive($Application) -ne $false) {
-						#[System.Windows.MessageBox]::Show("Active FDU-AddIn detected","VDS MFG Sample")
 						$_mFdsKeys = $_mInvHelpers.m_GetFdsKeys($Application, @{})
 
 						# some FDS workflows require VDS cancellation; add the conditions to the event handler _Loaded below
@@ -612,7 +611,7 @@ function GetNumSchms {
 		}
 	}
 	catch [System.Exception] {		
-		[System.Windows.MessageBox]::Show($error)
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 	}	
 }
 
@@ -697,7 +696,7 @@ function mHelp ([Int] $mHContext) {
 		$mhelpfile = Invoke-Item $mHelpTarget 
 	}
 	catch {
-		[System.Windows.MessageBox]::Show($UIString["MSDCE_MSG02"], "Vault VDS-Sample Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["MSDCE_MSG02"], "Vault VDS-Sample Client")
 	}
 }
 
@@ -788,7 +787,7 @@ function mAddShortCutByName([STRING] $mScName)
 	}
 	catch #no reason to continue in case of existing name
 	{
-		[System.Windows.MessageBox]::Show($UIString["MSDCE_MSG01"], "VDS MFG Sample Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["MSDCE_MSG01"], "VDS MFG Sample Client")
 		end function
 	}
 

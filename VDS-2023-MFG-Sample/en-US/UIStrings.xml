@@ -289,10 +289,6 @@
   <UIString ID="ADSK.VLT.FLD.BRWSR_TT">Open Vault Folder Browser for Tree Selection... </UIString>
   <!--VDS Sample Vault Folder Browser End-->
 
-  <!--VDS Sample Vault Folder Browser-->
-  <UIString ID="ADSK.VLT.FLD.BRWSR_TT">Open Vault Folder Browser for Tree Selection... </UIString>
-  <!--VDS Sample Vault Folder Browser End-->
-
   <!--VDS Sample Multitab Dialogs-->
   <UIString ID="MSDCE_MultiTab_01">Properties</UIString>
   <!--VDS Sample Multitab Dialogs end-->
