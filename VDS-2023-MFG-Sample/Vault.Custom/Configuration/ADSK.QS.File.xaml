@@ -324,7 +324,7 @@
                       DisplayMemberPath="Name" SelectedItem="{Binding DynamicPropertiesCategory}"
                       SelectedValuePath="Name" SelectedValue="{Binding Prop[_Category].Value}"
                       ItemsSource="{Binding PsList[GetCategories], Mode=OneTime}"
-                      IsEnabled="{Binding CreateMode}" />
+                      IsEnabled="{Binding CreateMode}" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL23], FallbackValue=DocTypes}" Grid.Column="0"
                     Visibility="{Binding Visibility, ElementName=DocTypeCombo}" />
                         <!-- Don't use static xml resource, use viewmodel binding instead. -->
@@ -337,10 +337,10 @@
                       SelectedValuePath="Path"
                       SelectedValue="{Binding TemplatePath, Mode=OneWayToSource}"
                       SelectedIndex="0"
-                      Style="{StaticResource DocTypeStyle}" />
+                      Style="{StaticResource DocTypeStyle}" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL9], FallbackValue=Templates}" Grid.Row="1" Grid.Column="0"
                    Visibility="{Binding Visibility, ElementName=TemplateCB}" />
-                        <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,1">
                             <ComboBox x:Name="TemplateCB" IsSynchronizedWithCurrentItem="True"
                           SelectedItem="{Binding SelectedTemplate}" Style="{StaticResource TemplateCbStyle}" />
                             <TextBlock x:Name="TemplateTB" Text="{Binding UIString[LBL28]}" Margin="1" IsHitTestVisible="False">
@@ -371,23 +371,23 @@
                                 SelectedValue="{Binding Prop[_NumSchm].Value}"
                                 ItemsSource="{Binding PsList[GetNumSchms], Mode=OneTime}"
                                 IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
-                                Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding NotEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL31], FallbackValue=Number}" Grid.Column="0" Grid.Row="4" Height="Auto"
                                 Visibility="{Binding Visibility, ElementName=DSNumSchmsCtrl}" />
                         <WPF:DSNumSchemeCtrl Grid.Column="1" Grid.Row="4" x:Name="DSNumSchmsCtrl"
                                 IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
                                 Scheme="{Binding SelectedItem, ElementName=NumSchms}"
                                 Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                GeneratedNumberProperty="_GeneratedNumber" />
+                                GeneratedNumberProperty="_GeneratedNumber" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="5" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Row="5" Grid.Column="1" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Row="5" Grid.Column="1" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True" Margin="0,1"/>
                         <Label Content="{Binding UIString[LBL33], FallbackValue=Date Created}" Grid.Column="0" Grid.Row="6" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                        <TextBox Text="{Binding Prop[_XLTN_DATE VERSION CREATED].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" Grid.Row="6" Grid.Column="1"  Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Prop[_XLTN_DATE VERSION CREATED].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" Grid.Row="6" Grid.Column="1"  Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True" Margin="0,1"/>
                         <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Column="0" Grid.Row="7" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Row="7" Grid.Column="1" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True" />
+                        <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Row="7" Grid.Column="1" Visibility="{Binding EditMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsReadOnly="True" Margin="0,1" />
                         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Grid.Row="9" Height="Auto" Grid.RowSpan="2" BorderThickness="1" />
                         <TextBox Grid.Row="9" Text="{Binding Prop[_XLTN_COMMENTS].Value}" x:Name="Comments" Grid.Column="1" VerticalScrollBarVisibility="Auto" 
-                                 Height="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" BorderThickness="0,1,1,1" MinHeight="50" MaxHeight="50" />
+                                 Height="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" MinHeight="50" MaxHeight="50" Margin="0,1" />
                     </Grid>
                     <DataGrid x:Name="DSDynamicCategoryProperties" 
         				        AutoGenerateColumns="False"
