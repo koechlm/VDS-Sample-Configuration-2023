@@ -439,16 +439,11 @@
                                     <DataGridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <TextBlock
-        									Text="{Binding DataContext.UIString[LBL65], FallbackValue=Value , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
+        									Text="{Binding DataContext.UIString[LBL65], FallbackValue=Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTemplateColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}" MinWidth="25" >
-                                    <DataGridTemplateColumn.HeaderTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding DataContext.UIString[BTN3], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.HeaderTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>

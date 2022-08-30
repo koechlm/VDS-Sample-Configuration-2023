@@ -395,7 +395,7 @@
         				        ItemsSource="{Binding DynamicProperties}"
         				        ScrollViewer.CanContentScroll="False"
                                 EnableRowVirtualization="False"
-                                VerticalAlignment="Top"  MinHeight="260" MaxHeight="500" Grid.Column="1" Margin="5,0,0,0" >
+                                VerticalAlignment="Top" MinWidth="400" MinHeight="260" MaxHeight="500" Grid.Column="1" Margin="5,0,0,0" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" MinWidth="140" IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>
@@ -414,11 +414,6 @@
                                 </DataGridTemplateColumn.HeaderTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}" >
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding DataContext.UIString[BTN3], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
