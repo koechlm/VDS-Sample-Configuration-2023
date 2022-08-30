@@ -490,19 +490,19 @@
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="GFN4Special" Grid.Column="1" IsEnabled="False" Height="26" VerticalAlignment="Top" Width="26" HorizontalAlignment="Left" Visibility="Collapsed"/>
             <CheckBox x:Name="chkBxIsInvDocuFileType" Grid.Column="1" VerticalAlignment="Top" IsEnabled="False" Width="26" Height="26" Margin="20,0,0,0" HorizontalAlignment="Left" Visibility="Collapsed"/>
-            <Button Command="{Binding CloseWindowCommand, ElementName=InventorWindow}" IsEnabled="{Binding Properties.IsValid}" Grid.Column="2" Margin="0,5,0,5"
+            <Button Command="{Binding CloseWindowCommand, ElementName=InventorWindow}" IsEnabled="{Binding Properties.IsValid}" Grid.Column="2"
 				Width="80" HorizontalAlignment="Right" VerticalAlignment="Center" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding UIString[LBL35]}"
 				Content="{Binding UIString[BTN1], FallbackValue=OK}" Height="24" IsDefault="True"/>
-            <Button Grid.Column="4" Width="80" HorizontalAlignment="Right" Margin="0,5,0,5" Height="24" VerticalAlignment="Center" Command="{Binding CancelWindowCommand, ElementName=InventorWindow}"
+            <Button Grid.Column="4" Width="80" HorizontalAlignment="Right" Height="24" VerticalAlignment="Center" Command="{Binding CancelWindowCommand, ElementName=InventorWindow}"
 				IsCancel="true" Content="{Binding UIString[BTN2], FallbackValue=Cancel}" />
-            <Button Command="{Binding ShowOptionsDialog}" Grid.Column="6" Margin="0,5,0,5"
+            <Button Command="{Binding ShowOptionsDialog}" Grid.Column="6"
             	Width="80" HorizontalAlignment="Right" VerticalAlignment="Center" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding UIString[LBL74]}"
             	Content="{Binding UIString[BTN3], FallbackValue=Options}" Height="24" IsDefault="True"/>
             <Button x:Name="btnHelp" Content="{Binding UIString[MSDCE_BTN1], FallbackValue=Help}" 
                     Command="{Binding PsCmd[mHelp(100)]}" Height="24" ToolTip="F1" />
         </Grid>
         <Grid x:Name="grdShortCutPane" Grid.RowSpan="5" ToolTip="{Binding UIString[MSDCE_TT24]}" Style="{StaticResource grdShortCutPaneStyle}" >
-            <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0">
+            <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0" Padding="0,0,0,-6">
                 <Grid Width="180">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
