@@ -1,6 +1,7 @@
 # VDS-Sample-Configuration-2023
 
 Vault 2023 Data Standard Configuration Samples for Vault Professional (Workgroup)
+Note - Data Standard started to support Vault Light and Dark Themes with Update 1; select the branch 2023.1.Themed to review the latest sources updated for themes support (VDS-MFG-Sample). The latest release delivers all VDS-MFG-Sample files with themes support as a package. 
 
 --- VDS-2022-Manufacturing-Sample - see also Releases section for configuration packages.--- This configuration sample applies to Vaults based on the default "Manufacturing" behavior configuration. It is also tested in the Vault "PDMC-Sample" environment available for Autodesk Channel Partners. It demonstrates a full customized approach for all DataSheets, Tabs and Menu Commands. Additional features like Shortcuts in VDS for CAD, or Tools like "Reserve-Numbers" share insights on how to implement extended functionality or additional tools and command to VDS clients.
 
