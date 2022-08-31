@@ -233,6 +233,21 @@ function InitializeWindow
 					$dsWindow.FindName("CUSTOMOBJECTNAME").IsEnabled = $false
 					$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives from First and Last Name."
 				}
+
+				if($Prop["_Category"].Value -eq "Organisation")
+                {
+                    $dsWindow.FindName("CUSTOMOBJECTNAME").add_LostFocus({
+                        $Prop["Company"].Value = $dsWindow.FindName("CUSTOMOBJECTNAME").Text
+                    })
+
+                   $Prop["Company"].add_PropertyChanged({
+                        $dsWindow.FindName("CUSTOMOBJECTNAME").Text = $Prop["Company"].Value
+                    })
+
+                   $dsWindow.FindName("CUSTOMOBJECTNAME").IsEnabled = $false
+                    $dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives Company."
+                }
+
 			}
 		}
 
@@ -297,7 +312,7 @@ function InitializeWindow
 							$_classes += $Prop["_XLTN_MAINGROUP"].Value
 							If ($Prop["_XLTN_GROUP"].Value.Length -gt 1){
 								$_classes += $Prop["_XLTN_GROUP"].Value
-								If ($Prop["_XLTN_SEGMENT"].Value.Length -gt 1){
+								If ($Prop["_XLTN_SUBGROUP"].Value.Length -gt 1){
 									$_classes += $Prop["_XLTN_SUBGROUP"].Value
 								}
 							}
@@ -935,7 +950,7 @@ function GetNumSchms
 							return $_FilteredNumSchems
 						}
 
-						"CustomObjectTermWindow"
+						"CustomObjectClassifiedWindow"
 						{
 							$_FilteredNumSchems = $numSchems | Where-Object { $_.Name -eq $Prop["_Category"].Value}
 							return $_FilteredNumSchems
