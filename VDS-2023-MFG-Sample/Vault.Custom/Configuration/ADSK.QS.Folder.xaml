@@ -321,14 +321,13 @@
                         <TextBox Text="{Binding Prop[_XLTN_CREATED BY].Value}" Grid.Column="1" Grid.Row="6" IsReadOnly="True" IsTabStop="False" Margin="0,1" />
                     </Grid>
                     <Grid x:Name="DSDynCatPropGrid" MinHeight="80" MinWidth="400"
-        			        ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}" Grid.Column="1" Margin="5,0,0,0">
+        			        ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}" Grid.Column="1" Margin="5,1,0,0">
                         <DataGrid x:Name="DSDynamicCategoryProperties" 
         				        AutoGenerateColumns="False"
         				        HeadersVisibility="Column"
         				        ItemsSource="{Binding DynamicProperties}"
         				        ScrollViewer.CanContentScroll="False"
-                                EnableRowVirtualization="False"
-                                VerticalAlignment="Top" MaxHeight="350" >
+                                EnableRowVirtualization="False" MaxHeight="350" CanUserReorderColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}" 
                                         CellStyle="{StaticResource DynamicDataGridLabelStyle}" MinWidth="140" Width="*" IsReadOnly="True">

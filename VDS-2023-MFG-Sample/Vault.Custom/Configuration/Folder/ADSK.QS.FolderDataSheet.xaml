@@ -215,7 +215,7 @@
 				ItemsSource="{Binding DynamicProperties}" 
 				AutoGenerateColumns="False" 
 				HeadersVisibility="Column"
-				ScrollViewer.CanContentScroll="True" >
+				ScrollViewer.CanContentScroll="True" Margin="0,1,0,0" CanUserReorderColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="1*" MinWidth="100" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>

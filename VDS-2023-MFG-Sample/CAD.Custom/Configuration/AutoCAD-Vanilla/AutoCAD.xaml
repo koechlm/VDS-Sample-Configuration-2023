@@ -421,7 +421,7 @@
         				ItemsSource="{Binding DynamicProperties}"
         				ScrollViewer.CanContentScroll="False"
                         EnableRowVirtualization="False"
-                        VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" >
+                        VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" CanUserReorderColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}" 
                                     CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" IsReadOnly="True">
