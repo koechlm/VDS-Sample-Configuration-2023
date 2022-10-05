@@ -58,8 +58,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <ComboBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0">
-                                        <!--<ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" >-->
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">
                                         <ComboBoxItem Content="True" />
                                         <ComboBoxItem Content="False" />
                                     </ComboBox>
@@ -81,8 +80,7 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value, StringFormat=N}"
-                                        IsEditable="False" BorderThickness="0" />
-                                    <!--IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />-->
+                                    IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

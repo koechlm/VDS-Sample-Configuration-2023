@@ -37,7 +37,7 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <DatePicker SelectedDate="{WPF:ValidatedBinding Value}" SelectedDateFormat="Short" IsHitTestVisible="False" IsTabStop="False" 
-                                                Width="Auto" HorizontalAlignment="Left" Margin="5,0,0,0" BorderThickness="0" />
+                                                Width="Auto" HorizontalAlignment="Left" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
