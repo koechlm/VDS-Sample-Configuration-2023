@@ -58,8 +58,15 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGrdLinks" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Margin="0" Grid.Column="1" AlternatingRowBackground="LightCyan" AlternationCount="1" RowHeight="26" VerticalAlignment="Top" >
+        <DataGrid x:Name="dataGrdLinks" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Margin="0" Grid.Column="1" AlternatingRowBackground="LightCyan" AlternationCount="1" RowHeight="26" VerticalAlignment="Top" SelectionMode="Single" >
             <DataGrid.Columns>
+                <DataGridTemplateColumn Visibility="Collapsed">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding id}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="" MinWidth="25" MaxWidth="25" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -67,7 +74,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
                 <DataGridTextColumn Binding="{Binding name}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>

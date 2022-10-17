@@ -12,6 +12,16 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
 -->
 <mymenu>
   <MenuItem>
+    <!--ADSK create task linked to change order; CO selection context-->
+    <NewCoTask Label = "New Change Order Task" Description ="Create Task linked to ECO" Hint ="New ECO Task"
+                   PSFile ="ADSK.QS.CreateTaskForECO.ps1" Image="Task-add.ico" ToolbarPaintStyle ="TextAndGlyph" MultiSelectEnabled="false"/>
+    <!--ADSK Create ECO linked to project end-->
+
+    <!--ADSK create task linked to change order; CO selection context-->
+    <EditCoTask Label = "Edit ECO-Task" Description ="Edit Task linked to ECO" Hint ="Edit ECO Task"
+                   PSFile ="ADSK.QS.EditTaskForECO.ps1" Image="Task-edit.ico" ToolbarPaintStyle ="TextAndGlyph" MultiSelectEnabled="false"/>
+    <!--ADSK Create ECO linked to project end-->
+
     <!--ADSK Create ECO linked to project, Folder selection context-->
     <NewProjectECO Label = "New Project Change Order" Description ="Create ECO linked to Project" Hint ="New ECO"
                    PSFile ="ADSK.QS.CreateECO.ps1" Image="ECO.ico" ToolbarPaintStyle ="TextAndGlyph" MultiSelectEnabled="false"/>
@@ -194,6 +204,11 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
       <Item Name="NewProjectECO"></Item>
       <Item Name="FileImport"></Item>
     </FolderContex>
+    <ChangeOrderContext Label="ECO-Task" DeployAsPullDown="True" Location="ChangeOrderContextMenu">
+      <Item Name="NewCoTask"></Item>
+      <Item Name="EditCoTask"></Item>
+      <Item Name ="GoToSelectedTask"></Item>
+    </ChangeOrderContext>
     <StandardToolbar Label="myMenu" DeployAsPullDown="False" Location="StandardToolbar">
       <Item Name="NewFile"></Item>
       <Item Name="EditFile"></Item>

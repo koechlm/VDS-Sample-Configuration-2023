@@ -149,10 +149,12 @@
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateECOandAddFiles.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateFile.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateFolder.ps1" />
+    <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateTaskForECO.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditCustomObject.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditCustomObjectClassified.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditFile.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditFolder.ps1" />
+    <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditTaskForECO.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToEcoFromTask.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToFolderFromEco.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToInvSibling.ps1" />

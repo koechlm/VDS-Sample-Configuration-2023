@@ -13,6 +13,7 @@
 Add-Type @'
 public class mAssocCustent
 {
+	public string id;
 	public string icon;
 	public string name;
 	public string title;
@@ -41,6 +42,9 @@ function mGetAssocCustents($mIds)
 		$mCustEntProps = $vault.PropertyService.GetProperties("CUSTENT",@($_.Id),$propDefIds)
 		$mAssocCustEnt = New-Object mAssocCustent
 		
+		#set id
+		$mAssocCustent.id = $_.Id
+
 		#set custom icon
 		$iconLocation = $([System.IO.Path]::GetDirectoryName($VaultContext.UserControl.XamlFile))
 		$mIconpath = [System.IO.Path]::Combine($iconLocation,"Icons\task.ico")
@@ -92,6 +96,6 @@ function mTaskClick()
     $mOutFile = "mECOTabClick.txt"
 	foreach($mItem in $mSelItem)
 	{
-		$mItem.Name | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\$($mOutFile)"
+		$mItem.Id | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\$($mOutFile)"
 	}
 }
