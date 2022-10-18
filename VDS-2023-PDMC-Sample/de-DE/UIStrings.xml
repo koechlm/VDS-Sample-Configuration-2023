@@ -566,7 +566,7 @@
   <UIString ID="ADSK-LnkdTask-03">Datum Ende</UIString>
   <UIString ID="ADSK-LnkdTask-04">Verantwortlich</UIString>
   <UIString ID="ADSK-LnkdTask-05">Priorität</UIString>
-  <UIString ID="ADSK-LnkdTask-06">Notizen/Detailinformationen. Wählen Sie eine Aufgabe zur Anzeige:</UIString>
+  <UIString ID="ADSK-LnkdTask-06">Notizen/Detailinformationen (Wählen Sie eine Aufgabe zur Anzeige ihrer Kommentare):</UIString>
   <!--Claims Management Extension End-->
   
   <!--Revision Property Tab start-->

@@ -18,7 +18,7 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
     <!--ADSK Create ECO linked to project end-->
 
     <!--ADSK create task linked to change order; CO selection context-->
-    <EditCoTask Label = "Edit ECO-Task" Description ="Edit Task linked to ECO" Hint ="Edit ECO Task"
+    <EditCoTask Label = "Edit Selected Task" Description ="Edit Task linked to ECO" Hint ="Edit ECO Task"
                    PSFile ="ADSK.QS.EditTaskForECO.ps1" Image="Task-edit.ico" ToolbarPaintStyle ="TextAndGlyph" MultiSelectEnabled="false"/>
     <!--ADSK Create ECO linked to project end-->
 
@@ -263,9 +263,8 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
       <Item Name="newSubGroupObject"></Item>
       <Item Name="editSubGroupObject"></Item>
     </CustomObject>
-    <ChangeOrder Label="Go To Linked Task" DeployAsPullDown="False" Location="ChangeOrderContextMenu">
+    <ChangeOrder Label="Go To Parent Fldr" DeployAsPullDown="False" Location="ChangeOrderContextMenu">
       <Item Name ="GoToEcoParentFldr"></Item>
-      <Item Name ="GoToSelectedTask"></Item>
     </ChangeOrder>
   </CommandSite>
 

@@ -20,7 +20,7 @@ public class mAssocCustent
 	public string description;
 	public string owner;
 	public string datestart;
-	public string status;
+	public string state;
 	public string priority;
 	public string dateend;
 	public string comments;
@@ -55,7 +55,7 @@ function mGetAssocCustents($mIds)
 		$exists = Test-Path $mIconPath
 		$mAssocCustEnt.icon = $mIconPath
 		
-		#set system properties name, title, description
+		#set system properties name, title, description, state
 		$mAssocCustEnt.name = $mCustEnt.Name
 		$mtitledef = $PropDefs | Where-Object { $_.SysName -eq "Title"}
 		$mtitleprop = $mCustEntProps | Where-Object { $_.PropDefId -eq $mtitledef.Id}
@@ -63,6 +63,9 @@ function mGetAssocCustents($mIds)
 		$mdescriptiondef = $PropDefs | Where-Object { $_.SysName -eq "Description"}
 		$mdescriptionprop = $mCustEntProps | Where-Object { $_.PropDefId -eq $mdescriptiondef.Id}
 		$mAssocCustEnt.description = $mdescriptionprop.Val
+		$mdescriptiondef = $PropDefs | Where-Object { $_.SysName -eq "State"}
+		$mdescriptionprop = $mCustEntProps | Where-Object { $_.PropDefId -eq $mdescriptiondef.Id}
+		$mAssocCustEnt.state = $mdescriptionprop.Val
 		
 		#set user def properties
 		$mUdpDef = $PropDefs | Where-Object { $_.DispName -eq $UIString["ADSK-LnkdTask-02"]} #date start
