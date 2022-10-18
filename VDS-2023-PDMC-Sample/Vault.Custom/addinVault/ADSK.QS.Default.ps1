@@ -540,19 +540,6 @@ function OnTabContextChanged
 	if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ChangeOrder" -and $xamlFile -eq "ADSK.QS.TaskLinks.xaml")
 	{
 		$mCoId = $VaultContext.SelectedObject.Id
-		
-		#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
-		$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
-		if (! (Test-Path $mVdsUtilities)) {
-			#the basic utility installation only
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
-		}
-		Else {
-			#the extended utility activation
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
-		}
-
-		$_mVltHelpers = New-Object VdsSampleUtilities.VltHelpers
 
 		#to get links of COs to CUSTENT we need to analyse the CUSTENTS for linked children of type CO
 		#get all CUSTENTS of category $_CoName first, then iterate the result and analyse each items links: do they link to the current CO id?
@@ -561,10 +548,10 @@ function OnTabContextChanged
 		$_LinkedCustentIDs = @()
 		Foreach ($_Custent in $_allCustents)
 		{
-			$_AllLinks1 = $_mVltHelpers.mGetLinkedChildren1($vaultConnection, $_Custent.Id, "CUSTENT", "CO")
+			$_AllLinks1 = $vault.DocumentService.GetLinksByParentIds(@($_Custent.Id),@("CO"))
 			If($_AllLinks1) #the current custent has links; check that the current ECO is one of these link's target
 			{
-				$_match = $_AllLinks1 | Where { $_ -eq $mCoId }
+				$_match = $_AllLinks1 | Where { $_.ToEntId -eq $mCoId }
 				If($_match){ $_LinkedCustentIDs += $_Custent.Id}
 			}		
 		}

@@ -31,19 +31,23 @@ function mGetAssocCustents($mIds)
 {
 	#$dsDiag.Trace(">> Starting mGetAssocCustents($mIds)")
 	$mCustEntities = $vault.CustomEntityService.GetCustomEntitiesByIds($mIds)
-	$PropDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId("CUSTENT")
+	If(-not $Global:CustentPropDefs) { $Global:CustentPropDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId("CUSTENT")}
+	$PropDefs = $Global:CustentPropDefs
 	$propDefIds = @()
 	$PropDefs | ForEach-Object {
 		$propDefIds += $_.Id
 	}
 	$mAssocCustents = @()
 	
-	$mCustEntities | ForEach-Object { 
-		$mCustEntProps = $vault.PropertyService.GetProperties("CUSTENT",@($_.Id),$propDefIds)
+	$mAllCustEntProps = $vault.PropertyService.GetProperties("CUSTENT",$mIds,$propDefIds)
+	
+	Foreach($mCustEnt in $mCustEntities)
+	{ 
 		$mAssocCustEnt = New-Object mAssocCustent
-		
+
+		$mCustEntProps = $mAllCustEntProps | Where-Object {$_.EntityId -eq $mCustEnt.Id}
 		#set id
-		$mAssocCustent.id = $_.Id
+		$mAssocCustent.id = $mCustEnt.Id
 
 		#set custom icon
 		$iconLocation = $([System.IO.Path]::GetDirectoryName($VaultContext.UserControl.XamlFile))
@@ -52,7 +56,7 @@ function mGetAssocCustents($mIds)
 		$mAssocCustEnt.icon = $mIconPath
 		
 		#set system properties name, title, description
-		$mAssocCustEnt.name = $_.Name
+		$mAssocCustEnt.name = $mCustEnt.Name
 		$mtitledef = $PropDefs | Where-Object { $_.SysName -eq "Title"}
 		$mtitleprop = $mCustEntProps | Where-Object { $_.PropDefId -eq $mtitledef.Id}
 		$mAssocCustEnt.title = $mtitleprop.Val
@@ -86,16 +90,14 @@ function mGetAssocCustents($mIds)
 		#add the filled entity
 		$mAssocCustents += $mAssocCustEnt
 	}
+
 	return $mAssocCustents
 
 }
 
 function mTaskClick()
 {
-	$mSelItem = $dsWindow.FindName("dataGrdLinks").SelectedItem
+	$mSelectedItem = $dsWindow.FindName("dataGrdLinks").SelectedItem
     $mOutFile = "mECOTabClick.txt"
-	foreach($mItem in $mSelItem)
-	{
-		$mItem.Id | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\$($mOutFile)"
-	}
+	$mSelectedItem.Id | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\$($mOutFile)"
 }

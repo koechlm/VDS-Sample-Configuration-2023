@@ -383,6 +383,10 @@
     <DynamicProperty>Ident Number</DynamicProperty>
     <DynamicProperty>Date Start</DynamicProperty>
     <DynamicProperty>Date End</DynamicProperty>
+    <DynamicProperty>Owner</DynamicProperty>
+    <DynamicProperty>Priority</DynamicProperty>
+    <DynamicProperty>Sub-Type</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Drawing Inventor" Type="FILE">
     <DynamicProperty>Title</DynamicProperty>
