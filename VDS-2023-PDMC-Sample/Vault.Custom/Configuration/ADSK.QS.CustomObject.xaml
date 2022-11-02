@@ -79,11 +79,25 @@
                         <Setter.Value>
                             <ControlTemplate>
                                 <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0" 
-                                CharacterCasing="{Binding Case}" IsReadOnly="True" Background="WhiteSmoke" ToolTip="{Binding DataContext.UIString[Adsk.Org.Pers.Link_08], FallbackValue='Click ... to activate selection from list.'}"/>
+                                CharacterCasing="{Binding Case}" Background="WhiteSmoke" ToolTip="{Binding DataContext.UIString[Adsk.Org.Pers.Link_08], FallbackValue='Click ... to activate selection from list.'}"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </DataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Prop[_Category].Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Value="Organisation"/>
+                        <Condition Binding="{Binding DispName}" Value="Company"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBox Text="{WPF:ValidatedBinding Value, StringFormat=N}" BorderThickness="0" 
+                                CharacterCasing="{Binding Case}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="DynamicDataGridLabelStyle" TargetType="{x:Type DataGridCell}">
@@ -101,7 +115,7 @@
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
                         <Condition Binding="{Binding DataContext.CreateMode, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Value="True"/>
-                        <Condition Binding="{Binding DispName}" Value="Company"/>
+                        <Condition Binding="{Binding DispName}" Value="Organisation"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="IsHitTestVisible" Value="True" />
                     <Setter Property="Width" Value="Auto"/>
@@ -110,8 +124,26 @@
                             <ControlTemplate>
                                 <Button Content="{Binding DataContext.UIString[], FallbackValue=. . ., RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                     Command="{Binding DataContext.PsCmd[mExpOrgPersLnk], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Right"
-                                    ToolTip="{Binding DataContext.UIString[Adsk.Org.Pers.Link_07], FallbackValue='Select Organisation', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                    Grid.Column="1" Padding="5,1" Background="White" BorderThickness="0" MinWidth="20"/>
+                                    ToolTip="{Binding DataContext.UIString[Adsk.Org.Pers.Link_07], FallbackValue='Select from list...', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    Grid.Column="1" Padding="5,1" BorderThickness="0" MinWidth="20"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <!--<Condition Binding="{Binding DataContext.CreateMode, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Value="True"/>-->
+                        <Condition Binding="{Binding DispName}" Value="Owner"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsHitTestVisible" Value="True" />
+                    <Setter Property="Width" Value="Auto"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Button Content="{Binding DataContext.UIString[], FallbackValue=. . ., RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    Command="{Binding DataContext.PsCmd[mExpOrgPersLnk], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Right"
+                                    ToolTip="{Binding DataContext.UIString[Adsk.Org.Pers.Link_09], FallbackValue='Select from list...', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                    Grid.Column="1" Padding="5,1" BorderThickness="0" MinWidth="20"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -206,7 +238,7 @@
     <WPF:MainWindow.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PsCmd[mHelp(700)]}"/>
     </WPF:MainWindow.InputBindings>
-    <TabControl Background="#FFE5E5E5" MaxWidth="1200">
+    <TabControl Background="#FFE5E5E5">
         <TabItem x:Name="tabProperties" Header="{Binding UIString[MSDCE_MultiTab_01], FallbackValue=Properties}">
             <AdornerDecorator>
                 <Grid x:Name="grdMain">
@@ -340,7 +372,7 @@
                         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" BorderThickness="1,1,0,1" VerticalAlignment="Top"/>
                         <TextBox x:Name="txtComments" Text="{Binding Prop[_XLTN_COMMENTS].Value}" Height="Auto" TextWrapping="Wrap" MinHeight="62" BorderThickness="1" Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MaxHeight="102" VerticalContentAlignment="Top"/>
                     </Grid>
-                    <Expander x:Name="expOrgPersLnk" Grid.Column="2" ExpandDirection="Right" IsExpanded="True" Visibility="Collapsed" BorderThickness="0,1,1,1" MaxWidth="380" Grid.RowSpan="2">
+                    <Expander x:Name="expOrgPersLnk" Grid.Column="2" ExpandDirection="Right" IsExpanded="True" Visibility="Collapsed" BorderThickness="0,1,1,1" MaxWidth="380">
                         <Grid x:Name="grdOrgPersLnk">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
@@ -355,7 +387,10 @@
                             </Grid.RowDefinitions>
                             <Label x:Name="lblOrganisation" Content="{Binding UIString[MSDCE_CO01], FallbackValue=Organisation}" Visibility="{Binding Visibility, ElementName=cmbOrganisation}" Grid.Row="1"/>
                             <ComboBox x:Name="cmbOrganisation" Grid.Column="1" MinWidth="200"
-                            DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Prop[Company].Value}" Grid.Row="1" />
+                                DisplayMemberPath="Name" SelectedValuePath="Name" Grid.Row="1" />
+                            <Label x:Name="lblPerson" Content="{Binding UIString[Adsk.Org.Pers.Link_00], FallbackValue=Person}" Visibility="{Binding Visibility, ElementName=cmbPerson}" Grid.Row="2"/>
+                            <ComboBox x:Name="cmbPerson" Grid.Row="2" Grid.Column="1" 
+                                DisplayMemberPath="Name" SelectedValuePath="Name" />
                             <Grid x:Name="grdButtons" Grid.Row="4" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -364,9 +399,9 @@
                             </Grid>
                             <Label x:Name="lblCreateLnks" Content="{Binding UIString[Adsk.Org.Pers.Link_03], FallbackValue=Create Link(s)}" Height="Auto" Grid.Row="3" BorderThickness="1"/>
                             <Border Grid.Column="1" Grid.Row="3" BorderThickness="0,1,1,1" BorderBrush="#FFABADB3">
-                                <CheckBox x:Name="chkBoxCreateLnks" Height="15" Width="16" />
+                                <CheckBox x:Name="chkBoxCreateLnks" Height="15" Width="16"/>
                             </Border>
-                            <TextBox Grid.ColumnSpan="2" Height="Auto" TextWrapping="Wrap" Text="{Binding UIString[Adsk.Org.Pers.Link_07], FallbackValue='Assign Person to Organisation'}" HorizontalContentAlignment="Center" IsUndoEnabled="False"/>
+                            <TextBox Grid.ColumnSpan="2" Height="Auto" TextWrapping="Wrap" Text="{Binding UIString[Adsk.Org.Pers.Link_05], FallbackValue='Select Customer from Organisations'}" HorizontalContentAlignment="Center" IsUndoEnabled="False"/>
                         </Grid>
                     </Expander>
                 </Grid>

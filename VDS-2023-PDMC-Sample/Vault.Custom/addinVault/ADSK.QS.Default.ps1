@@ -85,9 +85,6 @@ function ValidateCustomObjectName
 		{
 			return ValidateCustentName;
 		}
-		$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Custom Object name must not be empty."
-		$dsWindow.FindName("CUSTOMOBJECTNAME").BorderBrush = "Red"
-		$dsWindow.FindName("CUSTOMOBJECTNAME").BackGround = "#FFFFFFFF"
 		return $false;
 	}
 	else{
@@ -245,7 +242,7 @@ function InitializeWindow
                     })
 
                    $dsWindow.FindName("CUSTOMOBJECTNAME").IsEnabled = $false
-                    $dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives Company."
+                   $dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives from Company."
                 }
 
 			}

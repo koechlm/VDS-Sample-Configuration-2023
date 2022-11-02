@@ -52,6 +52,7 @@
 
   <!--VDS-PDMC-Sample Extension Organisation-Person-Link start-->
   <PropertyTranslation Name ="ORGANISATION">Organisation</PropertyTranslation>
+  <PropertyTranslation Name="COMPANY">Firma</PropertyTranslation>
   <!--VDS-PDMC-Sample Extensions end-->
 
   <!--VDS-PDMC-Sample Extension Classification start-->
