@@ -326,6 +326,7 @@
     <DynamicProperty>Email Recipient</DynamicProperty>
     <DynamicProperty>Company</DynamicProperty>
     <DynamicProperty>Ident Number</DynamicProperty>
+    <DynamicProperty>Organisation</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Project" Type="Folder">
     <DynamicProperty>Title</DynamicProperty>
