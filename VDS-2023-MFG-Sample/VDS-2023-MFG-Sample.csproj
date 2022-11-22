@@ -117,7 +117,6 @@
     <None Include="CAD\addins\breadCrumb.ps1" />
     <None Include="CAD\addins\Default.ps1" />
     <None Include="CAD\addins\FileNameValidation.ps1" />
-    <None Include="CAD\Configuration\AutoCAD-Vanilla.cfg" />
     <None Include="CAD\Configuration\AutoCAD.cfg" />
     <None Include="CAD\Configuration\Inventor.cfg" />
     <None Include="Properties\Settings.settings">
@@ -180,10 +179,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CAD.Custom\Configuration\TubeAndPipe.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CAD\Configuration\AutoCAD-Vanilla.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -58,7 +58,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <ComboBox Text="{WPF:ValidatedBinding Value}" IsEditable="True" BorderThickness="0">
+                                    <ComboBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0" IsEditable="True">
                                         <ComboBoxItem Content="True" />
                                         <ComboBoxItem Content="False" />
                                     </ComboBox>
@@ -75,12 +75,22 @@
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding Typ}" Value="Int32">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{WPF:ValidatedBinding Value}" BorderThickness="0"
+                                         Height="25" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding ListValues.Count, Converter={StaticResource MoreThanZeroConverter}}" Value="True">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
                                     <ComboBox ItemsSource="{Binding ListValues}" Text="{WPF:ValidatedBinding Value, StringFormat=N}"
-                                    IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />
+                                     IsEditable="{Binding EnforceListValues, Converter={StaticResource BoolConvert}}" BorderThickness="0" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -126,14 +136,6 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="Required" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBoxStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
-                        <Setter Property="BorderBrush" Value="Red" />
-                        <Setter Property="BorderThickness" Value="1,1,1,1" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ThemedComboBoxStyle}">
                 <Setter Property="Height" Value="24"/>
                 <Style.Triggers>
@@ -166,44 +168,10 @@
             <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ThemedScrollViewerStyle}" />
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemedTextBlockStyle}"/>
             <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource ThemedTabControlStyle}"/>
-            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" >
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
-                        <Setter Property="BorderBrush" Value="#FFABADB3"/>
-                        <Setter Property="Background" Value="WhiteSmoke" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                        <Setter Property="BorderBrush" Value="#FF323A48"/>
-                        <Setter Property="Background" Value="#FF454F61" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme, 
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
-                        <Setter Property="Background" Value="White" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource ThemedListBoxStyle }" />
             <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ThemedListBoxItemStyle}"/>
             <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource ThemedBaseControlStyle}"/>
-            <Style TargetType="{x:Type Border}" >
-                <Setter Property="BorderThickness" Value="1"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Default}">
-                        <Setter Property="BorderBrush" Value="#FFBFBBBB"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                        <Setter Property="BorderBrush" Value="#FF323A48"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=CurrentTheme,
-                        Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource ThemedBorderStyle}"/>
             <!--#endregion themed styles for CAD dialog standard controls-->
             <Style x:Key="ButtonGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="0,15,2,5" />
@@ -296,6 +264,7 @@
                 HeadersVisibility="Column"
                 ItemsSource="{Binding DynamicProperties}"
                 ScrollViewer.CanContentScroll="False"
+                IsReadOnly="True"
                 EnableRowVirtualization="False"
                 MaxHeight="350" VerticalAlignment="Top">
                 <DataGrid.Columns>
