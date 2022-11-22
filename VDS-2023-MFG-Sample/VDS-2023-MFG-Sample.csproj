@@ -111,7 +111,6 @@
     <None Include="CAD.Custom\addins\ADSK.QS.CAD.Library.ps1" />
     <None Include="CAD.Custom\addins\ADSK.QS.Default.ps1" />
     <None Include="CAD.Custom\addins\ADSK.QS.FileNameValidation.ps1" />
-    <None Include="CAD.Custom\Configuration\AutoCAD-Vanilla\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\Inventor.cfg" />
     <None Include="CAD\addins\breadCrumb.ps1" />
@@ -150,10 +149,6 @@
     <None Include="Vault\addinVault\Menus\ShowLog.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CAD.Custom\Configuration\AutoCAD-Vanilla\AutoCAD.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="CAD.Custom\Configuration\AutoCAD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

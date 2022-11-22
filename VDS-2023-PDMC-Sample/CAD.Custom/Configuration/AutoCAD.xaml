@@ -404,7 +404,7 @@
             <WPF:DSNumSchemeCtrl x:Name="DSNumSchmsCtrl" Grid.Row="1" Grid.Column="4"
         		Scheme="{Binding SelectedItem, ElementName=NumSchms}"
         		IsEnabled="{Binding IsEnabled, ElementName=NumSchms}"
-        		GeneratedNumberProperty="GEN-TITLE-DWG"
+        		GeneratedNumberProperty="DocNumber"
         		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}"
         		Style="{StaticResource NumSchmCtrlStyle}" BorderThickness="0,1,1,1" BorderBrush="#FFABADB3" />
         </Grid>
@@ -637,7 +637,7 @@
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
                 <TextBox x:Name="FILENAME" Grid.Column="1" 	Style="{StaticResource Required}"
-                         Text="{WPF:ValidatedBinding Prop[GEN-TITLE-DWG].Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
+                         Text="{WPF:ValidatedBinding Prop[DocNumber].Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>
                 <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" BorderThickness="1" />
                 <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" BorderThickness="0,1,1,1" />
