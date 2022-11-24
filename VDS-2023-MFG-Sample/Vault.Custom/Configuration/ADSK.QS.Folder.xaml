@@ -237,9 +237,8 @@
                             GeneratedNumberProperty="_GeneratedNumber" Grid.Row="2" Grid.Column="1" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL19], FallbackValue=Name}" Grid.Column="0" Grid.Row="3"
                                 Visibility="{Binding Visibility, ElementName=FOLDERNAME}" />
-                        <TextBox Text="{WPF:ValidatedBinding Name}" x:Name="FOLDERNAME" 
+                        <TextBox Text="{WPF:ValidatedBinding Prop[_FolderName].Value}" x:Name="FOLDERNAME" 
                                 IsReadOnly="{Binding EditMode}"
-                                Style="{StaticResource Required}"
                                 Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" 
                                 Grid.Column="1" Grid.Row="3" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="4" />

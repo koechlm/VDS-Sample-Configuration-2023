@@ -260,29 +260,13 @@
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}" BasedOn="{StaticResource ThemedExpanderStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding CreateMode}" Value="True">
-                        <Setter Property="IsExpanded" Value="False" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding HasItems, ElementName=NumSchms}" Value="False">
-                        <Setter Property="IsExpanded" Value="True" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding NumSchmFieldsEmpty, ElementName=DSNumSchmsCtrl}" Value="True">
-                        <Setter Property="IsExpanded" Value="True" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding EditMode}" Value="True">
-                        <Setter Property="IsExpanded" Value="False" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </WPF:DSWindow.Resources>
     <WPF:DSWindow.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PsCmd[mHelp(200)]}"/>
     </WPF:DSWindow.InputBindings>
     <Grid x:Name="grdMain"
-          Margin="5">
+          Margin="5,5,5,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" ToolTip="Folder / Project" />
             <RowDefinition Height="Auto" ToolTip="{Binding UIString[LBL73], FallbackValue='General Properties'}" />
@@ -296,7 +280,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="0,0,0,5" BorderThickness="0" Header="{Binding UIString[LBL1], FallbackValue=Folder}" MaxWidth="700"
+        <GroupBox x:Name="GroupFolder" Grid.ColumnSpan="2" Margin="-7,0,0,5" BorderThickness="0" Header="{Binding UIString[LBL1], FallbackValue=Folder}" MaxWidth="700"
                   Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1">
             <Grid Margin="0,3,0,0">
                 <Grid.ColumnDefinitions>
@@ -324,7 +308,7 @@
             </Grid>
         </GroupBox>
         <Grid x:Name="grdGeneralProps"
-        	ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
+        	ToolTip="{Binding UIString[LBL73], FallbackValue=General Properties}" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="0,10,3,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -365,7 +349,7 @@
         		GeneratedNumberProperty="DocNumber"
         		Visibility="{Binding CreateMode, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1" />
         </Grid>
-        <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="6,5,0,0"  
+        <TabControl x:Name="tabCtrlMain" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0"  
                     MinHeight="80" MaxWidth="700" >
             <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue='Category Properties'}" >
                 <AdornerDecorator>
@@ -406,26 +390,23 @@
                 </AdornerDecorator>
             </TabItem>
         </TabControl>
-        <Expander x:Name="expFilePath" Header="{Binding UIString[LBL6]}" Grid.ColumnSpan="2"
-			ToolTip="{Binding UIString[MSDCE_TT05]}" Style="{StaticResource ExpanderStyle}" Grid.Row="3" Grid.Column="1" Margin="6,10,0,0">
-            <Grid x:Name="grdFilePath" Margin="0" ToolTip="{Binding UIString[MSDCE_TT05]}" VerticalAlignment="Top">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
-                <TextBox x:Name="FILENAME" Grid.Column="1" 	Style="{StaticResource Required}"
-                        Text="{WPF:ValidatedBinding Prop[DocNumber].Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
-            		    Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>
-                <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" />
-                <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" />
-            </Grid>
-        </Expander>
-        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" Margin="5,15,0,0">
+        <Grid x:Name="grdFilePath" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" ToolTip="{Binding UIString[MSDCE_TT05]}" Margin="0,5,0,0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
+            <TextBox x:Name="FILENAME" Grid.Column="1" 	
+                    Text="{WPF:ValidatedBinding Prop[DocNumber].Value}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
+            		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}" IsTabStop="False"/>
+            <Label x:Name="lblPath" Content="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="1" ToolTip="{Binding PathAndFileNameHandler.Path}" />
+            <TextBox x:Name="txtPath" VerticalAlignment="Stretch" Text="{Binding PathAndFileNameHandler.Path}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding PathAndFileNameHandler.Path}" IsReadOnly="True" IsEnabled="False" IsTabStop="False" />
+        </Grid>
+        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" Margin="0,15,3,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />
@@ -451,7 +432,7 @@
                     Command="{Binding PsCmd[mHelp(200)]}" ToolTip="F1" Height="24" />
         </Grid>
         <Grid x:Name="grdShortCutPane" Grid.RowSpan="5" ToolTip="{Binding UIString[MSDCE_TT24]}" Style="{StaticResource grdShortCutPaneStyle}" >
-            <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0" Padding="0,0,0,-6">
+            <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0" Padding="0,0,0,-6" Margin="-5,0,10,0">
                 <Grid Width="180">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -471,7 +452,7 @@
                         <Image x:Name="btnNewScImg" Style="{StaticResource btnScImage}"/>
                     </Button>
                     <ListBox x:Name="lstBoxShortCuts" Grid.Row="1" MinWidth="180" Margin="0" ItemsSource="{Binding PsVal[mReadShortCuts]}" ToolTip="{Binding UIString[MSDCE_TT23]}"  
-                        MaxWidth="300" Grid.ColumnSpan="2" DisplayMemberPath="Key" SelectedValuePath="Key" IsSynchronizedWithCurrentItem="True" >
+                        MaxWidth="300" Grid.ColumnSpan="2" DisplayMemberPath="Key" SelectedValuePath="Key" IsSynchronizedWithCurrentItem="False" >
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="{Binding UIString[MSDCE_BTN3], FallbackValue=Activate}" Command="{Binding PsCmd[mRemoveSc]}">

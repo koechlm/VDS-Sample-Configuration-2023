@@ -90,54 +90,23 @@ function InitializeTabWindow
 function InitializeWindow
 {	      
 	#begin rules applying commonly
-	$Prop["_Category"].add_PropertyChanged({
-        if ($_.PropertyName -eq "Value")
-        {
-			#region VDS MFG Sample
-				#$Prop["_NumSchm"].Value = $Prop["_Category"].Value
-				m_CategoryChanged
-			#endregion
-        }		
-    })
+    InitializeWindowTitle
+    InitializeNumSchm
+    ADSK.QS.InitializeCategory
+    InitializeNameValidation
 	#end rules applying commonly
 	$mWindowName = $dsWindow.Name
 	switch($mWindowName)
 	{
 		"FileWindow"
 		{
-			#rules applying for File
-			$dsWindow.Title = SetWindowTitle $UIString["LBL24"] $UIString["LBL25"] $Prop["_FileName"].Value
-			if ($Prop["_CreateMode"].Value)
-			{
-				if ($Prop["_IsOfficeClient"].Value)
-				{
-					$Prop["_Category"].Value = $UIString["CAT2"]
-				}
-				else
-				{
-					$Prop["_Category"].Value = $UIString["CAT1"]
-				}
-			}
-
-			#region VDS MFG Sample to get category from selected template
-			#$dsWindow.FindName("DocTypeCombo").add_SelectionChanged({
-			#		mResetTemplates #no longer required starting 2022.1?
-			#	})
-
 			$dsWindow.FindName("TemplateCB").add_SelectionChanged({
 				#update the category = selected template's category
 				m_TemplateChanged
-			})
-			#endregion VDS MFG Sample			
+			})	
 		}
 		"FolderWindow"
 		{
-			#rules applying for Folder
-			$dsWindow.Title = SetWindowTitle $UIString["LBL29"] $UIString["LBL30"] $Prop["_FolderName"].Value
-			if ($Prop["_CreateMode"].Value)
-			{
-				$Prop["_Category"].Value = $UIString["CAT5"]
-			}
 			#region VDS MFG Sample - for imported folders easily set title to folder name on edit
 			If ($Prop["_EditMode"].Value) {
 				If ($Prop["_XLTN_TITLE"]){
@@ -150,7 +119,6 @@ function InitializeWindow
 		}
 		"CustomObjectWindow"
 		{
-			#rules applying for Custom Object
 			$dsWindow.Title = SetWindowTitle $UIString["LBL61"] $UIString["LBL62"] $Prop["_CustomObjectName"].Value
 			if ($Prop["_CreateMode"].Value)
 			{
@@ -172,6 +140,153 @@ function InitializeWindow
 		}
 
 	}
+}
+
+function InitializeWindowTitle()
+{
+    $mWindowName = $dsWindow.Name
+	switch($mWindowName)
+	{
+		"FileWindow"
+		{
+			#rules applying for File
+			$dsWindow.Title = SetWindowTitle $UIString["LBL24"] $UIString["LBL25"] $Prop["_FileName"].Value
+		}
+		"FolderWindow"
+		{
+			#rules applying for Folder
+			$dsWindow.Title = SetWindowTitle $UIString["LBL29"] $UIString["LBL30"] $Prop["_FolderName"].Value
+		}
+		"CustomObjectWindow"
+		{
+			#rules applying for Custom Object
+			$dsWindow.Title = SetWindowTitle $UIString["LBL61"] $UIString["LBL62"] $Prop["_CustomObjectName"].Value
+		}
+	}
+}
+
+function ADSK.QS.InitializeCategory()
+{
+	$Prop["_Category"].add_PropertyChanged({
+        if ($_.PropertyName -eq "Value")
+        {
+			m_CategoryChanged
+        }		
+    })
+    $mWindowName = $dsWindow.Name
+	switch($mWindowName)
+	{
+		"FileWindow"
+		{
+			if ($Prop["_CreateMode"].Value)
+			{
+				if ($Prop["_IsOfficeClient"].Value)
+				{
+					$Prop["_Category"].Value = $UIString["CAT2"]
+				}
+				else
+				{
+					$Prop["_Category"].Value = $UIString["CAT1"]
+				}
+			}			
+		}
+		"FolderWindow"
+		{
+			if ($Prop["_CreateMode"].Value)
+			{
+				$Prop["_Category"].Value = $UIString["CAT5"]
+			}
+		}
+		"CustomObjectWindow"
+		{
+			if ($Prop["_CreateMode"].Value)
+			{
+				$Prop["_Category"].Value = $Prop["_CustomObjectDefName"].Value
+			}
+		}
+	}
+}
+
+
+function InitializeNumSchm()
+{
+	#Adopted from a DocumentService call, which always pulls FILE class numbering schemes
+	$global:numSchems = @($vault.NumberingService.GetNumberingSchemes('FILE', 'Activated')) 
+    $Prop["_Category"].add_PropertyChanged({
+        if ($_.PropertyName -eq "Value")
+        {
+            $numSchm = $numSchems | where {$_.Name -eq $Prop["_Category"].Value}
+            if($numSchm)
+			{
+                $Prop["_NumSchm"].Value = $numSchm.Name
+            }
+        }		
+    })
+}
+
+function InitializeNameValidation()
+{
+	$mWindowName = $dsWindow.Name
+	switch($mWindowName)
+	{
+		"FileWindow"
+		{
+			$nameProp = "_FileName"
+		}
+		"FolderWindow"
+		{
+			$nameProp = "_FolderName"
+		}
+		"CustomObjectWindow"
+		{
+			$nameProp = "_CustomObjectName"
+		}
+	}
+	$Prop[$nameProp].CustomValidation = { NameCustomValidation }
+}
+
+function NameCustomValidation()
+{
+	$DSNumSchmsCtrl = $dsWindow.FindName("DSNumSchmsCtrl")
+	if ($DSNumSchmsCtrl -and -not $DSNumSchmsCtrl.NumSchmFieldsEmpty)
+	{
+		return $true
+	}
+
+	$mWindowName = $dsWindow.Name
+	switch($mWindowName)
+	{
+		"FileWindow"
+		{
+			$nameProp = "_FileName"
+		}
+		"FolderWindow"
+		{
+			$nameProp = "_FolderName"
+		}
+		"CustomObjectWindow"
+		{
+			$nameProp = "_CustomObjectName"
+		}
+	}
+	$folderName = $Prop[$nameProp].Value
+	if($folderName)
+	{
+		if ($folderName.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ne -1)
+		{
+			$Prop[$nameProp].CustomValidationErrorMessage = "$($UIString["VAL10"])"
+			return $false
+		}
+
+		return $true;
+	} 
+	else 
+	{
+		$Prop[$nameProp].CustomValidationErrorMessage = "$($UIString["VAL1"])"
+		return $false
+	}
+	
+	return $false;
 }
 
 function SetWindowTitle($newFile, $editFile, $name)
@@ -378,51 +493,42 @@ function GetNumSchms
 
 			if ($numSchems.Count -gt 1)
 			{
-				#$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
-				#region VDS MFG Sample
-					$mWindowName = $dsWindow.Name
-					switch($mWindowName)
-					{
-						"FileWindow"
-						{
-							$_FilteredNumSchems = $numSchems | Where { $_.IsDflt -eq $true}
-							$Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name
-							$dsWindow.FindName("NumSchms").IsEnabled = $false
-							return $_FilteredNumSchems
-						}
-
-						"FolderWindow" 
-						{
-							#numbering schemes are available for items and files specificly; 
-							#for folders we use the file numbering schemes and filter to these, that have a corresponding name in folder categories
-							$_FolderCats = $vault.CategoryService.GetCategoriesByEntityClassId("FLDR", $true)
-							$_FilteredNumSchems = @()
-							Foreach ($item in $_FolderCats) 
-							{
-								$_temp = $numSchems | Where { $_.Name -eq $item.Name}
-								$_FilteredNumSchems += ($_temp)
-							}
-							#we need an option to unselect a previosly selected numbering; to achieve that we add a virtual one, named "None"
-							$noneNumSchm = New-Object 'Autodesk.Connectivity.WebServices.NumSchm'
-							$noneNumSchm.Name = "None"
-							$_FilteredNumSchems += ($noneNumSchm)
-
-							return $_FilteredNumSchems
-						}
-
-						"CustomObjectWindow"
-						{
-							$_FilteredNumSchems = $numSchems | Where { $_.Name -eq $Prop["_Category"].Value}
-							return $_FilteredNumSchems
-						}
-
-						default
-						{
-							$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
-							return $numSchems
-						}
+				$mWindowName = $dsWindow.Name
+				switch ($mWindowName) {
+					"FileWindow" {
+						$_FilteredNumSchems = $numSchems | Where { $_.IsDflt -eq $true }
+						$Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name
+						$dsWindow.FindName("NumSchms").IsEnabled = $false
+						return $_FilteredNumSchems
 					}
-				#region
+
+					"FolderWindow" {
+						#numbering schemes are available for items and files specificly; 
+						#for folders we use the file numbering schemes and filter to these, that have a corresponding name in folder categories
+						$_FolderCats = $vault.CategoryService.GetCategoriesByEntityClassId("FLDR", $true)
+						$_FilteredNumSchems = @()
+						Foreach ($item in $_FolderCats) {
+							$_temp = $numSchems | Where { $_.Name -eq $item.Name }
+							$_FilteredNumSchems += ($_temp)
+						}
+						#we need an option to unselect a previosly selected numbering; to achieve that we add a virtual one, named "None"
+						$noneNumSchm = New-Object 'Autodesk.Connectivity.WebServices.NumSchm'
+						$noneNumSchm.Name = "None"
+						$_FilteredNumSchems += ($noneNumSchm)
+
+						return $_FilteredNumSchems
+					}
+
+					"CustomObjectWindow" {
+						$_FilteredNumSchems = $numSchems | Where { $_.Name -eq $Prop["_Category"].Value }
+						return $_FilteredNumSchems
+					}
+
+					default {
+						$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
+						return $numSchems
+					}
+				}
 			}
 			Else {
 				$dsWindow.FindName("NumSchms").IsEnabled = $false				
@@ -469,7 +575,6 @@ function ShouldEnableNumSchms
 #define the parametrisation for the number generator here
 function GenerateNumber
 {
-	#$dsDiag.Trace(">> GenerateNumber")
 	$selected = $dsWindow.FindName("NumSchms").Text
 	if($selected -eq "") { return "na" }
 
@@ -478,9 +583,9 @@ function GenerateNumber
 		"Sequential" { $NumGenArgs = @(""); break; }
 		default      { $NumGenArgs = @(""); break; }
 	}
-	#$dsDiag.Trace("GenerateFileNumber($($ns.SchmID), $NumGenArgs)")
+
 	$vault.DocumentService.GenerateFileNumber($ns.SchmID, $NumGenArgs)
-	#$dsDiag.Trace("<< GenerateNumber")
+
 }
 
 #define here how the numbering preview should look like
@@ -519,17 +624,15 @@ function ItemDescription
 
  
 function m_TemplateChanged {
-	#$dsDiag.Trace(">> Template Changed ...")
 	#check if cmbTemplates is empty
 	if ($dsWindow.FindName("TemplateCB").ItemsSource.Count -lt 1)
 	{
-		#$dsDiag.Trace("Template changed exits due to missing templates")
 		return
 	}
 	$mContext = $dsWindow.DataContext
 	$mTemplatePath = $mContext.TemplatePath
 	$mTemplateFile = $mContext.SelectedTemplate
-	$mTemplate = $mTemplatePath + "/" + $mTemplateFile
+	#$mTemplate = $mTemplatePath + "/" + $mTemplateFile
 	$mFolder = $vault.DocumentService.GetFolderByPath($mTemplatePath)
 	$mFiles = $vault.DocumentService.GetLatestFilesByFolderId($mFolder.Id,$false)
 	$mTemplateFile = $mFiles | Where-Object { $_.Name -eq $mTemplateFile }
@@ -590,8 +693,8 @@ function m_CategoryChanged
 		{
 			#nothing for 'unknown' new window type names
 		}			
-	} #end switch window
-} #end function m_CategoryChanged
+	}
+}
 
 function mHelp ([Int] $mHContext) {
 	Try

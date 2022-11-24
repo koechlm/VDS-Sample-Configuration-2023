@@ -83,6 +83,24 @@
                 <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                 <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
+            <Style x:Key="DynamicDataGridBtnCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ThemedDataGridCellStyle}">
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="Width" Value="0"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Name}" Value="MyPropName">
+                        <Setter Property="IsHitTestVisible" Value="True" />
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Button Content="{Binding DataContext.UIString[], FallbackValue=. . ., RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Command="{Binding DataContext.PsCmd[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Right" ToolTip="{Binding DataContext.UIString[], FallbackValue='No ToolTip set', RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Grid.Column="1" Padding="5,1" Background="#FFDDDDDD" MinWidth="20"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <!--#region themed styles for VE dialog standard controls-->
             <Style x:Key="DataStandardLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource ThemedLabelStyle}">
                 <Style.Triggers>
@@ -203,9 +221,8 @@
                                  GeneratedNumberProperty="_GeneratedNumber" Grid.Row="2" Grid.Column="1" Margin="0,1" />
                         <Label Content="{Binding UIString[LBL19], FallbackValue=Name}" Grid.Column="0" Grid.Row="3"
                                 Visibility="{Binding Visibility, ElementName=CUSTOMOBJECTNAME}" />
-                        <TextBox x:Name="CUSTOMOBJECTNAME" Text="{WPF:ValidatedBinding Name}" Grid.Column="1" Grid.Row="3"
+                        <TextBox x:Name="CUSTOMOBJECTNAME" Text="{WPF:ValidatedBinding Prop[_CustomObjectName].Value}" Grid.Column="1" Grid.Row="3"
                                 IsReadOnly="{Binding EditMode}"
-                                Style="{StaticResource Required}"
                                 Visibility="{Binding NumSchmFieldsEmpty, ElementName=DSNumSchmsCtrl, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,1,0,1" />
                         <Label Content="{Binding UIString[LBL4], FallbackValue=State}" Grid.Column="0" Grid.Row="4" />
                         <TextBox Text="{Binding Prop[_XLTN_STATE].Value}" Grid.Column="1" Grid.Row="4" IsReadOnly="True"
@@ -224,7 +241,7 @@
         				        ItemsSource="{Binding DynamicProperties}"
         				        ScrollViewer.CanContentScroll="False"
                                 EnableRowVirtualization="False"
-                                VerticalAlignment="Top" MinWidth="400" MinHeight="260" MaxHeight="350" Margin="0,1,0,0" CanUserReorderColumns="False" >
+                                VerticalAlignment="Top" MinWidth="400" MaxHeight="350" Margin="0,1,0,0" CanUserReorderColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding DispName}" 
                                         CellStyle="{StaticResource DynamicDataGridLabelStyle}" MinWidth="140" Width="*" IsReadOnly="True">
