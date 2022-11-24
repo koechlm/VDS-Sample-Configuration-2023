@@ -561,7 +561,6 @@
     <Resource Include="Vault.Custom\Claim-edit.ico" />
     <Resource Include="Vault.Custom\Claim-info.ico" />
     <Resource Include="Vault.Custom\Claim-settings.ico" />
-    <Resource Include="Vault.Custom\ConfigurationVersionHistory.xml" />
     <Resource Include="Vault.Custom\Configuration\ADSK.QS.File.xml" />
     <Resource Include="Vault.Custom\Configuration\ADSK.QS.FileOffice.xml" />
     <Resource Include="Vault.Custom\Configuration\VaultDynamicProperties.xml" />
