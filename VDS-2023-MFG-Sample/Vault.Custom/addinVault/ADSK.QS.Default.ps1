@@ -224,25 +224,25 @@ function InitializeNumSchm()
     })
 }
 
-function InitializeNameValidation()
-{
+function InitializeNameValidation() {
 	$mWindowName = $dsWindow.Name
-	switch($mWindowName)
-	{
-		"FileWindow"
-		{
+	switch ($mWindowName) {
+		"FileWindow" {
 			$nameProp = "_FileName"
 		}
-		"FolderWindow"
-		{
+		"FolderWindow" {
 			$nameProp = "_FolderName"
 		}
-		"CustomObjectWindow"
-		{
+		"CustomObjectWindow" {
 			$nameProp = "_CustomObjectName"
 		}
+		default {
+			$nameProp = ""
+		}
 	}
-	$Prop[$nameProp].CustomValidation = { NameCustomValidation }
+	if ($Prop[$nameProp].Length -ne 0) {
+		$Prop[$nameProp].CustomValidation = { NameCustomValidation }
+	}
 }
 
 function NameCustomValidation()
