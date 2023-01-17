@@ -163,7 +163,7 @@
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*" CellStyle="{StaticResource DynamicDataGridCellReadOnlyStyle}" MinWidth="200" IsReadOnly="True">
+                    <DataGridTextColumn Binding="{Binding Value}"  Width="2*" CellStyle="{StaticResource DynamicDataGridCellStyle}" MinWidth="200" IsReadOnly="True">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DataContext.UIString[LBL65], FallbackValue=Value, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Height="22" FontWeight="Bold"/>
