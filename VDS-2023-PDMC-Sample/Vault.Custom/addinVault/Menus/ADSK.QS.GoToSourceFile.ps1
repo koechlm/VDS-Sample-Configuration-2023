@@ -45,12 +45,12 @@ Try{
 	$mProp = $vault.PropertyService.GetProperties("FILE",$mEntIDs, $mPropDefIDs)
 	$mVal = $mProp[0].Val
 	IF(!$mVal){
-		[System.Windows.MessageBox]::Show([String]::Format($UIString["ADSK-GoToNavigation_MSG00"], $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError([String]::Format($UIString["ADSK-GoToNavigation_MSG00"], $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
 		return
 	}
 }
 Catch{
-	[System.Windows.MessageBox]::Show([String]::Format($UIString["ADSK-GoToNavigation_MSG00"], $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
+	[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError([String]::Format($UIString["ADSK-GoToNavigation_MSG00"], $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
 	return
 }
 
@@ -76,7 +76,7 @@ $mSearchResult = $vault.DocumentService.FindFilesBySearchConditions($srchConds,$
 
 If (!$mSearchResult) 
 { 
-	[System.Windows.MessageBox]::Show([String]::Format($UIString["ADSK-GoToNavigation_MSG01"], $mVal, $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
+	[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError([String]::Format($UIString["ADSK-GoToNavigation_MSG01"], $mVal, $_SourceFilePropDispName), $UIString["ADSK-GoToNavigation_MNU00"])
 	return
 }
 

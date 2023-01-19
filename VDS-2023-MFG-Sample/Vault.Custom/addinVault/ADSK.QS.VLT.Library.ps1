@@ -103,7 +103,7 @@ function ShowRunspaceID
 {
             $id = [runspace]::DefaultRunspace.Id
             $app = [System.Diagnostics.Process]::GetCurrentProcess()
-            [System.Windows.Forms.MessageBox]::Show("application: $($app.name)"+[Environment]::NewLine+"runspace ID: $id")
+            [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage("application: $($app.name)"+[Environment]::NewLine+"runspace ID: $id", "VDS Step Into Debugging", "OK")
 }
 
 #create folder structure based on seqential file numbering; 

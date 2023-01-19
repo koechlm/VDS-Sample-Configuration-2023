@@ -298,11 +298,11 @@ function mSelectMakeItem {
 		#don't copy / don't copy without warning
 		if($vault.ItemService.GetItemAutounlinkEnabled() -eq $true)
 		{
-			$mMsgResult = [System.Windows.MessageBox]::Show(([String]::Format($UIString["Adsk.QS.ItemSearch_20"],"`n", "`n")), "Vault Data Standard - CAD Client", 'YesNo', "Question")
+			$mMsgResult = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning(([String]::Format($UIString["Adsk.QS.ItemSearch_20"],"`n", "`n")), "Vault Data Standard - CAD Client", 'YesNo')
 			if($mMsgResult -eq "No") { return}
 		}
 		else{
-			$mMsgResult = [System.Windows.MessageBox]::Show($UIString["Adsk.QS.ItemSearch_21"], "Vault Data Standard - CAD Client", "YesNo", "Question")
+			$mMsgResult = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning($UIString["Adsk.QS.ItemSearch_21"], "Vault Data Standard - CAD Client", "YesNo")
 			if($mMsgResult -eq "No") { return}
 		}
 	}
@@ -328,7 +328,7 @@ function mSelectMakeItem {
 	}
 	Catch [System.Exception]
 	{
-		[System.Windows.MessageBox]::Show($error)
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		#$dsDiag.Trace("cannot write item number to property field")
 	}
 }
@@ -352,7 +352,7 @@ function mSelectStockItem
 	}
 	Catch [System.Exception]
 	{
-		[System.Windows.MessageBox]::Show($error)
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		#$dsDiag.Trace("cannot write item number to property field")
 	}
 }
@@ -522,7 +522,7 @@ function mFillItemView($file)
 			}
 			Catch [System.Exception]
 			{		
-				[System.Windows.MessageBox]::Show($error)
+				[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 			}	
 		} #else: item is accessible
 	}#end item found

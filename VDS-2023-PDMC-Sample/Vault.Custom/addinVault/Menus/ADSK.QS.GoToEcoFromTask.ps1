@@ -10,30 +10,25 @@
 #=============================================================================
 #endregion
 
-$vaultContext.ForceRefresh = $true
-$entityId=$vaultContext.CurrentSelectionSet[0].Id
+$entityId = $vaultContext.CurrentSelectionSet[0].Id
 
-#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
-$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
-if (! (Test-Path $mVdsUtilities)) {
-	#the basic utility installation only
-	[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
+$links = $vault.DocumentService.GetLinksByParentIds(@($entityId), @("CO"))
+[Autodesk.Connectivity.WebServices.ChangeOrder[]]$mECOs = @()
+[Autodesk.Connectivity.WebServices.ChangeOrder[]]$mECOs = $vault.ChangeOrderService.GetChangeOrdersByIds(@($links[0].ToEntId))
+
+if ($mECOs.Count -eq 0) {
+    $result = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning("This Task is not linked with an ECO. Do you want to switch to Change Orders though?", "ECO-Tasks", "OKCancel")
+    if ($result -eq "OK") {
+        $selectionTypeId = [Autodesk.Connectivity.Explorer.Extensibility.SelectionTypeId]::ChangeOrder
+        $location = New-Object Autodesk.Connectivity.Explorer.Extensibility.LocationContext $selectionTypeId, $path
+        $vaultContext.GoToLocation = $location
+    }
 }
-Else {
-	#the extended utility activation
-	[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
+else {
+    $path = $mECOs[0].Num
+    $selectionTypeId = [Autodesk.Connectivity.Explorer.Extensibility.SelectionTypeId]::ChangeOrder
+    $location = New-Object Autodesk.Connectivity.Explorer.Extensibility.LocationContext $selectionTypeId, $path
+    $vaultContext.GoToLocation = $location           
 }
-
-$_mVltHelpers = New-Object VdsSampleUtilities.VltHelpers
-$links = @()
-$links = $_mVltHelpers.mGetLinkedChildren1($vaultconnection, $entityId, "CUSTENT", "CO")
-
-[Autodesk.Connectivity.WebServices.ChangeOrder[]]$mECOs = $vault.ChangeOrderService.GetChangeOrdersByIds(@($links[0]))
-
-$path = $mECOs[0].Num
-$selectionTypeId = [Autodesk.Connectivity.Explorer.Extensibility.SelectionTypeId]::ChangeOrder
-$location = New-Object Autodesk.Connectivity.Explorer.Extensibility.LocationContext $selectionTypeId, $path
-#$dsDiag.Inspect("location")
-$vaultContext.GoToLocation = $location
 
 	

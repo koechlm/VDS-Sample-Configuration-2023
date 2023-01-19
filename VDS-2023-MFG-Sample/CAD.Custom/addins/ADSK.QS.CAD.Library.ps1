@@ -2,37 +2,12 @@
 	#===============================================================================
 	# PowerShell script sample														
 	# Author: Markus Koechl															
-	# Copyright (c) Autodesk 2020													
+	# Copyright (c) Autodesk 2022													
 	#																				
 	# THIS SCRIPT/CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER     
 	# EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES   
 	# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.    
 	#===============================================================================
-#endregion
-
-#region - version history
-#Version Info - VDS-MFG/PDMC-Sample CAD Library 2023
-	# migrated paths to 2023
-
-#Version Info - VDS-MFG-Sample CAD Library 2022
-	# migrated paths to 2022
-
-#Version Info - VDS Quickstart CAD Library 2021.0.1
-	# fixed issue for files in temp folders in function mGetProjectFolderPropToCadFile
-
-#Version Info - VDS Quickstart CAD Library 2021
-	# migrated paths to 2021
-
-#Version Info - VDS quickstart CAD Library 2019.1.1
-	# added and updated mGetProjectFolderToCADFile function; supports AutoCAD without IPJ settings enforeced.
-	# added mGetPropTranslations, fixed failure in getting default language for DB if not set in DSLanguages
-
-#Version Info - VDS quickstart CAD Library 2019.1.0
-	# added mGetProjectFolderPropToCadFile
-
-# Version Info - VDS Quickstart CAD Library 2019.0.0
-	# initial release - mGetFolderPropValue function added
-
 #endregion
 
 #retrieve property value given by displayname from folder (ID)
@@ -83,7 +58,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
 		$mWF = $vault.DocumentService.GetRequiredWorkingFolderLocation()
 	}
 	else {
-		[System.Windows.MessageBox]::Show("Copy Project Property Expects Enforced Working Folder & IPJ!" , "Inventor VDS Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Copy Project Property Expects Enforced Working Folder & IPJ!" , "Inventor VDS Client")
 		return
 	}
 		
@@ -114,7 +89,7 @@ function mGetProjectFolderPropToCADFile ([String] $mFolderSourcePropertyName, [S
 		}	
 	}
 	catch { 
-		[System.Windows.MessageBox]::Show("Failed retreiving the target Vault folder's path of this new file" , "Inventor VDS Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Failed retreiving the target Vault folder's path of this new file" , "Inventor VDS Client")
 	}			
 			
 	If ($mProjectFound -eq $true) {
@@ -157,4 +132,38 @@ function mGetPropTranslations
 		$mPrpTrnsltns.Add($mKey, $mValue)
 		}
 	return $mPrpTrnsltns
+}
+
+function mVaultBrowser() {
+	if ($Prop["_CreateMode"].Value) {
+		$browsersettings = New-Object Autodesk.DataManagement.Client.Framework.Vault.Forms.Settings.SelectVaultFolderSettings($vaultconnection)
+		$WSPath = "$" + $Prop["_WorkspacePath"].Value 
+		$WSPath = $WSPath.Replace("\", "/") 
+		$browsersettings.RestoreLastFolderPath = $true
+		$browsersettings.InitialSelectedFolderPath = $WSPath
+		$browsersettings.AllowNewFolderCreation = $true	#todo: add user group restrictions if not any user may create new folders
+		$result = [Autodesk.DataManagement.Client.Framework.Vault.Forms.Library]::SelectVaultFolder($browsersettings)
+		if ($result -ne $null) {
+			$selection = $result.SelectedFolderFullName 
+			if ($selection -eq $WSPath) { 
+				$Prop["Folder"].Value = ""
+			}
+			elseif ($selection.startswith($WSPath)) {
+				$LocalPath = $selection.remove(0, $WSPath.Length + 1)
+				$LocalPath = $LocalPath.Replace("/", "\")
+				$Prop["Folder"].Value = $LocalPath
+				$paths = $Prop["Folder"].Value.Split("\")
+				mReReadBreadCrumbs $paths
+			}
+			else {
+				$errTxt = "Please select a folder within '" + $WSPath + "'"
+				$btn = New-Object Autodesk.DataManagement.Client.Framework.Forms.Currency.ButtonConfiguration
+				$errMsg = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage($errTxt, "Folder not within the Workspace", $btn )
+				$Prop["Folder"].Value = ""
+			}
+		}
+		else {
+			$Prop["Folder"].Value = ""
+		}
+	}
 }

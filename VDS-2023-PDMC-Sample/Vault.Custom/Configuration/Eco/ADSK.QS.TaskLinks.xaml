@@ -58,8 +58,15 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGrdLinks" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Margin="0" Grid.Column="1" AlternatingRowBackground="LightCyan" AlternationCount="1" RowHeight="26" VerticalAlignment="Top" >
+        <DataGrid x:Name="dataGrdLinks" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" HorizontalGridLinesBrush="WhiteSmoke" VerticalGridLinesBrush="WhiteSmoke" Margin="0" Grid.Column="1" AlternatingRowBackground="LightCyan" AlternationCount="1" RowHeight="26" VerticalAlignment="Top" SelectionMode="Single" >
             <DataGrid.Columns>
+                <DataGridTemplateColumn Visibility="Collapsed">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding id}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="" MinWidth="25" MaxWidth="25" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -67,7 +74,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
                 <DataGridTextColumn Binding="{Binding name}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
@@ -117,10 +123,17 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding state}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.UIString[LBL4], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lblLinkedEntities" Content="{Binding UIString[ADSK-LnkdTask-01], FallbackValue='Linked Custom Objects'}" BorderThickness="1,1,0,1" Height="26" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock" Grid.Row="2" TextWrapping="Wrap" Text="{Binding UIString[ADSK-LnkdTask-06], FallbackValue=Select Row to display comments.}" Padding="5,5,0,0" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="textBlock" Grid.Row="2" TextWrapping="Wrap" Text="{Binding UIString[ADSK-LnkdTask-06], FallbackValue='Select Task to display comments.'}" Padding="5,5,0,0" Grid.ColumnSpan="2"/>
         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Grid.Row="3" BorderThickness="1,1,0,1" VerticalAlignment="Top"/>
         <TextBox x:Name="txtComments" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" BorderThickness="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto" VerticalAlignment="Top" MinHeight="62" VerticalContentAlignment="Top" MaxHeight="204"/>
     </Grid>

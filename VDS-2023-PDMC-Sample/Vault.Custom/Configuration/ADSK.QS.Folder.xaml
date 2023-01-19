@@ -324,7 +324,7 @@
                             <DataGridTextColumn CellStyle="{StaticResource DynamicDataGridBtnCellStyle}">
                                 <DataGridTextColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding DataContext.UIString[], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                        <TextBlock Text="{Binding DataContext.UIString[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>

@@ -85,9 +85,6 @@ function ValidateCustomObjectName
 		{
 			return ValidateCustentName;
 		}
-		$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Custom Object name must not be empty."
-		$dsWindow.FindName("CUSTOMOBJECTNAME").BorderBrush = "Red"
-		$dsWindow.FindName("CUSTOMOBJECTNAME").BackGround = "#FFFFFFFF"
 		return $false;
 	}
 	else{
@@ -233,6 +230,21 @@ function InitializeWindow
 					$dsWindow.FindName("CUSTOMOBJECTNAME").IsEnabled = $false
 					$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives from First and Last Name."
 				}
+
+				if($Prop["_Category"].Value -eq "Organisation")
+                {
+                    $dsWindow.FindName("CUSTOMOBJECTNAME").add_LostFocus({
+                        $Prop["Company"].Value = $dsWindow.FindName("CUSTOMOBJECTNAME").Text
+                    })
+
+                   $Prop["Company"].add_PropertyChanged({
+                        $dsWindow.FindName("CUSTOMOBJECTNAME").Text = $Prop["Company"].Value
+                    })
+
+                   $dsWindow.FindName("CUSTOMOBJECTNAME").IsEnabled = $false
+                   $dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Name derives from Company."
+                }
+
 			}
 		}
 
@@ -297,7 +309,7 @@ function InitializeWindow
 							$_classes += $Prop["_XLTN_MAINGROUP"].Value
 							If ($Prop["_XLTN_GROUP"].Value.Length -gt 1){
 								$_classes += $Prop["_XLTN_GROUP"].Value
-								If ($Prop["_XLTN_SEGMENT"].Value.Length -gt 1){
+								If ($Prop["_XLTN_SUBGROUP"].Value.Length -gt 1){
 									$_classes += $Prop["_XLTN_SUBGROUP"].Value
 								}
 							}
@@ -525,19 +537,6 @@ function OnTabContextChanged
 	if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ChangeOrder" -and $xamlFile -eq "ADSK.QS.TaskLinks.xaml")
 	{
 		$mCoId = $VaultContext.SelectedObject.Id
-		
-		#	there are some custom functions to enhance functionality; 2023 version added webservice and explorer extensions to be installed optionally
-		$mVdsUtilities = "$($env:programdata)\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll"
-		if (! (Test-Path $mVdsUtilities)) {
-			#the basic utility installation only
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\addinVault\VdsSampleUtilities.dll')
-		}
-		Else {
-			#the extended utility activation
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + '\Autodesk\Vault 2023\Extensions\Autodesk.VdsSampleUtilities\VdsSampleUtilities.dll')
-		}
-
-		$_mVltHelpers = New-Object VdsSampleUtilities.VltHelpers
 
 		#to get links of COs to CUSTENT we need to analyse the CUSTENTS for linked children of type CO
 		#get all CUSTENTS of category $_CoName first, then iterate the result and analyse each items links: do they link to the current CO id?
@@ -546,10 +545,10 @@ function OnTabContextChanged
 		$_LinkedCustentIDs = @()
 		Foreach ($_Custent in $_allCustents)
 		{
-			$_AllLinks1 = $_mVltHelpers.mGetLinkedChildren1($vaultConnection, $_Custent.Id, "CUSTENT", "CO")
+			$_AllLinks1 = $vault.DocumentService.GetLinksByParentIds(@($_Custent.Id),@("CO"))
 			If($_AllLinks1) #the current custent has links; check that the current ECO is one of these link's target
 			{
-				$_match = $_AllLinks1 | Where { $_ -eq $mCoId }
+				$_match = $_AllLinks1 | Where { $_.ToEntId -eq $mCoId }
 				If($_match){ $_LinkedCustentIDs += $_Custent.Id}
 			}		
 		}
@@ -640,7 +639,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 			Import-Module powerVault
 		}
 		catch{
-		   [System.Windows.MessageBox]::Show("This feature requires powerVault installed; check for its availability", "Extension Title")
+		   [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("This feature requires powerVault installed; check for its availability", "VDS Sample Configuration")
 		   return
 		}
 
@@ -653,18 +652,15 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 			#check that the item is editable for the current user, if not, we shouldn't add the files, before we try to attach
 			try{
 				$vault.ItemService.EditItems(@($item.RevId))
-				#[System.Windows.MessageBox]::Show("Item is accessible", "Item-File Attachment Import")
 				$_ItemIsEditable = $true
 			}
 			catch {
-				#[System.Windows.MessageBox]::Show("Item is NOT accessible", "Item-File Attachment Import")
 				$_ItemIsEditable = $false
 			}
 			If($_ItemIsEditable)
 			{
 				$vault.ItemService.UndoEditItems(@($item.RevId))
 				$vault.ItemService.DeleteUncommittedItems($true)
-				#[System.Windows.MessageBox]::Show("Item Lock Removed to continue", "Item-File Attachment Import")
 			}
 			
 			[System.Windows.DataObject]$mDragData = $e.Data
@@ -710,7 +706,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 							$mTargetPath = mGetFolderNumber $_newFile 3 #hand over the file number (name) and number of files / folder
 						}
 						catch { 
-							[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
+							[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
 						}
 						#add extension to number
 						$_newFile = $_newFile + $m_Ext
@@ -751,7 +747,7 @@ if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $
 				$dsWindow.FindName("mImportProgress").Value = (($_n/$_NumFiles)*100)
 				If ($mCADWarning)
 				{
-					[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import")
+					[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import", "OK")
 				}
 			}
 			$mFileList = $null
@@ -938,7 +934,7 @@ function GetNumSchms
 							return $_FilteredNumSchems
 						}
 
-						"CustomObjectTermWindow"
+						"CustomObjectClassifiedWindow"
 						{
 							$_FilteredNumSchems = $numSchems | Where-Object { $_.Name -eq $Prop["_Category"].Value}
 							return $_FilteredNumSchems
@@ -959,7 +955,7 @@ function GetNumSchms
 		}
 		catch [System.Exception]
 		{		
-			#[System.Windows.MessageBox]::Show($error)
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		}
 	}
 }
@@ -1176,7 +1172,7 @@ function mHelp ([Int] $mHContext) {
 	}
 	Catch
 	{
-		[System.Windows.MessageBox]::Show("Help Target not found", "Vault VDS-PDMC-Sample Client")
+		[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Help Target not found", "Vault VDS-PDMC-Sample Client")
 	}
 }
 function mResetTemplates

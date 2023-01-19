@@ -221,7 +221,7 @@ function NameCustomValidation()
 		}
 		"CustomObjectWindow"
 		{
-			$nameProp = "_FileName"
+			$nameProp = "_CustomObjectName"
 		}
 	}
 	$folderName = $Prop[$nameProp].Value
@@ -396,7 +396,7 @@ function GetNumSchms
 		}
 		catch [System.Exception]
 		{		
-			#[System.Windows.MessageBox]::Show($error)
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($error, "VDS Sample Configuration")
 		}
 	}
 }
@@ -427,7 +427,7 @@ function GetTemplateFolders
 {
 	$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\File.xml"
 
-	if ($Prop["_IsOfficeClient"].Value) {
+	if ($_IsOfficeClient) {
 		$xmlpath = "$env:programdata\Autodesk\Vault 2023\Extensions\DataStandard\Vault\Configuration\FileOffice.xml"
 	}
 

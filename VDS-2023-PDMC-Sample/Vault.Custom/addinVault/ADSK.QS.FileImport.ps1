@@ -136,7 +136,7 @@ function mDragEnter ($sender, $e)
 						$mTargetPath = mGetFolderNumber $_newFile 3 #hand over the file number (name) and number of files / folder
 					}
 					catch { 
-						[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
+						[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
 					}
 					#add extension to number
 					$_newFile = $_newFile + $m_Ext
@@ -177,7 +177,7 @@ function mDragEnter ($sender, $e)
 			$dsWindow.FindName("dtGrdPropEdit").ItemsSource = $mGridFiles
 			If ($mCADWarning)
 			{
-				[System.Windows.MessageBox]::Show($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import")
+				[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import")
 			}
 		}
 		$mFileList = $null

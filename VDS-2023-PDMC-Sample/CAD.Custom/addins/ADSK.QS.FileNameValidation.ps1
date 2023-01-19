@@ -1,88 +1,65 @@
-﻿function InitializeFileNameValidation()
-{
-    if ($Prop["_CreateMode"].Value)
-    {
-        if($dsWindow.Name -eq 'InventorWindow')
-        {
-            if($Prop["_SaveCopyAsMode"].Value -eq $true)
-            {
+﻿function InitializeFileNameValidation() {
+    if ($Prop["_CreateMode"].Value) {
+        if ($dsWindow.Name -eq 'InventorWindow') {
+            if ($Prop["_SaveCopyAsMode"].Value -eq $true) {
                 $dsWindow.FindName("Format").add_SelectionChanged({
-                    PreviewExportFileName
-                })
+                        PreviewExportFileName
+                    })
                 $dsWindow.FindName("NumSchms").add_SelectionChanged({
-					PreviewExportFileName
-				})
-				$dsWindow.FindName("FILENAME").add_LostFocus({
-					PreviewExportFileName
-				})
-				$Prop["Folder"].add_PropertyChanged({
-					PreviewExportFileName
-				})
-			}
-			$Prop["DocNumber"].CustomValidation = { FileNameCustomValidation }
+                        PreviewExportFileName
+                    })
+                $dsWindow.FindName("FILENAME").add_LostFocus({
+                        PreviewExportFileName
+                    })
+                $Prop["Folder"].add_PropertyChanged({
+                        PreviewExportFileName
+                    })
+            }
+            $Prop["DocNumber"].CustomValidation = { FileNameCustomValidation }
         }
-        elseif($dsWindow.Name -eq 'AutoCADWindow')
-        {
-            if($Prop["GEN-TITLE-DWG"].Value)
-            {
-                $Prop["GEN-TITLE-DWG"].CustomValidation = { FileNameCustomValidation }
-            }
-            else
-            {
-                $Prop["DocNumber"].CustomValidation = { FileNameCustomValidation }
-            }
+        elseif ($dsWindow.Name -eq 'AutoCADWindow') {
+            $Prop["DocNumber"].CustomValidation = { FileNameCustomValidation }
         }        
     }
 }
 
-function FileNameCustomValidation
-{
-	#$dsDiag.Trace("Custom Validation starts...")
+function FileNameCustomValidation {
     $DSNumSchmsCtrl = $dsWindow.FindName("DSNumSchmsCtrl")
-    if ($DSNumSchmsCtrl -and -not $DSNumSchmsCtrl.NumSchmFieldsEmpty)
-    {
+    if ($DSNumSchmsCtrl -and -not $DSNumSchmsCtrl.NumSchmFieldsEmpty) {
         return $true
     }
-    if($dsWindow.Name -eq 'InventorWindow')
-    {
+    if ($dsWindow.Name -eq 'InventorWindow') {
         $propertyName = "DocNumber"
     }
-    elseif($dsWindow.Name -eq 'AutoCADWindow')
-    {
-        if($Prop["GEN-TITLE-DWG"].Value)
-        {
-            $propertyName = "GEN-TITLE-DWG"
-        }
-        else
-        {
-            $propertyName = "DocNumber"
-        }
+    elseif ($dsWindow.Name -eq 'AutoCADWindow') {
+        $propertyName = "DocNumber"
     }
     
     $rootFolder = GetVaultRootFolder
 
     $fileName = $Prop["_FileName"].Value
-    if ($fileName.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ne -1)
-    {
+
+    if ([string]::IsNullOrEmpty($Prop[$propertyName].Value)) {
+        $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["VAL1"])"
+        return $false
+    }
+
+    if ($fileName.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ne -1) {
         $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["VAL10"])"
         return $false
     }
 
     $fullFileName = [System.IO.Path]::Combine($Prop["_FilePath"].Value, $fileName)
-    if ([System.IO.File]::Exists($fullFileName))
-    {
+    if ([System.IO.File]::Exists($fullFileName)) {
         $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["MSG4"])"
         return $false
     }
 
     $file = FindLatestFileInVaultByPath($rootFolder.FullName + "/" + $Prop["Folder"].Value.Replace(".\", "") + $Prop["_FileName"].Value)
-    if ($file)
-    {
+    if ($file) {
         $fileIteration = New-Object Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities.FileIteration($vaultConnection, $file)
-        if ($fileIteration.IsCheckedOut)
-        {
-            If(!$fileIteration.IsCheckedOutToCurrentUser)
-            {
+        if ($fileIteration.IsCheckedOut) {
+            If (!$fileIteration.IsCheckedOutToCurrentUser) {
                 $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["VAL14"])"
                 return $false
             }
@@ -90,11 +67,9 @@ function FileNameCustomValidation
         }
         return $true
     }
-    if ($vault.DocumentService.GetUniqueFileNameRequired())
-    {    
+    if ($vault.DocumentService.GetUniqueFileNameRequired()) {    
         $result = FindFile -fileName $Prop["_FileName"].Value
-        if ($result)
-        {
+        if ($result) {
             $Prop["$($propertyName)"].CustomValidationErrorMessage = "$($UIString["VAL13"])"
             return $false
         }
@@ -102,11 +77,9 @@ function FileNameCustomValidation
     return $true
 }
 
-function FindFile($fileName)
-{
-	#$dsDiag.Trace("FindFile started from validation...")
+function FindFile($fileName) {
     $filePropDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId("FILE")
-    $fileNamePropDef = $filePropDefs | where {$_.SysName -eq "ClientFileName"}
+    $fileNamePropDef = $filePropDefs | where { $_.SysName -eq "ClientFileName" }
     $srchCond = New-Object 'Autodesk.Connectivity.WebServices.SrchCond'
     $srchCond.PropDefId = $fileNamePropDef.Id
     $srchCond.PropTyp = "SingleProperty"
@@ -117,57 +90,46 @@ function FindFile($fileName)
     $bookmark = ""
     $status = $null
     $totalResults = @()
-    while ($status -eq $null -or $totalResults.Count -lt $status.TotalHits)
-    {
-        $results = $vault.DocumentService.FindFilesBySearchConditions(@($srchCond),$null, $null, $false, $true, [ref]$bookmark, [ref]$status)
+    while ($status -eq $null -or $totalResults.Count -lt $status.TotalHits) {
+        $results = $vault.DocumentService.FindFilesBySearchConditions(@($srchCond), $null, $null, $false, $true, [ref]$bookmark, [ref]$status)
 
-        if ($results -ne $null)
-        {
+        if ($results -ne $null) {
             $totalResults += $results
         }
-        else {break}
+        else { break }
     }
-	#$dsDiag.Trace("...FindFile returns $($totalResults).")
     return $totalResults;
 }
 
-function FindLatestFileInVaultByPath($vaultPath)
-{
+function FindLatestFileInVaultByPath($vaultPath) {
     $pathWithoutDot = $vaultPath.Replace("/.", "/")
     $pathInVaultFormat = $pathWithoutDot.Replace("\", "/")
-    try
-    {
+    try {
         $files = $vault.DocumentService.FindLatestFilesByPaths(@($pathInVaultFormat))
-        if ($files.Count -gt 0)
-        {
+        if ($files.Count -gt 0) {
             if ($files[0].Id -ne -1)
             { return $files[0] }
         }
     }
-    catch
-    {
+    catch {
         #$dsDiag.Inspect()
     }    
     return $null
 }
 
-function PreviewExportFileName()
-{
-    $knownextensions = @("ipt","iam","idw","dwg","dxf","pdf","jt","stp")
-    if (-not $Prop["DocNumber"].Value)
-    {
+function PreviewExportFileName() {
+    $knownextensions = @("ipt", "iam", "idw", "dwg", "dxf", "pdf", "jt", "stp")
+    if (-not $Prop["DocNumber"].Value) {
         return 
     }
     $newFileName = @()
     $newFileName += ($Prop["DocNumber"].Value.Split("."))
-    $ext = $newFileName[$newFileName.Count-1]
+    $ext = $newFileName[$newFileName.Count - 1]
     $newExt = $Prop["_FileExt"].Value.ToLower()
-    if ($knownextensions -contains $ext)
-    {        
+    if ($knownextensions -contains $ext) {        
         $Prop["DocNumber"].Value = $Prop["DocNumber"].Value -replace "(.*).$ext(.*)", "`$1$newExt`$2"
     }
-    else
-    {
+    else {
         $Prop["DocNumber"].Value = $Prop["DocNumber"].Value + "$newExt"
     }
 }

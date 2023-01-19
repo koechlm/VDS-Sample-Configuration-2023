@@ -344,13 +344,13 @@
     <DynamicProperty Hidden="True">DWG Type</DynamicProperty>
     <DynamicProperty>Designer</DynamicProperty>
     <DynamicProperty>Document Type</DynamicProperty>
-    <DynamicProperty Hidden="True">Change Description</DynamicProperty>
-    <DynamicProperty Hidden="True">Make or Buy</DynamicProperty>
+    <DynamicProperty>Change Description</DynamicProperty>
+    <DynamicProperty>Make or Buy</DynamicProperty>
     <DynamicProperty Hidden="True">Document Check Required</DynamicProperty>
-    <DynamicProperty Hidden="True">Checked By</DynamicProperty>
-    <DynamicProperty Hidden="True">Checked Date</DynamicProperty>
-    <DynamicProperty Hidden="True">Engr Approved By</DynamicProperty>
-    <DynamicProperty Hidden="True">Engr Approved Date</DynamicProperty>
+    <DynamicProperty>Checked By</DynamicProperty>
+    <DynamicProperty>Checked Date</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>Engr Approved Date</DynamicProperty>
     <DynamicProperty Hidden="True">Customer Approval Required</DynamicProperty>
     <DynamicProperty Hidden="True">Customer Approved By</DynamicProperty>
     <DynamicProperty Hidden="True">Customer Approved Date</DynamicProperty>
@@ -390,29 +390,6 @@
     <DynamicProperty>Source File</DynamicProperty>
     <DynamicProperty Hidden="True">DWG Type</DynamicProperty>
     <DynamicProperty Hidden="True">Application Version</DynamicProperty>
-  </DynamicPropertiesCategory>
-  <DynamicPropertiesCategory Category="Managed Asset" Type="File">
-    <DynamicProperty>Author</DynamicProperty>
-    <DynamicProperty>AKN Date Removed</DynamicProperty>
-    <DynamicProperty>A-Drive Date Removed</DynamicProperty>
-    <DynamicProperty>A-Drive Date Published</DynamicProperty>
-    <DynamicProperty>Channel Tech Date Removed</DynamicProperty>
-    <DynamicProperty>A-Drive Link</DynamicProperty>
-    <DynamicProperty>OTS Link</DynamicProperty>
-    <DynamicProperty>Comments</DynamicProperty>
-    <DynamicProperty>VStudio GitHub</DynamicProperty>
-    <DynamicProperty>Thin Client Link</DynamicProperty>
-    <DynamicProperty>VStudio Project</DynamicProperty>
-    <DynamicProperty>AKN Date Published</DynamicProperty>
-    <DynamicProperty>Channel Tech Date Published</DynamicProperty>
-    <DynamicProperty>OTS Date Published</DynamicProperty>
-    <DynamicProperty>OTS Date Expiration</DynamicProperty>
-    <DynamicProperty>Channel Tech Link</DynamicProperty>
-    <DynamicProperty>Title</DynamicProperty>
-    <DynamicProperty>Subject</DynamicProperty>
-    <DynamicProperty>Keywords</DynamicProperty>
-    <DynamicProperty>AKN Link</DynamicProperty>
-    <DynamicProperty>OTS File Name</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Plant" Type="Folder">
     <DynamicProperty>Title</DynamicProperty>

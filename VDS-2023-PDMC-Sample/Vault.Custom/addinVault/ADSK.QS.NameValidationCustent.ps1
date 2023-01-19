@@ -26,8 +26,6 @@ function ValidateCustentName
 		}
 		Else
 		{
-			$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = $null
-			$dsWindow.FindName("CUSTOMOBJECTNAME").BackGround = "#FFFFFFFF"
 			return $true
 		}
 	}

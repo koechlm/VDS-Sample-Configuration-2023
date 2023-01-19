@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK-2023-Refs", "SDK-2023-Refs", "{8D1ADE38-4168-4429-8998-D4521F9992CC}"
 	ProjectSection(SolutionItems) = preProject
 		SDK 2023 Refs\Autodesk.Connectivity.WebServices.dll = SDK 2023 Refs\Autodesk.Connectivity.WebServices.dll
+		SDK 2023 Refs\Autodesk.DataManagement.Client.Framework.Forms.dll = SDK 2023 Refs\Autodesk.DataManagement.Client.Framework.Forms.dll
 		SDK 2023 Refs\Common.dll = SDK 2023 Refs\Common.dll
 		SDK 2023 Refs\CreateObject.dll = SDK 2023 Refs\CreateObject.dll
 		SDK 2023 Refs\dataStandard.UI.dll = SDK 2023 Refs\dataStandard.UI.dll

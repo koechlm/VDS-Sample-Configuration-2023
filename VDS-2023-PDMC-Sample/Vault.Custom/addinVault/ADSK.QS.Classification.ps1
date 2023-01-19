@@ -306,7 +306,7 @@ function mAddClassification()
 		}
 		else
 		{
-			[System.Windows.MessageBox]::Show($UIString["Adsk.QS.Classification_10"], "Vault Data Standard", "", "Exclamation")
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["Adsk.QS.Classification_10"], "VDS Sample Configuration")
 			return
 		}
 		$mPropsRemove = @()
@@ -348,10 +348,10 @@ function mRemoveClassification()
 				$mPropsRemove += $mClsPrpNames.Keys
 			}
 			Else{
-				[System.Windows.MessageBox]::Show($UIString["Adsk.QS.Classification_10"], "Vault Data Standard", 0 , "Error")
+				[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["Adsk.QS.Classification_10"], "VDS Sample Configuration")
 				return
 			}
-			$mMsgResult = [System.Windows.MessageBox]::Show(([String]::Format($UIString["Adsk.QS.Classification_11"],"`n")), "Vault Data Standard", '4', 'Question')
+			$mMsgResult = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage(([String]::Format($UIString["Adsk.QS.Classification_11"],"`n")), "VDS Sample Configuration", "YesNo")
 			if($mMsgResult -eq "No") { return}
 
 			$mAddRemoveComment = "removed classification"
@@ -595,7 +595,6 @@ function mGetCustentClsLevelUsesList ($sender) {
 		$_i = $mBreadCrumb.Children.Count -1
 		$_CurrentCmbName = "cmbClsBrdCrmb_" + $mBreadCrumb.Children.Count.ToString()
 		$_CurrentClass = $mBreadCrumb.Children[$_i].SelectedValue.Name
-		#[System.Windows.MessageBox]::Show("Currentclass: $_CurrentClass and Level# is $_i")
         switch($_i)
 		        {
 			        0 { $mSearchFilter = "Segment"}

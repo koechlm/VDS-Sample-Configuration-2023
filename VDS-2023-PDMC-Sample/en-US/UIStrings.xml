@@ -398,11 +398,11 @@
   <UIString ID="Adsk.Org.Pers.Link_00">Contact</UIString>
   <UIString ID="Adsk.Org.Pers.Link_01">Contacts</UIString>
   <UIString ID="Adsk.Org.Pers.Link_02">Primary</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_03">Create Link</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_03">Create/Update Link</UIString>
   <UIString ID="Adsk.Org.Pers.Link_04">Enable to create links to any selected item on project creation.</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_05">Select customer name from "Organisations" Workspace. Optionally select contact name also. Only contacts linked to organisations are listed as contact name.</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_05">Select from Organisations/Persons lists. Persons must be linked to an Organisation.</UIString>
   <UIString ID="Adsk.Org.Pers.Link_06">Select Customer and Contact from "Organisations" Workspace</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_07">Assign Person to existing Organisation</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_07">Open selection list 'Organisations'</UIString>
   <UIString ID="Adsk.Org.Pers.Link_08">Click ... to activate selection from list.</UIString>
   <!--Cascading Organisation/Person selection & link creation END-->
 
@@ -563,12 +563,12 @@
   
   <!--ECO-Tasks Management Extension Start-->
   <UIString ID="ADSK-LnkdTask-00">Task</UIString>
-  <UIString ID="ADSK-LnkdTask-01">Linked Tasks</UIString>
+  <UIString ID="ADSK-LnkdTask-01">ECO-Tasks</UIString>
   <UIString ID="ADSK-LnkdTask-02">Date Start</UIString>
   <UIString ID="ADSK-LnkdTask-03">Date End</UIString>
   <UIString ID="ADSK-LnkdTask-04">Owner</UIString>
   <UIString ID="ADSK-LnkdTask-05">Priority</UIString>
-  <UIString ID="ADSK-LnkdTask-06">Notes/Details. Selected task to display:</UIString>
+  <UIString ID="ADSK-LnkdTask-06">Notes/Details (Select task to display its comments):</UIString>
   <!--ECO-Tasks Management Extension End-->  
   
   <!--Revision Property Tab start-->

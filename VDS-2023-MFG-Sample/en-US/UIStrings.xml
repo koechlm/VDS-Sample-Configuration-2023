@@ -285,6 +285,10 @@
   <UIString ID="MSDCE_TT23">Click to activate / Rightclick to delete</UIString>
   <!--VDS Sample ShortCut Pane end-->
 
+  <!--VDS Sample Vault Folder Browser-->
+  <UIString ID="ADSK.VLT.FLD.BRWSR_TT">Open Vault Folder Browser for Tree Selection... </UIString>
+  <!--VDS Sample Vault Folder Browser End-->
+
   <!--VDS Sample Multitab Dialogs-->
   <UIString ID="MSDCE_MultiTab_01">Properties</UIString>
   <!--VDS Sample Multitab Dialogs end-->

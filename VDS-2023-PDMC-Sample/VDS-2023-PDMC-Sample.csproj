@@ -58,6 +58,9 @@
     <Reference Include="Autodesk.Connectivity.WebServices">
       <HintPath>..\SDK 2023 Refs\Autodesk.Connectivity.WebServices.dll</HintPath>
     </Reference>
+    <Reference Include="Autodesk.DataManagement.Client.Framework.Forms">
+      <HintPath>..\SDK 2023 Refs\Autodesk.DataManagement.Client.Framework.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="Common">
       <HintPath>..\SDK 2023 Refs\Common.dll</HintPath>
     </Reference>
@@ -130,7 +133,6 @@
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileImport.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.IEC61355.psm1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.ItemLookup.ps1" />
-    <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidation.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidationCustent.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidationFile.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidationFolder.ps1" />
@@ -146,10 +148,12 @@
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateECOandAddFiles.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateFile.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateFolder.ps1" />
+    <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.CreateTaskForECO.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditCustomObject.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditCustomObjectClassified.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditFile.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditFolder.ps1" />
+    <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.EditTaskForECO.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToEcoFromTask.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToFolderFromEco.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ADSK.QS.GoToInvSibling.ps1" />
@@ -244,14 +248,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectClassified.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectOrganisation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectTerm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -703,7 +699,6 @@
     <Resource Include="Vault.Custom\class-edit.ico" />
     <Resource Include="Vault.Custom\class-info.ico" />
     <Resource Include="Vault.Custom\class.ico" />
-    <Resource Include="Vault.Custom\ConfigurationVersionHistory.xml" />
     <Resource Include="Vault.Custom\Configuration\ADSK.QS.File.xml" />
     <Resource Include="Vault.Custom\Configuration\ADSK.QS.FileOffice.xml" />
     <Resource Include="Vault.Custom\Configuration\Eco\Icons\GlobalFolderView_32.png" />

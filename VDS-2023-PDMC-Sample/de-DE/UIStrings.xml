@@ -396,11 +396,11 @@
   <UIString ID="Adsk.Org.Pers.Link_00">Kontaktperson</UIString>
   <UIString ID="Adsk.Org.Pers.Link_01">Kontaktpersonen</UIString>
   <UIString ID="Adsk.Org.Pers.Link_02">Primär</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_03">Verknüpfung erstellen</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_03">Verknüpfung erstellen/aktualisieren</UIString>
   <UIString ID="Adsk.Org.Pers.Link_04">Aktivieren um Verknüpfungen auf gewählte Elemente zu erstellen.</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_05">Wählen Sie einen Kundennamen aus dem Arbeitsbereich "Organisationen". Optional wählen Sie zusätzlich eine Kontaktperson. Nur Personen, die mit Organisationen verknüpft sind werden als Kontaktperson angezeigt.</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_06">Auswahl Kunde aus Arbeitsbereich "Organisationen"</UIString>
-  <UIString ID="Adsk.Org.Pers.Link_07">Ordnen Sie die Person einer Organisation zu.</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_05">Wählen Sie aus den Listen Organisationen/Personen. Personen müssen mit einer Organisation verbunden sein.</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_06">Auswahl aus Arbeitsbereich 'Organisationen'</UIString>
+  <UIString ID="Adsk.Org.Pers.Link_07">Öffnet Auswahlliste 'Organisationen'</UIString>
   <UIString ID="Adsk.Org.Pers.Link_08">Klicken Sie ... zur Aktivierung der Auswahlliste.</UIString>
   <!--Cascading Organisation/Person selection & link creation END-->
 
@@ -561,12 +561,12 @@
 
   <!--Claims Management Extension Start-->
   <UIString ID="ADSK-LnkdTask-00">Aufgabe</UIString>
-  <UIString ID="ADSK-LnkdTask-01">Verknüpfte Aufgaben</UIString>
+  <UIString ID="ADSK-LnkdTask-01">ECO Aufgaben</UIString>
   <UIString ID="ADSK-LnkdTask-02">Datum Start</UIString>
   <UIString ID="ADSK-LnkdTask-03">Datum Ende</UIString>
   <UIString ID="ADSK-LnkdTask-04">Verantwortlich</UIString>
   <UIString ID="ADSK-LnkdTask-05">Priorität</UIString>
-  <UIString ID="ADSK-LnkdTask-06">Notizen/Detailinformationen. Wählen Sie eine Aufgabe zur Anzeige:</UIString>
+  <UIString ID="ADSK-LnkdTask-06">Notizen/Detailinformationen (Wählen Sie eine Aufgabe zur Anzeige ihrer Kommentare):</UIString>
   <!--Claims Management Extension End-->
   
   <!--Revision Property Tab start-->
