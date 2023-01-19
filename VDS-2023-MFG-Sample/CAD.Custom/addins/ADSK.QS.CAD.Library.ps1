@@ -134,42 +134,36 @@ function mGetPropTranslations
 	return $mPrpTrnsltns
 }
 
-function mVaultBrowser()
-{
-	if ($Prop["_CreateMode"].Value)
-    {
-		$browsersettings=  New-Object Autodesk.DataManagement.Client.Framework.Vault.Forms.Settings.SelectVaultFolderSettings($vaultconnection) 
-		$WSPath="$"+ $Prop["_WorkspacePath"].Value 
-		$WSPath=$WSPath.Replace("\","/") 
+function mVaultBrowser() {
+	if ($Prop["_CreateMode"].Value) {
+		$browsersettings = New-Object Autodesk.DataManagement.Client.Framework.Vault.Forms.Settings.SelectVaultFolderSettings($vaultconnection)
+		$WSPath = "$" + $Prop["_WorkspacePath"].Value 
+		$WSPath = $WSPath.Replace("\", "/") 
 		$browsersettings.RestoreLastFolderPath = $true
-		$browsersettings.InitialSelectedFolderPath=$WSPath 
-		$result= [Autodesk.DataManagement.Client.Framework.Vault.Forms.Library]::SelectVaultFolder($browsersettings)
-		if($result -ne $null)
-			{
-				$selection=$result.SelectedFolderFullName 
-				if ($selection -eq $WSPath)
-				{ 
-					$Prop["Folder"].Value=""
-				}
-				elseif($selection.startswith($WSPath))
-				{
-					$LocalPath=$selection.remove(0,$WSPath.Length+1)
-					$LocalPath=$LocalPath.Replace("/","\")
-					$Prop["Folder"].Value=$LocalPath
-					$paths = $Prop["Folder"].Value.Split("\")
-					mActivateBreadCrumbCmbs $paths
-				}
-				else
-				{
-					$errTxt="Please select a folder inside '" + $WSPath +"'"
-					$btn=New-Object Autodesk.DataManagement.Client.Framework.Forms.Currency.ButtonConfiguration
-					$errMsg=[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage($errTxt, "Folder not in Workspace", $btn )
-					$Prop["Folder"].Value=""
-				}
+		$browsersettings.InitialSelectedFolderPath = $WSPath
+		$browsersettings.AllowNewFolderCreation = $true	#todo: add user group restrictions if not any user may create new folders
+		$result = [Autodesk.DataManagement.Client.Framework.Vault.Forms.Library]::SelectVaultFolder($browsersettings)
+		if ($result -ne $null) {
+			$selection = $result.SelectedFolderFullName 
+			if ($selection -eq $WSPath) { 
+				$Prop["Folder"].Value = ""
 			}
-			else 
-			{
-				$Prop["Folder"].Value=""
+			elseif ($selection.startswith($WSPath)) {
+				$LocalPath = $selection.remove(0, $WSPath.Length + 1)
+				$LocalPath = $LocalPath.Replace("/", "\")
+				$Prop["Folder"].Value = $LocalPath
+				$paths = $Prop["Folder"].Value.Split("\")
+				mReReadBreadCrumbs $paths
 			}
+			else {
+				$errTxt = "Please select a folder within '" + $WSPath + "'"
+				$btn = New-Object Autodesk.DataManagement.Client.Framework.Forms.Currency.ButtonConfiguration
+				$errMsg = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage($errTxt, "Folder not within the Workspace", $btn )
+				$Prop["Folder"].Value = ""
+			}
+		}
+		else {
+			$Prop["Folder"].Value = ""
+		}
 	}
 }
