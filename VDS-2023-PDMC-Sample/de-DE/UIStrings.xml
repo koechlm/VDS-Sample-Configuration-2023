@@ -511,9 +511,9 @@
   <UIString ID="ClassTerms_15">Zusätzliche Sprachen</UIString>
   <UIString ID="ClassTerms_16">Search text to match term definition, use "*" and/or add Languages to widen the scope</UIString>
   <UIString ID="ClassTerms_BTN8">Suche</UIString>
-  <UIString ID="ClassTerms_BTN9">Begriff in Titel Feld übernehmen</UIString>
-  <UIString ID="ClassTerms_BTN10">Übernehmen</UIString>
-  <UIString ID="ClassTerms_TT00">Begriff(e) in Titel und Titel (EN, FR, IT) übernehmen.</UIString>
+  <UIString ID="ClassTerms_BTN9">Begriff in Titel Feld kopieren</UIString>
+  <UIString ID="ClassTerms_BTN10">Kopieren</UIString>
+  <UIString ID="ClassTerms_TT00">Begriff(e) in Titel und Titel (EN, FR, IT) kopieren.</UIString>
   <UIString ID="ClassTerms_TT01">Suche auf Hierarchieebene begrenzen...</UIString>
   <UIString ID="ClassTerms_TT02">Name = 'Begriff' wenn nicht anders angegeben</UIString>
   <UIString ID="ClassTerms_TT03">Wird über Klassifizierung gefüllt</UIString>

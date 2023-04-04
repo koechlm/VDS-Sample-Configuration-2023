@@ -195,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CAD.Custom\Configuration\Inventor - Copy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CAD.Custom\Configuration\Inventor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -432,6 +436,56 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vault.Custom\addinVault\VdsSampleUtilities.dll" />
+    <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Create_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Create_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Delete_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Delete_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Edit_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Edit_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Export_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Export_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Import_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Import_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_32.ico" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemMaster_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemMaster_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemSave_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemSave_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Item_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\PackAndGo_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\PackAndGo_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\VirtualComp_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\VirtualComp_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\BasicSearchSearched_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\BasicSearchSearched_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ChangeOrder_List_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ChangeOrder_List_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Create_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Create_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Delete_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Delete_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Edit_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Edit_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Export_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Export_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Import_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Import_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_32.ico" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemMaster_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemMaster_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemSave_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemSave_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Item_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\PackAndGo_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\PackAndGo_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\VirtualComp_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\VirtualComp_32.png" />
     <Resource Include="Vault.Custom\addinVault\VdsSampleUtilities.xml" />
     <Resource Include="CAD.Custom\Configuration\AutoCadDynamicProperties.xml" />
     <Resource Include="CAD.Custom\Configuration\InventorDynamicProperties.xml" />

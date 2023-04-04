@@ -513,15 +513,15 @@
   <UIString ID="ClassTerms_15">Additional Languages</UIString>
   <UIString ID="ClassTerms_16">Search text to match term definition, use "*" and/or add Languages to widen the scope</UIString>
   <UIString ID="ClassTerms_BTN8">Search</UIString>
-  <UIString ID="ClassTerms_BTN9">Apply Term as Title</UIString>
-  <UIString ID="ClassTerms_BTN10">Apply</UIString>
-  <UIString ID="ClassTerms_TT00">Apply Term(s) as Title DE (EN, FR, IT)</UIString>
+  <UIString ID="ClassTerms_BTN9">Copy Term as Title</UIString>
+  <UIString ID="ClassTerms_BTN10">Copy Term Data</UIString>
+  <UIString ID="ClassTerms_TT00">Copy Term(s) as Title DE (EN, FR, IT)</UIString>
   <UIString ID="ClassTerms_TT01">Limit search to hierarchy level</UIString>
   <UIString ID="ClassTerms_TT02">Name = 'TERM EN' if not typed manually</UIString>
   <UIString ID="ClassTerms_TT03">Assigned by classification</UIString>
   <UIString ID="ClassTerms_TT04">No hand typed terms allowed; select available term from catalog</UIString>
   <UIString ID="ClassTerms_TT05">Activates catalog of terms</UIString>
-  <UIString ID="ClassTerms_TT06">Apply '*' for partial terms</UIString>
+  <UIString ID="ClassTerms_TT06">Use '*' for partial terms</UIString>
   <UIString ID="ClassTerms_TT07">Resets classification</UIString>
   <UIString ID="ClassTerms_MSG01">You are going to change the selected classification, are you sure?"</UIString>
   <UIString ID="ClassTerms_MSG02">Search result displays {0} out of {1}; refine your search.</UIString>
