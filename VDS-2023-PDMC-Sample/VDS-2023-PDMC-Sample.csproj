@@ -195,10 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CAD.Custom\Configuration\Inventor - Copy.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="CAD.Custom\Configuration\Inventor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

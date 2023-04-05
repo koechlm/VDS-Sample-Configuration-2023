@@ -463,7 +463,7 @@
                             <DataGridTemplateColumn  Header="Options" CellStyle="{StaticResource DynamicDataGridBtnCellStyle}">
                                 <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding DataContext.UIString[ADSK.QS.DynGrid.01], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding DataContext.UIString[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" FontWeight="Bold"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.HeaderTemplate>
                             </DataGridTemplateColumn>

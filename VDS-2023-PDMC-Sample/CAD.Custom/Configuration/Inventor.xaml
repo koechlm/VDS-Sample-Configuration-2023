@@ -452,7 +452,7 @@
                                 <DataGridTemplateColumn  Header="Options" CellStyle="{StaticResource DynamicDataGridBtnCellStyle}">
                                     <DataGridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding DataContext.UIString[ADSK.QS.DynGrid.01], FallbackValue=Options, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding DataContext.UIString[], RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                 </DataGridTemplateColumn>
@@ -466,9 +466,9 @@
                     <Grid x:Name="grdRevision" Height="Auto" MinHeight="{Binding ActualHeight, ElementName=DSDynCatPropGrid, Mode=OneWay}" MinWidth="694" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
@@ -493,9 +493,7 @@
                             <Label x:Name="lblStatus" Content="{Binding UIString[LBL4], FallbackValue=Status}" Grid.Row="1" Height="Auto"/>
                             <TextBox x:Name="txtStatus" Text="" IsEnabled="False" Grid.Column="1" Grid.Row="1" IsReadOnly="True" Height="Auto" Margin="0,1" />
                             <Label Content="Latest Released Rev." Grid.Column="3" Height="Auto"/>
-                            <Border Grid.Column="4" BorderThickness="0,1,1,0">
-                                <CheckBox x:Name="LatestRev" IsChecked="False" IsEnabled="False" VerticalAlignment="Center" Margin="5,0,0,0" />
-                            </Border>
+                            <CheckBox x:Name="LatestRev" Grid.Column="4" IsChecked="False" IsEnabled="False" VerticalAlignment="Center" Margin="5,0,0,0" />
                             <Label x:Name="lbLfcDef1" Content="{Binding UIString[Adsk.QS.RevTab_02], FallbackValue=Lifecycle Definition}" Grid.Column="3" Grid.Row="1" Height="Auto"/>
                             <TextBox x:Name="txtLfcDef" Text="" IsEnabled="False" Grid.Column="4" Grid.Row="1" IsReadOnly="True" Height="Auto" Margin="0,1" />
                             <Label Content="{Binding UIString[LBL34], FallbackValue=Created By}" Grid.Row="2" Height="Auto" BorderThickness="1"/>
@@ -514,28 +512,25 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="5"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Content="{Binding UIString[], FallbackValue=Checked By}" Grid.Column="0"  Height="Auto"/>
                             <TextBox x:Name="txtCheckedBy" Text="{WPF:ValidatedBinding Prop[Checked By].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="1" Margin="0,1"/>
                             <Label Content="{Binding UIString[], FallbackValue=Checked Date}"  Height="Auto" Grid.Column="3"/>
-                            <Border BorderThickness="0,1,1,0" Grid.Column="4">
-                                <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Date Checked].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto"  />
-                            </Border>
+                            <!--<Border BorderThickness="0,1,1,0" Grid.Column="4">-->
+                            <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Date Checked].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="4" Margin="0,1"  />
+                            <!--</Border>-->
                             <Label Content="{Binding UIString[], FallbackValue=Engr Approved By}" Grid.Column="0" BorderThickness="1" Grid.Row="1" Height="Auto" />
                             <TextBox x:Name="txtEngApprvdBy" Text="{WPF:ValidatedBinding Prop[Engr Approved by].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="1" Grid.Row="1" Margin="0,1"/>
                             <Label Content="{Binding UIString[], FallbackValue=Engr Approved Date}" Height="Auto" BorderThickness="1" Grid.Column="3" Grid.Row="1"/>
-                            <Border BorderThickness="0,1,1,1" Grid.Column="4" Grid.Row="1">
-                                <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Engr Date Approved].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" />
-                            </Border>
-                            <Label Content="{Binding UIString[], FallbackValue=Change Description}" Height="Auto" BorderThickness="1" Grid.Row="3"/>
+                            <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Engr Date Approved].Value}" Grid.Column="4" Grid.Row="1" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Margin="0,1" />
+                            <Label Content="{Binding UIString[], FallbackValue=Change Description}" Height="Auto" BorderThickness="1" Grid.Row="2"/>
                             <ComboBox x:Name="cmbChangeDescr"
                                     ItemsSource="{Binding Prop[Change Descr].ListValues}" 
                                     Text="{WPF:ValidatedBinding Prop[Change Descr].Value}" 
                                     SelectedValue="{Binding Prop[Change Descr].Value}"
                                     IsEditable="True" IsEnabled="{Binding PsVal[InvertReadOnly]}"
-                                    Height="Auto" Grid.ColumnSpan="4" Grid.Row="3" Grid.Column="1" Margin="0,1" />
+                                    Height="Auto" Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="1" Margin="0,1" />
                         </Grid>
                         <Grid x:Name="grdCustomerApproval" Grid.Row="6" Visibility="{Binding Prop[Customer Approval Required].Value, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
@@ -551,9 +546,7 @@
                             <Label Content="{Binding UIString[], FallbackValue=Customer Approved By}" Grid.Column="0" Height="Auto" BorderThickness="1"/>
                             <TextBox x:Name="txtApprovedBy" Text="{WPF:ValidatedBinding Prop[Customer Approved By].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="1" Margin="0,1"/>
                             <Label Content="{Binding UIString[], FallbackValue=Cust. Approved Date}" Grid.Column="3" BorderThickness="1" Height="Auto"/>
-                            <Border BorderThickness="0,1,1,1" Grid.Column="4">
-                                <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Customer Approved Date].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto"  />
-                            </Border>
+                            <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Customer Approved Date].Value}" Grid.Column="4" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Margin="0,1"  />
                         </Grid>
                     </Grid>
                 </AdornerDecorator>
@@ -577,10 +570,10 @@
                                         <Style>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Path=CurrentTheme, Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                                                    <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsDark\Refresh_32.png" />
+                                                    <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsDark\Refresh_16.png" />
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding Path=CurrentTheme, Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                                                    <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsLight\Refresh_32.png" />
+                                                    <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsLight\Refresh_16.png" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -629,19 +622,19 @@
                             <Label x:Name="lblItemLastUpdatedDate" Content="{Binding UIString[Adsk.QS.ItemSearch_25], FallbackValue='Last Updated Date                             '}" Grid.Column="3" Grid.Row="3" BorderThickness="1"/>
                             <TextBox x:Name="txtItemLastUpdatedDate" Grid.Column="4" Grid.Row="3" IsReadOnly="True" Margin="0,1" />
                         </Grid>
-                        <DataGrid x:Name="dtgrdItemProps" IsReadOnly="True" AutoGenerateColumns="False" CanUserReorderColumns="False" Grid.Row="2" Margin="0,10,0,0" RowHeight="24">
+                        <DataGrid x:Name="dtgrdItemProps" IsReadOnly="True" AutoGenerateColumns="False" CanUserReorderColumns="False" Grid.Row="2" Margin="0,10,0,0" RowHeight="24" SelectionMode="Single" SelectionUnit="CellOrRowHeader">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="ItemPropName" Binding="{Binding Key}" Width="Auto">
                                     <DataGridTextColumn.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding UIString[Adsk.QS.ItemSearch_26], FallbackValue='Property Name'}"/>
+                                            <TextBlock Text="{Binding UIString[Adsk.QS.ItemSearch_26], FallbackValue='Property Name'}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTextColumn.HeaderTemplate>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn x:Name="ItemPropValue" Binding="{Binding Value}" Width="*">
                                     <DataGridTextColumn.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding UIString[Adsk.QS.ItemSearch_27], FallbackValue=Property Value}"/>
+                                            <TextBlock Text="{Binding UIString[Adsk.QS.ItemSearch_27], FallbackValue=Property Value}" FontWeight="Bold"/>
                                         </DataTemplate>
                                     </DataGridTextColumn.HeaderTemplate>
                                 </DataGridTextColumn>
@@ -693,8 +686,9 @@
                     IsCancel="true" Content="{Binding UIString[BTN2], FallbackValue=Cancel}" />
             <Button x:Name="btnHelp" Content="{Binding UIString[MSDCE_BTN1], FallbackValue=Help}" 
                     Command="{Binding PsCmd[mHelp(100)]}" Height="24" ToolTip="F1" />
-            <CheckBox Name="RmOrphShts" Content="{Binding UIString[MSDCE_OrphShtOption], FallbackValue='Remove orphaned sheets'}" Grid.Column="1" HorizontalAlignment="Right" Margin="180,5,10,0" VerticalAlignment="Top" 
-                      IsChecked="True" ToolTip="{Binding UIString[MSDCE_OrphShtToolTip], FallbackValue='Deletes all sheets without view(s)'}"/>
+            <CheckBox Name="RmOrphShts" Content="{Binding UIString[MSDCE_OrphShtOption], FallbackValue='Remove orphaned sheets'}" Grid.Column="1" 
+                      HorizontalAlignment="Right" Margin="180,5,10,0" VerticalAlignment="Top" IsChecked="True"                       
+                      ToolTip="{Binding UIString[MSDCE_OrphShtToolTip], FallbackValue='Deletes all sheets without view(s)'}"/>
         </Grid>
         <Grid x:Name="grdShortCutPane" Grid.RowSpan="5" ToolTip="{Binding UIString[MSDCE_TT24]}" Style="{StaticResource grdShortCutPaneStyle}" >
             <GroupBox x:Name="GroupShortcuts" Header="{Binding UIString[MSDCE_LBL88], FallbackValue=Shortcuts}" BorderThickness="0" Padding="0,0,0,-6" Margin="-5,0,10,0">
