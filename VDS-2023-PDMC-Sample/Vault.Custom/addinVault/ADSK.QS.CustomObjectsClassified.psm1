@@ -79,7 +79,11 @@ function mInitializeTermCatalog
 			$dsWindow.FindName("btnSearchTerm").IsDefault = $true
 
 		}	
-		catch { $dsDiag.Trace("WARNING expander TermCatalog is not present")}
+		catch { 
+			#$dsDiag.Trace("The expander TermCatalog is not present. Contact your VDS administrator.")
+			$mErrorMsg = "The expander TermCatalog is not present or couldn't initialize. Contact your VDS administrator."
+			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($mErrorMsg, "VDS Sample Configuration")
+		}
 	}#if Term Catalog Expander exists
 }
 
