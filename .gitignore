@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /ReleasePackages
+/VDS-2023-PDMC-Sample/Vault.Custom/Configuration/ADSK.QS.CustomObject_old.xaml

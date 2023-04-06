@@ -339,6 +339,9 @@
   <UIString ID="ADSK-ActivateSchedTask-03">Activate Selected</UIString>
   <UIString ID="ADSK-ActivateSchedTask-04">Close</UIString>
   <UIString ID="ADSK-ActivateSchedTask-05">Put selected Server Task to Job Queue</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-06">Scheduled Synchronization Tasks</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-07">Server Task Name</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-08">Server Task Description</UIString>
   <!--Activate Scheduled Task-->
 
   <!--QuickstartExtensions functions library-->

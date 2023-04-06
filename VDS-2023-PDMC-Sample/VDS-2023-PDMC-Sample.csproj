@@ -247,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObject_old.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectClassified.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
