@@ -367,30 +367,6 @@
   <UIString ID="ADSK-GoToInvSibl_MSG01">Es wurde keine Schwester-Datei gefunden!</UIString>
   <!--GoToInvSibling End-->
 
-  <!--Derivation Tree-->
-  <UIString ID="DerivationTree_00">Datei-Kopien</UIString>
-  <UIString ID="DerivationTree_01">Kopie von - alle Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_02">Führt alle Versionen/Revisionen der Quelldatei auf</UIString>
-  <UIString ID="DerivationTree_03">Geschwister - alle Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_04">Führt alle Versionen/Revisionen weiterer Kopien der Quelldatei auf</UIString>
-  <UIString ID="DerivationTree_05">Kopie(en) - Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_06">Führt alle Datei Versionen/Revisionen auf, die von gewählter Datei ausgehend kopiert wurden</UIString>
-  <UIString ID="DerivationTree_07">Status (Historisch)</UIString>
-  <UIString ID="DerivationTree_08">Ersterstellung</UIString>
-  <UIString ID="DerivationTree_09">Letzte Version</UIString>
-  <UIString ID="DerivationTree_10">Neueste freigegeben Revision</UIString>
-  <UIString ID="DerivationTree_11">Versionskommentar</UIString>
-  <UIString ID="DerivationTree_12">Dateiname in Zwischenablage kopieren</UIString>
-  <UIString ID="DerivationTree_13">Es konnte keine Quelldatei ermittelt werden.</UIString>
-  <UIString ID="DerivationTree_14">Es konnten keine Kopien mit identischer Quellangabe ermittelt werden.</UIString>
-  <UIString ID="DerivationTree_15">Es wurden keine Kopien gefunden werden, die mit selektierter Datei als Quelldatei übereinstimmen.</UIString>
-  <UIString ID="DerivationTree_16">Anzeige auf Seitengröße {0} begrenzt; Gesamtanzahl ermittelter Dateiversionen: {1}</UIString>
-  <UIString ID="DerivationTree_17">Anzeige aktualisieren</UIString>
-  <UIString ID="DerivationTree_18">Anzeige automatisch aktualisieren</UIString>
-  <UIString ID="DerivationTree_19">Alle Suchen ausführen, um jeden Zweig zu ermitteln.</UIString>
-  <UIString ID="DerivationTree_20">Aktualisiert Ansicht mit wechselnder Auswahl. Hinweis - Antwortzeiten variieren je nach Tresor und eingestellter Seitengröße!</UIString>
-  <!--Derivation Tree end-->
-
   <!--Insert CAD Copy-->
   <UIString ID="ADSK-InsertInvCopy_00">Einfügen CAD: Kopie d. Komponente</UIString>
   <!--Insert CAD Copy-->
@@ -544,17 +520,6 @@
   <UIString ID="ADSK-AddPdfDsgnRepToQu-MNU00">PDF Ansicht aktualisieren</UIString>
   <!--AddPdfDsgnRepToQu Snippet End-->
 
-  <!--Item-File-Importer-->
-  <UIString ID="ADSK-ItemFileImport_00">xDMS</UIString>
-  <UIString ID="ADSK-ItemFileImport_01">Pfad zur Dateiablage nicht vorhanden.</UIString>
-  <UIString ID="ADSK-ItemFileImport_02">'Drag and Drop' Import von Artikel-Datei-Import-Tab</UIString>
-  <UIString ID="ADSK-ItemFileImport_03">Anhänge von Datei-Import-Tab ergänzt</UIString>
-  <UIString ID="ADSK-ItemFileImport_04">Es wurde mindestens eine CAD Datei gefiltert, verwenden sie die CAD Anwendung zum Hinzufügen, bevor diese angehängt wird.</UIString>
-  <UIString ID="ADSK-ItemFileImport_05">Ziehen sie Dateien auf das 'Upload' Symbol; Dateien werden importiert und als Anhang an diesen Artikel verknüpft.</UIString>
-  <UIString ID="ADSK-ItemFileImport_06">Datei-Import</UIString>
-  <UIString ID="ADSK-ItemFileImport_07">Ziehen Sie Datein zum Import/Anhang hierher.</UIString>
-  <!--Item-File-Importer de-->
-
   <!--ADSK-File Property Provider-->
   <UIString ID="ADSKFile-MetaReader-00">ADSK-Datei Metadaten auslesen</UIString>
   <UIString ID="ADSKFile-MetaReader-01">Importiert ADSK-Datei Metadaten</UIString>
@@ -586,6 +551,13 @@
   <UIString ID="Adsk.QS.RevTab_10">Freigabe Kunde erf.</UIString>
   <UIString ID="Adsk.QS.RevTab_11">Freigabe Kunde von</UIString>
   <UIString ID="Adsk.QS.RevTab_12">Freigabe Kunde Datum</UIString>
+  <UIString ID="Adsk.QS.RevTab_13">Originator</UIString>
+  <UIString ID="Adsk.QS.RevTab_14">Original Create Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_15">Initial Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_16">Initial Release Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_17">Latest Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_18">Latest Released Date</UIString>
+  <UIString ID="Engr Date Approved">Engr Approved Date</UIString>  
 
   <!--UIStrings for PDMC-Sample Dynamic Grids - Note these mappings are only valid for the original PDMC-Sample Vault!-->
   <UIString ID="1907cfc4-134b-4151-b04b-263627b8d37e">Geprüft am</UIString>

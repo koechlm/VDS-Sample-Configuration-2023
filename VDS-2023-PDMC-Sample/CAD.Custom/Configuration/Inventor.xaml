@@ -517,9 +517,7 @@
                             <Label Content="{Binding UIString[], FallbackValue=Checked By}" Grid.Column="0"  Height="Auto"/>
                             <TextBox x:Name="txtCheckedBy" Text="{WPF:ValidatedBinding Prop[Checked By].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="1" Margin="0,1"/>
                             <Label Content="{Binding UIString[], FallbackValue=Checked Date}"  Height="Auto" Grid.Column="3"/>
-                            <!--<Border BorderThickness="0,1,1,0" Grid.Column="4">-->
                             <DatePicker SelectedDate="{WPF:ValidatedBinding Prop[Date Checked].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="4" Margin="0,1"  />
-                            <!--</Border>-->
                             <Label Content="{Binding UIString[], FallbackValue=Engr Approved By}" Grid.Column="0" BorderThickness="1" Grid.Row="1" Height="Auto" />
                             <TextBox x:Name="txtEngApprvdBy" Text="{WPF:ValidatedBinding Prop[Engr Approved by].Value}" IsEnabled="{Binding PsVal[InvertReadOnly]}" Height="Auto" Grid.Column="1" Grid.Row="1" Margin="0,1"/>
                             <Label Content="{Binding UIString[], FallbackValue=Engr Approved Date}" Height="Auto" BorderThickness="1" Grid.Column="3" Grid.Row="1"/>

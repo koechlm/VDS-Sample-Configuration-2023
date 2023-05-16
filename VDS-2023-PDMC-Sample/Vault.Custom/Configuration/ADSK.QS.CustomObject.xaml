@@ -9,7 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         Style="{DynamicResource ThemedWindowStyle}"
-        x:Name="CustomObjectWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" d:DesignWidth="900">
+        x:Name="CustomObjectWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -337,13 +337,13 @@
                     </Grid>
                     <Grid x:Name="grdComments" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" MinWidth="140"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lblComments" Content="{Binding UIString[LBL7], FallbackValue=Comments}" Height="Auto" BorderThickness="1,1,0,1" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=lblCategory, Mode=OneWay}" />
                         <TextBox x:Name="txtComments" Text="{WPF:ValidatedBinding Prop[_XLTN_COMMENTS].Value}" Height="Auto" TextWrapping="Wrap" MinHeight="62" Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MaxHeight="102" VerticalContentAlignment="Top"/>
                     </Grid>
-                    <Expander x:Name="expOrgPersLnk" Grid.Column="2" ExpandDirection="Right" IsExpanded="True" Visibility="Visible" MaxWidth="380" Grid.RowSpan="3">
+                    <Expander x:Name="expOrgPersLnk" Grid.Column="2" ExpandDirection="Right" IsExpanded="False" Visibility="Collapsed" MaxWidth="380" Grid.RowSpan="3">
                         <Border BorderThickness="1">
                             <Grid x:Name="grdOrgPersLnk">
                                 <Grid.ColumnDefinitions>
@@ -357,7 +357,7 @@
                                     <RowDefinition Height="Auto" ToolTip="{Binding UIString[Adsk.Org.Pers.Link_04]}"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Grid x:Name="grdItemSearchHeader" Grid.ColumnSpan="4" Margin="0,0,0,5">
+                                <Grid x:Name="grdSearchHeader" Grid.ColumnSpan="4" Margin="0,0,0,5">
                                     <Grid.Style>
                                         <Style>
                                             <Style.Triggers>
@@ -384,8 +384,8 @@
                                             </Style>
                                         </Image.Style>
                                     </Image>
-                                    <TextBlock x:Name="lblItemMaster" Text="{Binding UIString[Adsk.Org.Pers.Link_05], FallbackValue=Select Customer from Organisations}" Margin="10,0,0,0" FontSize="14"  Padding="10,5,0,0" 
-                                            TextWrapping="Wrap" VerticalAlignment="Center" Height="27" FontWeight="Bold"/>
+                                    <TextBlock x:Name="lblSearchHeader" Text="{Binding UIString[Adsk.Org.Pers.Link_05], FallbackValue=Select Customer from Organisations}" Margin="24,0,0,0" Padding="5" 
+                                            TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"/>
                                 </Grid>
                                 <Label x:Name="lblOrganisation" Content="{Binding UIString[MSDCE_CO01], FallbackValue=Organisation}" Visibility="{Binding Visibility, ElementName=cmbOrganisation}" Grid.Row="1"/>
                                 <ComboBox x:Name="cmbOrganisation" Grid.Column="1" MinWidth="200"

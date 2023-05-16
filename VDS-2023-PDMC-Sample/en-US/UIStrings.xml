@@ -369,30 +369,6 @@
   <UIString ID="ADSK-GoToInvSibl_MSG01">No Sibling Found!</UIString>
   <!--GoToInvSibling End-->
 
-  <!--Derivation Tree-->
-  <UIString ID="DerivationTree_00">File Copies</UIString>
-  <UIString ID="DerivationTree_01">Copied from - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_02">Lists all file versions/revisions of the copied source</UIString>
-  <UIString ID="DerivationTree_03">Sibling(s) - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_04">Lists all file versions/revisions also copied from the same source file</UIString>
-  <UIString ID="DerivationTree_05">Copy(ies) - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_06">Lists all file versions/revisions copied from the selected file</UIString>
-  <UIString ID="DerivationTree_07">State (Historical)</UIString>
-  <UIString ID="DerivationTree_08">Original Create Date</UIString>
-  <UIString ID="DerivationTree_09">Latest Version</UIString>
-  <UIString ID="DerivationTree_10">Latest Released Revision</UIString>
-  <UIString ID="DerivationTree_11">Version Comment</UIString>
-  <UIString ID="DerivationTree_12">Copy File Name to Clipboard</UIString>
-  <UIString ID="DerivationTree_13">Could not find source file</UIString>
-  <UIString ID="DerivationTree_14">Could not find copies with identical source file</UIString>
-  <UIString ID="DerivationTree_15">Could not find any copy matching the selected file as source file</UIString>
-  <UIString ID="DerivationTree_16">Search result is limited to page size {0}; Total number of files found: {1}</UIString>
-  <UIString ID="DerivationTree_17">Update View</UIString>
-  <UIString ID="DerivationTree_18">Auto Update View</UIString>
-  <UIString ID="DerivationTree_19">Run all searches to fill each branch</UIString>
-  <UIString ID="DerivationTree_20">Updates view on selection changed. Note - Delayed response depending on vault and paging size!</UIString>
-  <!--Derivation Tree end-->
-
   <!--Insert CAD Copy-->
   <UIString ID="ADSK-InsertInvCopy_00">Insert CAD: Component Copy</UIString>
   <!--Insert CAD Copy-->
@@ -546,17 +522,6 @@
   <UIString ID="ADSK-AddPdfDsgnRepToQu-MNU00">Update PDF View</UIString>
   <!--AddPdfDsgnRepToQu Snippet End-->
 
-  <!--Item-File-Importer-->
-  <UIString ID="ADSK-ItemFileImport_00">xDMS</UIString>
-  <UIString ID="ADSK-ItemFileImport_01">Could not get Item-File location path.</UIString>
-  <UIString ID="ADSK-ItemFileImport_02">by Drag and Drop Item File Importer</UIString>
-  <UIString ID="ADSK-ItemFileImport_03">File-Import added attachments</UIString>
-  <UIString ID="ADSK-ItemFileImport_04">At least one CAD file was filtered; use CAD application instead to import before item assignment</UIString>
-  <UIString ID="ADSK-ItemFileImport_05">Drop Files on Upload Symbol below; files are added to Vault and attached to this item.</UIString>
-  <UIString ID="ADSK-ItemFileImport_06">File-Import</UIString>
-  <UIString ID="ADSK-ItemFileImport_07">Drop files to import and attach.</UIString>
-  <!--Item-File-Importer en-->
-
   <!--ADSK-File Property Provider-->
   <UIString ID="ADSKFile-MetaReader-00">Extract ADSK-File Meta Data</UIString>
   <UIString ID="ADSKFile-MetaReader-01">Imports ADSK-File Meta Data</UIString>
@@ -588,6 +553,12 @@
   <UIString ID="Adsk.QS.RevTab_10">Customer Approval Required</UIString>
   <UIString ID="Adsk.QS.RevTab_11">Customer Approved By</UIString>
   <UIString ID="Adsk.QS.RevTab_12">Customer Appr. Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_13">Originator</UIString>
+  <UIString ID="Adsk.QS.RevTab_14">Original Create Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_15">Initial Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_16">Initial Release Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_17">Latest Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_18">Latest Released Date</UIString>
   <UIString ID="Engr Date Approved">Engr Approved Date</UIString>
   
   <!--UIStrings for PDMC-Sample Dynamic Grids - Note these mappings are only valid for the original PDMC-Sample Vault!-->

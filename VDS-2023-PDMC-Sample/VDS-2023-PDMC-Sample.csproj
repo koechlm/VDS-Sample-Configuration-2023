@@ -126,11 +126,9 @@
     <None Include="Vault.Custom\addinVault\ADSK.QS.Classification.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.CustomObjectsClassified.psm1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.Default.ps1" />
-    <None Include="Vault.Custom\addinVault\ADSK.QS.DerivationTree.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.ECOTaskLink.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileBOM.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileDocStructure.ps1" />
-    <None Include="Vault.Custom\addinVault\ADSK.QS.FileImport.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.IEC61355.psm1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.ItemLookup.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidationCustent.ps1" />
@@ -247,11 +245,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObject_old.xaml">
+    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectClassified.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.CustomObjectClassified.xaml">
+    <Page Include="Vault.Custom\Configuration\ADSK.QS.File old.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -295,10 +293,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.DerivationTree.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Vault.Custom\Configuration\File\ADSK.QS.FileDataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -316,10 +310,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Vault.Custom\Configuration\Group\Adsk.QS.ClassifiedObject.DataSheet.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vault.Custom\Configuration\Item\ADSK.QS.AttachFileImport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -436,6 +426,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vault.Custom\addinVault\VdsSampleUtilities.dll" />
+    <Resource Include="Vault.Custom\IconsLight\RemoveAction_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\RemoveAction_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\RemoveAction_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\RemoveAction_32.png" />
     <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_16.png" />
     <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_32.png" />
     <Resource Include="Vault.Custom\IconsDark\Create_16.png" />
