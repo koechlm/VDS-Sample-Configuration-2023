@@ -443,7 +443,7 @@
             			ScrollViewer.CanContentScroll="False"
                         IsReadOnly="True"
                         EnableRowVirtualization="False"
-                        VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" CanUserReorderColumns="False" >
+                        VerticalAlignment="Top"  MinHeight="260" MaxHeight="350" CanUserReorderColumns="False" Margin="0,10,0,0" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding DispName}" CellStyle="{StaticResource DynamicDataGridLabelStyle}" Width="*" IsReadOnly="True">
                                 <DataGridTextColumn.HeaderTemplate>

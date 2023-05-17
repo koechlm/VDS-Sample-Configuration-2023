@@ -288,7 +288,7 @@
     <TabControl >
         <TabItem x:Name="tabProperties" Header="{Binding UIString[MSDCE_MultiTab_01], FallbackValue=Properties}">
             <AdornerDecorator>
-                <Grid x:Name="grdMain" Margin="5" MinHeight="300">
+                <Grid x:Name="grdMain" Margin="5,10,5,5" MinHeight="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition/>
@@ -448,10 +448,10 @@
                                             <Style>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=CurrentTheme, Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Dark}">
-                                                        <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsDark\ItemMaster_16.png" />
+                                                        <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsDark\ItemMaster_32.png" />
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=CurrentTheme, Source={x:Static wpfUtilities:ActiveThemeProvider.Instance}}" Value="{x:Static winFormTheme:Theme.Light}">
-                                                        <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsLight\ItemMaster_16.png" />
+                                                        <Setter Property="Image.Source" Value="C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\IconsLight\ItemMaster_32.png" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -818,7 +818,7 @@
         <TabItem x:Name="tabRevision" Header="{Binding UIString[LBL12], FallbackValue=Revision}">
             <AdornerDecorator>
                 <Grid x:Name="grdRevision" Width="{Binding ActualWidth, ElementName=grdMain, Mode=OneWay}" 
-                  Height="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" Margin="5">
+                  Height="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" Margin="5,10,5,5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="5"/>
@@ -833,9 +833,9 @@
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grdRevSysProps" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="26"/>
-                            <RowDefinition Height="26"/>
-                            <RowDefinition Height="26"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -864,13 +864,13 @@
                         <TextBox x:Name="txtInitApprover" Text="{WPF:ValidatedBinding Prop[_XLTN_INITIALAPPROVER].Value}" 
                                  IsReadOnly="True" Grid.Column="1" Grid.Row="3" Height="Auto" Margin="0,1"/>
                         <Label Content="{Binding UIString[Adsk.QS.RevTab_16], FallbackValue='Initial Release Date'}" Grid.Row="3" Grid.Column="3"/>
-                        <TextBox Text="{WPF:ValidatedBinding Prop[_XLTN_INITRELEASEDATE].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" 
+                        <TextBox x:Name="txtInitalRelDate" Text="{WPF:ValidatedBinding Prop[_XLTN_INITRELEASEDATE].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" 
                                         IsReadOnly="True" Grid.Column="4" Grid.Row="4" Margin="0,1" />
                         <Label Content="{Binding UIString[Adsk.QS.RevTab_17], FallbackValue='Latest Approver'}" Grid.Row="4" Grid.Column="0"/>
                         <TextBox x:Name="txtLatestApprover" Text="{WPF:ValidatedBinding Prop[_XLTN_LATESTAPPROVER].Value}" 
                                  IsReadOnly="True" Grid.Column="1" Grid.Row="4" Height="Auto" Margin="0,1"/>
                         <Label Content="{Binding UIString[Adsk.QS.RevTab_18], FallbackValue='Latest Released Date'}" Grid.Row="4" Grid.Column="3"/>
-                        <TextBox Text="{WPF:ValidatedBinding Prop[_XLTN_LATESTRELEASEDATE].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" 
+                        <TextBox x:Name="txtLatestRelDate" Text="{WPF:ValidatedBinding Prop[_XLTN_LATESTRELEASEDATE].Value, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" 
                                         IsReadOnly="True" Grid.Column="4" Grid.Row="3" Margin="0,1" />
                     </Grid>
                     <Grid x:Name="grdApproval" Grid.Row="2">
@@ -940,7 +940,7 @@
         <TabItem x:Name="tabItemProperties" Header="{Binding UIString[Adsk.QS.ItemSearch_28], FallbackValue=Assigned Item}">
             <AdornerDecorator>
                 <Grid x:Name="grdAssignedItemMain" Width="{Binding ActualWidth, ElementName=grdMain, Mode=OneWay}" 
-                    Height="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" Margin="5" >
+                    Height="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" Margin="5,10,5,5" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
