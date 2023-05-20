@@ -72,7 +72,7 @@ function ValidateFolderName
 {
 	if($Prop["_FolderName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
-		return $true;
+		return mValidateUniqueFldrName
 	}
 	return $false;
 }
@@ -83,7 +83,7 @@ function ValidateCustomObjectName
 	{
 		if($Prop["_CustomObjectName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 		{
-			return ValidateCustentName;
+			return ValidateCustentName
 		}
 		return $false;
 	}

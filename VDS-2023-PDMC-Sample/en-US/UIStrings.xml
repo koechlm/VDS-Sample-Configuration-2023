@@ -418,6 +418,7 @@
   <UIString ID="Adsk.QS.ItemSearch_29">Properties</UIString>
   <UIString ID="Adsk.QS.ItemSearch_30">Associated Files</UIString>
   <UIString ID="Adsk.QS.ItemSearch_31">File not accessible to current user</UIString>
+  <UIString ID="Adsk.QS.ItemSearch_32">No matching Item(s) found.</UIString>
   <!--ItemMaster Search and Item Tab END-->
 
   <!--Classification start-->
@@ -454,7 +455,7 @@
   <UIString ID="Adsk.QS.Classification_00">Class</UIString>
   <UIString ID="Adsk.QS.Classification_01">Name</UIString>
   <UIString ID="Adsk.QS.Classification_02">Value</UIString>
-  <UIString ID="Adsk.QS.Classification_03">Classification</UIString>
+  <UIString ID="Adsk.QS.Classification_03">Classification Properties</UIString>
   <UIString ID="Adsk.QS.Classification_04">Class Hierarchy</UIString>
   <UIString ID="Adsk.QS.Classification_05">Available Classes</UIString>
   <UIString ID="Adsk.QS.Classification_06">Assigned Class</UIString>

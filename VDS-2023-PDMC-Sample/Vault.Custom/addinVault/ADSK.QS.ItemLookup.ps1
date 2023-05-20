@@ -49,7 +49,7 @@ function mInitializeItemSearch([STRING] $Context)
 
 
 	#close the expander as another property is selected 
-	$dsWindow.FindName("DSDynCatPropGrid").add_GotFocus({
+	$dsWindow.FindName("DSDynamicCategoryProperties").add_GotFocus({
 		$dsWindow.FindName("expItemMasterSearch").Visibility = "Collapsed"
 		$dsWindow.FindName("btnItemSearch").IsDefault = $false
 	})
@@ -189,6 +189,8 @@ function mGetItemsBySearchCriterias()
 			}
 			else { 
 				$dsWindow.FindName("btnItemDataCopy").IsEnabled = $false
+				$dsWindow.FindName("txtItemSearchResultMsg").Text = $UIString["Adsk.QS.ItemSearch_32"]
+				$dsWindow.FindName("txtItemSearchResultMsg").Visibility = "Visible"
 				break;
 			}
 			if($mResultPage.Count -lt $searchStatus.TotalHits)

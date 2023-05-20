@@ -117,8 +117,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" MinWidth="140"/>
-            <ColumnDefinition Width="3*" MinWidth="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="200" Width="2*"/>
         </Grid.ColumnDefinitions>
         <DockPanel Margin="5,0" LastChildFill="False">
             <TreeView VerticalContentAlignment="Center" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=grdSysProps, Mode=OneWay}" IsHitTestVisible="False" IsTabStop="False" >
@@ -126,15 +126,12 @@
                     IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemMainGroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
                     <TreeViewItem x:Name="treeViewItemMainGroup" Header="{Binding Prop[_XLTN_MAINGROUP].Value, FallbackValue=MainGroup}" 
                         IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemGroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
-                        <TreeViewItem x:Name="treeViewItemGroup" Header="{Binding Prop[_XLTN_GROUP].Value, FallbackValue=Group}" 
-                            IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemSubgroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
-                            <TreeViewItem x:Name="treeViewItemSubgroup" Header="{Binding Prop[_XLTN_SUBGROUP].Value, FallbackValue=SubGroup}" 
-                                IsExpanded="True" >
-                                <TreeViewItem x:Name="ThisObject" Header="{Binding Prop[Name].Value, FallbackValue='Object Name'}"/>
-                            </TreeViewItem>
+                        <TreeViewItem x:Name="treeViewItemGroup" Header="{Binding Prop[_XLTN_GROUP].Value, FallbackValue=Group}"
+                            IsExpanded="True">
+                            <TreeViewItem Header="{Binding Prop[Name].Value, FallbackValue=Subgroup Name}" />
                         </TreeViewItem>
                     </TreeViewItem>
-                </TreeViewItem>                
+                </TreeViewItem>
             </TreeView>
         </DockPanel>
         <DockPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Grid.Row="1" Margin="5">

@@ -21,11 +21,13 @@ function ValidateCustentName
         if($mActiveClass.Count -eq 1)
 		{
 			$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "A custom object with this name exists."
-			$dsWindow.FindName("CUSTOMOBJECTNAME").BackGround = "#7FFF0000"
+			$dsWindow.FindName("CUSTOMOBJECTNAME").BorderBrush = "Red"
 			return $false
 		}
 		Else
 		{
+			$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = $null
+			$dsWindow.FindName("CUSTOMOBJECTNAME").BorderBrush = $null
 			return $true
 		}
 	}
@@ -33,7 +35,7 @@ function ValidateCustentName
 	{
 		$Property.CustomValidationErrorMessage = "Custom Object name must not be empty."
 		$dsWindow.FindName("CUSTOMOBJECTNAME").ToolTip = "Custom Object name must not be empty."
-		$dsWindow.FindName("CUSTOMOBJECTNAME").Border = "Red"
+		$dsWindow.FindName("CUSTOMOBJECTNAME").BorderBrush = "Red"
 		return $false
 	}
 }

@@ -123,16 +123,10 @@
         <DockPanel Margin="5,0" LastChildFill="False">
             <TreeView VerticalContentAlignment="Center" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=grdSysProps, Mode=OneWay}" IsHitTestVisible="False" IsTabStop="False" >
                 <TreeViewItem x:Name="treeViewItemSegment" Header="{Binding Prop[_XLTN_SEGMENT].Value, FallbackValue=Segment}" 
-                    IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemMainGroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
+                    IsExpanded="True">
                     <TreeViewItem x:Name="treeViewItemMainGroup" Header="{Binding Prop[_XLTN_MAINGROUP].Value, FallbackValue=MainGroup}" 
-                        IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemGroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
-                        <TreeViewItem x:Name="treeViewItemGroup" Header="{Binding Prop[_XLTN_GROUP].Value, FallbackValue=Group}" 
-                            IsExpanded="{Binding Items.IsEmpty, ElementName=treeViewItemSubgroup, Mode=OneWay, Converter={StaticResource BoolConvert}}">
-                            <TreeViewItem x:Name="treeViewItemSubgroup" Header="{Binding Prop[_XLTN_SUBGROUP].Value, FallbackValue=SubGroup}" 
-                                IsExpanded="True" >
-                                <TreeViewItem x:Name="ThisObject" Header="{Binding Prop[Name].Value, FallbackValue='Object Name'}"/>
-                            </TreeViewItem>
-                        </TreeViewItem>
+                        IsExpanded="True">
+                        <TreeViewItem x:Name="treeViewItemGroup" Header="{Binding Prop[Name].Value, FallbackValue='Group Name'}" />                   
                     </TreeViewItem>
                 </TreeViewItem>                
             </TreeView>

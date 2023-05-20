@@ -23,13 +23,17 @@ function mValidateUniqueFldrName
         if($mFldExist)
 		{
 			$Prop["_FolderName"].CustomValidationErrorMessage = "Folder name exists anywhere else, select a new unique one."
+            $dsWindow.FindName("FOLDERNAME").BorderBrush = "Red"
 			return $false
 		}
+        $Prop["_FolderName"].CustomValidationErrorMessage = $null
+        $dsWindow.FindName("FOLDERNAME").BorderBrush = $null
 		return $true
 	}
 	else
 	{
 		$Prop["_FolderName"].CustomValidationErrorMessage = "Folder name must not be empty."
+        $dsWindow.FindName("FOLDERNAME").BorderBrush = "Red"
 		return $false
 	}
 }

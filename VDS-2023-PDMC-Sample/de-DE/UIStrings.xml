@@ -416,6 +416,7 @@
   <UIString ID="Adsk.QS.ItemSearch_29">Eigenschaften</UIString>
   <UIString ID="Adsk.QS.ItemSearch_30">Verknüpfte Dateien</UIString>
   <UIString ID="Adsk.QS.ItemSearch_31">Datei, für angemeldeten Benutzer nicht zugänglich</UIString>
+  <UIString ID="Adsk.QS.ItemSearch_32">Es wurden keine übereinstimmenden Artikel gefunden.</UIString>
   <!--ItemMaster Search and Item Tab END-->
   
   <!--Classification start-->
@@ -452,7 +453,7 @@
   <UIString ID="Adsk.QS.Classification_00">Klasse</UIString>
   <UIString ID="Adsk.QS.Classification_01">Name</UIString>
   <UIString ID="Adsk.QS.Classification_02">Wert</UIString>
-  <UIString ID="Adsk.QS.Classification_03">Klassifizierung</UIString>
+  <UIString ID="Adsk.QS.Classification_03">Klassen-Eigenschaften</UIString>
   <UIString ID="Adsk.QS.Classification_04">Klassenstruktur</UIString>
   <UIString ID="Adsk.QS.Classification_05">Verfügbare Klassen</UIString>
   <UIString ID="Adsk.QS.Classification_06">Zugewiesene Klasse</UIString>

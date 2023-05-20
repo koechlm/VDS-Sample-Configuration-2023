@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         Style="{DynamicResource ThemedWindowStyle}"
-        x:Name="CustomObjectWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
+        x:Name="CustomObjectClassifiedWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize"  WindowStyle="None" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -261,7 +261,7 @@
         <GroupBox Header="{Binding UIString[ClassTerms_07],FallbackValue=Classification}" Grid.ColumnSpan="2" BorderThickness="1">
             <Grid x:Name="grdContentFilter">
                 <WrapPanel x:Name="wrpClassification" Grid.Row="2">
-                    <Button x:Name="btnClsReset" Command="{Binding PsCmd[mResetClassFilter]}" Content="X" FontWeight="Bold" ToolTip="{Binding UIString[ClassTerms_TT07], FallbackValue='Reset Selection'}" IsEnabled="{Binding IsNotReadonly}" Height="24" Width="24" >
+                    <Button x:Name="btnClsReset" Command="{Binding PsCmd[mResetClassFilter]}" ToolTip="{Binding UIString[ClassTerms_TT07], FallbackValue='Reset Selection'}" IsEnabled="{Binding IsNotReadonly}" Height="24" Width="24" >
                         <Button.Template>
                             <ControlTemplate>
                                 <!--<Border>-->

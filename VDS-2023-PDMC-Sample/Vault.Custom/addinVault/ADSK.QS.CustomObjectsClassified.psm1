@@ -1,13 +1,13 @@
 #region disclaimer
-	#===============================================================================#
-	# PowerShell script sample														#
-	# Author: Markus Koechl															#
-	# Copyright (c) Autodesk 2017													#
-	#																				#
-	# THIS SCRIPT/CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER     #
-	# EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES   #
-	# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.    #
-	#===============================================================================#
+	#===============================================================================
+	# PowerShell script sample
+	# Author: Markus Koechl
+	# Copyright (c) Autodesk 2023
+	#
+	# THIS SCRIPT/CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+	# EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+	# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+	#===============================================================================
 #endregion
 
 #region CatalogLookUp
@@ -65,7 +65,7 @@ function mInitializeTermCatalog
 				})
 
 				#close the expander as another property is selected 
-				$dsWindow.FindName("DSDynCatPropGrid").add_GotFocus({
+					$dsWindow.FindName("DSDynamicCategoryProperties").add_GotFocus({
 					$dsWindow.FindName("expTermSearch").Visibility = "Collapsed"
 					$dsWindow.FindName("expTermSearch").IsExpanded = $false
 					$dsWindow.FindName("btnSearchTerm").IsDefault = $false
@@ -724,7 +724,7 @@ function mResetClassFilter
 				{
 					try
 					{
-						$Global:_Return=[System.Windows.MessageBox]::Show($UIString["ClassTerms_MSG01"], $UIString["ClassTerms_01"], 4)
+						$Global:_Return = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning($UIString["ClassTerms_MSG01"], $UIString["ClassTerms_01"], "YesNo")
 						If($_Return -eq "No") { return }
 					}
 					catch
