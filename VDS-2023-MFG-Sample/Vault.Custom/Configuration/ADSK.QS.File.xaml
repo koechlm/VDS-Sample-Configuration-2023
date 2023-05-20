@@ -7,7 +7,7 @@
     xmlns:winFormTheme="clr-namespace:Autodesk.DataManagement.Client.Framework.Forms.SkinUtils;assembly=Autodesk.DataManagement.Client.Framework.Forms"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-    xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib" Style="{DynamicResource ThemedWindowStyle}" x:Name="FileWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib" Style="{DynamicResource ThemedWindowStyle}" x:Name="FileWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize"  WindowStyle="None" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
