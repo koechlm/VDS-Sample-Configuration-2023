@@ -22,20 +22,25 @@ $mFiles = @($vaultContext.CurrentSelectionSet)
 $UIString = mGetUIStrings
 
 #create ECO and link to parent project folders only
-$mParFld = $folder
 IF ($folder.Cat.CatName -eq $UIString["CAT6"]) { $mProjectFound = $true }
-ElseIf ($path -ne "$") {
-	Do {
-		$mParID = $folder.ParID
-		$mParFld = $vault.DocumentService.GetFolderByID($mParID)
-		IF ($mParFld.Cat.CatName -eq $UIString["CAT6"]) { $mProjectFound = $true }
-	} Until (($mParFld.Cat.CatName -eq $UIString["CAT6"]) -or ($mParFld.FullName -eq "$"))
+ElseIf ($folder.FullName -ne "$") {
+	$mParID = $folder.Id
+	Do {		
+		$mFld = $vault.DocumentService.GetFolderByID($mParID)
+		IF ($mFld.Cat.CatName -eq $UIString["CAT6"]) {
+			$mProjectFound = $true
+		}
+		elseif($mFld.FullName -ne "$") { $mParID = $mFld.ParId }		
+	} 
+	Until (($mProjectFound -eq $true) -or ($mFld.FullName -eq "$"))
 }	
+
 If ($mProjectFound -ne $true) {
+	[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("The command exited because the selected file's path does not include a $($UIString['CAT6']) folder!", "VDS-PDMC-Sample Configuration")
 	return
 }
 Else {
-	$folder = $mParFld
+	$folder = $mFld
 	$path = $folder.FullName
 }
 
