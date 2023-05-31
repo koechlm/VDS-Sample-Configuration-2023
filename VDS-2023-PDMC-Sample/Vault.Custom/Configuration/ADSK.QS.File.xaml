@@ -650,7 +650,7 @@
                             </Grid>
                         </Border>
                     </Expander>
-                    <Expander x:Name="expTermSearch" Grid.Column="2" Header="" ExpandDirection="Right" IsExpanded="False" Visibility="Collapsed" Grid.RowSpan="4" MinHeight="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}" VerticalAlignment="Stretch" MaxHeight="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}">
+                    <Expander x:Name="expTermSearch" Grid.Column="2" Header="" ExpandDirection="Right" IsExpanded="False" Visibility="Collapsed" Grid.RowSpan="4" MinHeight="360" VerticalAlignment="Stretch" MaxHeight="{Binding ActualHeight, ElementName=grdMain, Mode=OneWay}">
                         <Border>
                             <Grid x:Name="grdTermCatalog" Margin="5,0" >
                                 <Grid.RowDefinitions>
