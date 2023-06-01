@@ -88,7 +88,7 @@ function InitializeWindow {
 				If ($global:mIsInvDocumentationFile -eq $true -and $Prop["_GenerateFileNumber4SpecialFiles"].Value -eq $false -and $Document.ReferencedFiles.Count -gt 0) { 
 					$dsWindow.FindName("BreadCrumb").IsEnabled = $false
 					$dsWindow.FindName("GroupFolder").Visibility = "Collapsed"
-					$dsWindow.FindName("expShortCutPane").Visibility = "Collapsed"
+					$dsWindow.FindName("grdShortCutPane").Visibility = "Collapsed"
 				}
 				#sketched or empty drawing
 				Else {

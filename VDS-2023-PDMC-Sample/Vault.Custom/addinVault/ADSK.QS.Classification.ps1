@@ -1,6 +1,6 @@
 #region disclaimer =============================================================================
 # PowerShell script sample for Vault Data Standard
-#			 Autodesk Vault - VDS-PDMC-Sample 2022
+#			 Autodesk Vault - VDS-PDMC-Sample 2023
 # This sample is based on VDS 2023 RTM and adds functionality and rules
 #
 # Copyright (c) Autodesk - All rights reserved.
@@ -10,32 +10,12 @@
 # OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
 #endregion =============================================================================
 
-#region - version history
-# Version Info - VDS-PDMC-Sample Classfication 2022.1.0
-	#merge IEC61355 classification support
-
-# Version Info - VDS-PDMC-Sample Classification 2022.0.1
-	#fixed issue of overlapping Initialization of DataSheet and Dialogs
-	#fixed error 303 if user does not have right Custom Entity Read as a minimum
-
-# Version Info - VDS-PDMC-Sample Classification 2022
-	#removed multi-DB-language support -> support EN only, as PDMC-Sample is an en-US DB sample
-
-# Version Info - VDS-PDMC-Sample Classification 2021
-	#added condition _ReadOnly for Remove/Add Button
-
-# Version Info - VDS-PDMC-Sample Classification 2020.0.0
-	# Support default values for classes on AddClassification()
-	# Use Case _CreateMode removed: an existing file is required to add class properties
-	# code maintenance
-
-# Version Info - VDS-PDMC-Sample Classification 2019.1.1
-	# initial version
-
-#endregion
 
 function mInitializeClassificationTab($ParentType, $file)
 {
+	#$dsDiag.ShowLog()
+	#$dsDiag.Clear()
+
 	$dsWindow.FindName("txtClassificationStatus").Visibility = "Collapsed"
 	$Global:mClsTabInitialized = $false
 
@@ -54,7 +34,7 @@ function mInitializeClassificationTab($ParentType, $file)
 			$dsWindow.FindName("txtClassificationStatus").Visibility = "Visible"
 		}
 		#configuration info - the custom object names used for the classification structure may vary. Align Custent names of your Vault in UIStrings ADSK.WS.ClassLEver_*
-		$mClsLevelNames = ("Segment", "Main Group", "Group","Sub Group")
+		$mClsLevelNames = ("Segment", "Main Group", "Group", "Sub Group")
 		$Global:mClassLevelCustentDefIds = ($Global:mCustentDefs | Where-Object { $_.DispName -in $mClsLevelNames}).Id		
 	}
 
@@ -66,51 +46,20 @@ function mInitializeClassificationTab($ParentType, $file)
 
 			$Global:mFile = mGetFileObject
 
-			#activate UI controls
-			if ($null -ne $dsWindow.FindName("cmbAvailableClasses")) {
-				$dsWindow.FindName("cmbAvailableClasses").add_SelectionChanged({
-						If ($Prop["_ReadOnly"].Value -eq $false -and $dsWindow.FindName("txtActiveClass").Text -eq "" -and $dsWindow.FindName("cmbAvailableClasses").SelectedIndex -gt -1) {
-							$dsWindow.FindName("btnAssignClass").IsEnabled = $true
-						}
-						Else { $dsWindow.FindName("btnAssignClass").IsEnabled = $false }
-					})
-			}
-
-			$dsWindow.FindName("dtgrdClassProps").add_LostFocus({
-			#update property values by leaving the tab
-				#$dsDiag.Trace("data grid Class Props lost focus")
-				try{
-						Foreach($row in $dsWindow.FindName("dtgrdClassProps").Items)
-						{
-							$Prop[$row.Key].Value = $row.Value
-						}
-				}
-				catch{
-					$dsDiag.Trace("Error writing class properties to file properties")
-				}
-			}) #lostFocus
-
-			mAvlblClsReset
-			
-			if($dsWindow.FindName("wrpClassification2")){
-					if($dsWindow.FindName("wrpClassification2").Children.Count -lt 1)
-				{
-					#activate command should not add another combo row, if already classe(s) are selected
-					mAddClsLevelCombo -ClassLevelName "Segment"
-				}
-			}
-			
-			if($Prop["_XLTN_CLASS"].Value.Length -lt 1 -and $false -eq $Prop["_ReadOnly"].Value) { 
+			$dsWindow.FindName("btnRemoveClass").IsEnabled = $false
+			$dsWindow.FindName("btnSelectClass").IsEnabled = $false
+			if($Prop["_XLTN_CLASS"].Value.Length -lt 1 -and $Prop["_ReadOnly"].Value -eq $false) { 
 				$dsWindow.FindName("btnRemoveClass").IsEnabled = $false
-				$dsWindow.FindName("btnAssignClass").IsEnabled = $true
+				$dsWindow.FindName("btnSelectClass").IsEnabled = $true
 			}
 			if($Prop["_XLTN_CLASS"].Value.Length -gt 0 -and $Prop["_ReadOnly"].Value -eq $false) 
 			{ 	
 				$dsWindow.FindName("btnRemoveClass").IsEnabled = $true
+				$dsWindow.FindName("btnSelectClass").IsEnabled = $false
 			}
-			else
-			{
-				$dsWindow.FindName("btnRemoveClass").IsEnabled = $false
+
+			if($Prop["_XLTN_CLASS"]){
+				$dsWindow.FindName("txtActiveClass").Text = $Prop["_XLTN_CLASS"].Value
 			}
 
 			$Global:mClsTabInitialized = $true
@@ -127,53 +76,93 @@ function mInitializeClassificationTab($ParentType, $file)
 
 	mGetFileClsValues
 
-	#$dsDiag.Trace("...Initialize Classification Tab ended.")
 }
 
 function mGetFileClsValues
 {
-	#$dsDiag.Trace(">>Function mGetFileClsValues starts...")
 	$dsWindow.FindName("dtgrdClassProps").ItemsSource = $null
+	if ($dsWindow.Name -eq "FileWindow") {
+		$dsWindow.FindName("txtSegment").Visibility = "Collapsed"
+		$dsWindow.FindName("txtMainGroup").Visibility = "Collapsed"
+		$dsWindow.FindName("txtGroup").Visibility = "Collapsed"
+		$dsWindow.FindName("txtSubGroup").Visibility = "Collapsed"
+	}
+
 	$mActiveClass = @()
-	$mActiveClass += mGetCustentiesByName -Name $Prop["_XLTN_CLASS"].Value #Note - custom object names are not unique, only its Number, and we need to handle returning more than one.
+	if ($AssignClsWindow) {
+		$mActiveClass += mGetCustentiesByName -Name $AssignClsWindow.FindName("cmbAvailableClasses").SelectedValue
+	}
+	else{
+		$mActiveClass += mGetCustentiesByName -Name $Prop["_XLTN_CLASS"].Value #Note - custom object names are not unique, only its Number, and we need to handle returning more than one.
+	}
 	if($mActiveClass.Count -eq 1)
 	{
 		#region get Property Ids and Displaynames for this class
 		#$dsDiag.Trace("	...class object for file class property value found.")
 		$mClsPrpNames = mGetClsPrpNames -ClassId $mActiveClass[0].Id
 		$mClsPropTable = @{}
-		$mClsLevelProps = ("Segment", "Main Group", "Group", "Sub Group", "Class")
+		
+		$mClsLevelProps = ("Segment", "Main Group", "Group", "Sub Group", "Class", "Standard", "Term DE", "Code", "Comments", "Comments DE")
 
 		#get the file's class property values 
 		$mFileClassProps = $vault.PropertyService.GetProperties("FILE", @($mFile.Id), $mClsPrpNames.Keys)
+		$mClassProps = $vault.PropertyService.GetProperties("CUSTENT", @($mActiveClass[0].Id), $mClsPrpNames.Keys)
 		Foreach($mClsProp in $mClsPrpNames.GetEnumerator())
 		{
 			#filter the classification property, add all others
 			if($mClsPrpNames[$mClsProp.Key] -notin $mClsLevelProps)
-				{
-					$mClsPropTable.Add($mClsPrpNames[$mClsProp.Key], (($mFileClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val))
+			{
+				$mClsPropTable.Add($mClsPrpNames[$mClsProp.Key], (($mFileClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val))
+			}
+			if ($dsWindow.Name -eq "FileWindow"){
+				if($mClsPrpNames[$mClsProp.Key] -eq "Segment") { 
+					$dsWindow.FindName("txtSegment").Text = ($mClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val
+					if($dsWindow.FindName("txtSegment").Text -ne "") {$dsWindow.FindName("txtSegment").Visibility = "Visible"}
 				}
+				
+				if($mClsPrpNames[$mClsProp.Key] -eq "Main Group") { 
+					$dsWindow.FindName("txtMainGroup").Text = ($mClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val
+					if($dsWindow.FindName("txtMainGroup").Text -ne "") {$dsWindow.FindName("txtMainGroup").Visibility = "Visible"}
+				}
+				
+				if($mClsPrpNames[$mClsProp.Key] -eq "Group") { 
+					$dsWindow.FindName("txtGroup").Text = ($mClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val
+					if($dsWindow.FindName("txtGroup").Text -ne "") {$dsWindow.FindName("txtGroup").Visibility = "Visible"}
+				}
+				if($mClsPrpNames[$mClsProp.Key] -eq "Sub Group") { 
+					$dsWindow.FindName("txtSubGroup").Text = ($mClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val
+					if($dsWindow.FindName("txtSubGroup").Text -ne "") {$dsWindow.FindName("txtSubGroup").Visibility = "Visible"}
+				}
+				if($mClsPrpNames[$mClsProp.Key] -eq "Standard") { 
+					$global:mActiveStandard = ($mClassProps | Where-Object { $_.PropDefId -eq ($mClsProp.Key)}).Val
+				}
+			}
+
 		}
-		#fill the grid
-		$dsWindow.FindName("dtgrdClassProps").ItemsSource = $mClsPropTable
+		#fill the grid either for edits or as preview before the class assignment
+		if ($AssignClsWindow){
+			$AssignClsWindow.FindName("dtgrdClassProps").ItemsSource = $mClsPropTable
+			$AssignClsWindow.FindName("dtgrdClassProps").IsEnabled = $false
+		}
+		else {
+			$dsWindow.FindName("dtgrdClassProps").ItemsSource = $mClsPropTable		
+		}
 	}
 	if ($mActiveClass.Count -gt 1)
 	{
 		#$dsDiag.Trace("	...multiple class objects for given name found.")
 	}
-	#$dsDiag.Trace("...Function mGetFileClsValues finished.<<")
 }
 
 function mGetClsDfltValues
 {
 	#$dsDiag.Trace(">>Function mGetClsDfltValues starts...")
 	$mActiveClass = @()
-	$mActiveClass += mGetCustentiesByName -Name $dsWindow.FindName("cmbAvailableClasses").SelectedValue
-	#$dsDiag.Trace("	...active class: " + '$mActiveClass' + "read from class property")
+	$mActiveClass += mGetCustentiesByName -Name $AssignClsWindow.FindName("cmbAvailableClasses").SelectedValue
 	$mClsPrpNames = mGetClsPrpNames -ClassId $mActiveClass[0].Id
 	$mClsPrpValues = mGetClsPrpValues -ClassId $mActiveClass[0].Id
 	$mClsPropTable = @{}
-	$mClsLevelProps = ("Segment", "Main Group", "Group","Sub Group" ,"Class")
+	$mClsLevelProps = ("Segment", "Main Group", "Group","Sub Group" ,"Class", "Standard", "Term DE", "Code", "Comments", "Comments DE")
 
 	if($mActiveClass.Count -eq 1)
 	{
@@ -184,16 +173,8 @@ function mGetClsDfltValues
 		}
 	}
 
-	$dsWindow.FindName("dtgrdClassProps").ItemsSource = $mClsPropTable
-	try{
-		Foreach($row in $dsWindow.FindName("dtgrdClassProps").Items)
-		{
-			$Prop[$row.Key].Value = $row.Value
-		}
-	}
-	catch{
-		#$dsDiag.Trace("	...Error writing class properties to file properties")
-	}
+	$AssignClsWindow.FindName("dtgrdClassProps").ItemsSource = $mClsPropTable
+
 	#$dsDiag.Trace("...Function mGetClsDfltValues finsihed.<<")
 }
 
@@ -228,20 +209,32 @@ function mGetClsPrpValues($ClassId) #get Properties added to this class
 	return $mClsPropValues
 }
 
-
-
 function mGetCustentiesByName([String]$Name)
 {
-	$mSearchString = $Name
+	$srchConds = New-Object Autodesk.Connectivity.WebServices.SrchCond[] 2 #we search for name and standard
+	
 	$srchCond = New-Object autodesk.Connectivity.WebServices.SrchCond
-	#$propDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId("CUSTENT")
-	#$propDef = $propDefs | Where-Object { $_.SysName -eq "Name" }
 	$propDef = $Global:mAllCustentPropDefs | Where-Object { $_.SysName -eq "Name" }
 	$srchCond.PropDefId = $propDef.Id
-	$srchCond.SrchOper = 1 #equals
-	$srchCond.SrchTxt = $mSearchString
+	$srchCond.SrchOper = 3 #Is exactly (or equals)
+	$srchCond.SrchTxt = $Name
 	$srchCond.PropTyp = [Autodesk.Connectivity.WebServices.PropertySearchType]::SingleProperty
 	$srchCond.SrchRule = [Autodesk.Connectivity.WebServices.SearchRuleType]::Must
+	$srchConds[0] = $srchCond
+	
+	$srchCond2 = New-Object autodesk.Connectivity.WebServices.SrchCond
+	$srchCond2.PropDefId = ($Global:mAllCustentPropDefs | Where-Object { $_.DispName -eq "Standard" }).Id
+	$srchCond2.SrchOper = 3 #Is exactly (or equals)
+	if (-not $global:mActiveStandard) {
+		$srchCond2.SrchTxt = "*"
+	}
+	else {
+		$srchCond2.SrchTxt = $global:mActiveStandard		
+	}
+	$srchCond2.PropTyp = [Autodesk.Connectivity.WebServices.PropertySearchType]::SingleProperty
+	$srchCond2.SrchRule = [Autodesk.Connectivity.WebServices.SearchRuleType]::Must
+	$srchConds[1] = $srchCond2
+
 	$srchSort = New-Object autodesk.Connectivity.WebServices.SrchSort
 	$searchStatus = New-Object autodesk.Connectivity.WebServices.SrchStatus
 	$bookmark = ""
@@ -251,7 +244,7 @@ function mGetCustentiesByName([String]$Name)
 	{
 		try
 		{
-			$mResultPage = $vault.CustomEntityService.FindCustomEntitiesBySearchConditions(@($srchCond),@($srchSort),[ref]$bookmark,[ref]$searchStatus)
+			$mResultPage = $vault.CustomEntityService.FindCustomEntitiesBySearchConditions($srchConds,@($srchSort),[ref]$bookmark,[ref]$searchStatus)
 		}
 		catch
 		{
@@ -289,15 +282,29 @@ function mGetFileObject()
 	return $null
 }
 
-function mAddClassification()
+function mSelectClassification()
 {
-	#$dsDiag.Trace("AddClassification starts...")
+	$dsWindow.FindName("txtActiveClass").Text = $AssignClsWindow.FindName("cmbAvailableClasses").SelectedValue
+	$dsWindow.FindName("btnRemoveClass").IsEnabled = $false
+	$dsWindow.FindName("btnSelectClass").IsEnabled = $true
 
+	$value = $AssignClsWindow.FindName("cmbAvailableClasses").SelectedItem.Id
+	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\mFileClassId.txt"
+
+	$dsWindow.FindName("dtgrdClassProps").ItemsSource = $AssignClsWindow.FindName("dtgrdClassProps").ItemsSource
+	
+	$AssignClsWindow.DialogResult = "OK"
+	$AssignClsWindow.Close()
+}
+
+function mApplyClassification()
+{
 	if ($Global:mFile)
 	{
 		#the function mFindCustent returns a generic list object
+		$Prop["_XLTN_CLASS"].Value = $dsWindow.FindName("txtActiveClass").Text
 		$mActiveClass = @()
-		$mActiveClass += mFindCustent -CustentName $dsWindow.FindName("cmbAvailableClasses").SelectedValue -Category "Class" #custom object names should be unique per category
+		$mActiveClass += mFindCustent -CustentName $dsWindow.FindName("txtActiveClass").Text -Category "Class" #custom object names should be unique per category
 		If($mActiveClass.Count -eq 1)
 		{
 			$mClsPrpNames = mGetClsPrpNames -ClassId $mActiveClass.Id
@@ -306,32 +313,25 @@ function mAddClassification()
 		}
 		else
 		{
+			return
+		}
+		If($mActiveClass.Count -gt 1){
 			[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["Adsk.QS.Classification_10"], "VDS Sample Configuration")
 			return
 		}
 		$mPropsRemove = @()
 		$mAddRemoveComment = "Added classification"
-		$mFileUpdated = $vault.DocumentService.UpdateFilePropertyDefinitions(@($Global:mFile.MasterId), $mPropsAdd, $mPropsRemove, $mAddRemoveComment)
-		if ($null -eq $mFileUpdated) {
-			#$dsDiag.Trace("AddClassification Error on UpdateFilePropertyDefinitions")
+		try {
+			$mFileUpdated = $vault.DocumentService.UpdateFilePropertyDefinitions(@($Global:mFile.MasterId), $mPropsAdd, $mPropsRemove, $mAddRemoveComment)
+			mUpdateClsPropValues
+		}
+		catch {
+			$dsDiag.Trace("AddClassification Error on UpdateFilePropertyDefinitions")
 		}
 	}
-	$Prop["_XLTN_CLASS"].Value = $dsWindow.FindName("cmbAvailableClasses").SelectedValue
-	$dsWindow.FindName("btnRemoveClass").IsEnabled = $true
-	$dsWindow.FindName("btnAssignClass").IsEnabled = $false
-
-				
-	$value = $dsWindow.FindName("cmbAvailableClasses").SelectedItem.Id
-	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\mFileClassId.txt"
-
-	mGetClsDfltValues
-	
-	mResetClassSelection
-
-	#$dsDiag.Trace("...AddClassification finished.")
 }
 
-function mRemoveClassification()
+function mRemoveClassification() #applies to $dsWindow
 {
 	#$dsDiag.Trace("Remove Class starts...")
 	if($Prop["_EditMode"])
@@ -351,28 +351,25 @@ function mRemoveClassification()
 				[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["Adsk.QS.Classification_10"], "VDS Sample Configuration")
 				return
 			}
-			$mMsgResult = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowMessage(([String]::Format($UIString["Adsk.QS.Classification_11"],"`n")), "VDS Sample Configuration", "YesNo")
+			$mMsgResult = [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning(([String]::Format($UIString["Adsk.QS.Classification_11"],"`n")), "VDS Sample Configuration", "YesNo")
 			if($mMsgResult -eq "No") { return}
 
 			$mAddRemoveComment = "removed classification"
-			$mFileUpdated = $vault.DocumentService.UpdateFilePropertyDefinitions(@($Global:mFile.MasterId), $mPropsAdd, $mPropsRemove, $mAddRemoveComment)
-			if ($null -eq $mFileUpdated) {
-				#$dsDiag.Trace("Removelassification Error on UpdateFilePropertyDefinitions")
+			try {
+				$mFileUpdated = $vault.DocumentService.UpdateFilePropertyDefinitions(@($Global:mFile.MasterId), $mPropsAdd, $mPropsRemove, $mAddRemoveComment)
+			}
+			catch {
+				[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("Error removing or updating classification", "VDS Sample Configuration")
 			}
 		}
 	}
-	#reset the classification
-	$dsWindow.FindName("dtgrdClassProps").ItemsSource = $null
-	$Prop["_XLTN_CLASS"] = $null #remove the property from the current window's collection, otherwise it will re-attached to the file
-	$dsWindow.FindName("txtActiveClass").Text = ""
 
-	$dsWindow.FindName("btnRemoveClass").IsEnabled = $false
-	if($dsWindow.FindName("cmbAvailableClasses").SelectedIndex -ne -1 -and $Prop["_ReadOnly"].Value -eq $false) { $dsWindow.FindName("btnAssignClass").IsEnabled = $true}
 	
 	#write the highest level Custent Id to a text file for post-close event
 	$value = -1
 	$value | Out-File "$($env:appdata)\Autodesk\DataStandard 2023\mFileClassId.txt"
 
+	$dsWindow.CloseWindowCommand.Execute($this)
 	#$dsDiag.Trace("...remove classification finished.")
 }
 
@@ -380,82 +377,36 @@ function mRemoveClassification()
 #region classification breadcrumb
 function mAddClsLevelCombo ([String] $ClassLevelName, $ClsLvls) {
 	$children = mGetCustentClsLevelList -ClassLevelName $ClassLevelName
-	if($children -eq $null) { return }
-	$mBreadCrumb = $dsWindow.FindName("wrpClassification2")
+	if($null -eq $children) { return }
+	$mBreadCrumb = $AssignClsWindow.FindName("wrpClassification2")
 	$cmb = New-Object System.Windows.Controls.ComboBox
 	$cmb.Name = "cmbClsBrdCrmb_" + $mBreadCrumb.Children.Count.ToString();
 	$cmb.DisplayMemberPath = "Name";
 	$cmb.ItemsSource = @($children)
-	#IF (($Prop["_CreateMode"].Value -eq $true) -or ($_Return -eq "Yes")) {$cmb.IsDropDownOpen = $true}
 	$cmb.MinWidth = 140
+	$cmb.Height = 26
 	$cmb.HorizontalContentAlignment = "Center"
-	$cmb.BorderThickness = "1,1,1,1"
-	$mWindowName = $dsWindow.Name
-		switch($mWindowName)
-		{
-			"CustomObjectTermWindow"
-			{
-				IF (($Prop["_CreateMode"].Value -eq $true) -or ($_Return -eq "Yes")) {$cmb.IsDropDownOpen = $true}
-			}
-			default
-			{
-				if($dsWindow.FindName("cmbAvailableClasses").Items.Count -gt 1)
-				{
-					$dsWindow.FindName("cmbAvailableClasses").IsDropDownOpen = $true
-				}
-				if($dsWindow.FindName("cmbAvailableClasses").Items.Count -eq 0 -and $Prop["_XLTN_CLASS"].Value -eq ""){ $cmb.IsDropDownOpen = $true}
-			}
-		}
+	$cmb.BorderThickness = "0,0,1,0"
+	
+	if($AssignClsWindow.FindName("cmbAvailableClasses").Items.Count -gt 1)
+	{
+		$AssignClsWindow.FindName("cmbAvailableClasses").IsDropDownOpen = $true
+	}
+	if($AssignClsWindow.FindName("cmbAvailableClasses").Items.Count -eq 0 -and $Prop["_XLTN_CLASS"].Value -eq ""){ $cmb.IsDropDownOpen = $true}
+
 	$cmb.add_SelectionChanged({
-			param($sender,$e)
-			#$dsDiag.Trace("1. SelectionChanged, Sender = $sender, $e")
-			mClsLevelCmbSelectionChanged -sender $sender
+			param($mSender,$e)
+			#$dsDiag.Trace("1. SelectionChanged, mSender = $mSender, $e")
+			mClsLevelCmbSelectionChanged -mSender $mSender
 		});
 	$mBreadCrumb.RegisterName($cmb.Name, $cmb) #register the name to activate later via indexed name
 	$mBreadCrumb.Children.Add($cmb);
-
-	#region EditMode CustomObjectTerm Window
-	If ($dsWindow.Name-eq "CustomObjectTermWindow")
-	{
-		IF ($Prop["_EditMode"].Value -eq $true)
-		{
-			$_cmbNames = @()
-			Foreach ($_cmbItem in $cmb.Items)
-			{
-				#$dsDiag.Trace("---$_cmbItem---")
-				$_cmbNames += $_cmbItem.Name
-			}
-			#$dsDiag.Trace("Combo $index Namelist = $_cmbNames")
-			if ($ClsLvls[0]) #avoid activation of null ;)
-			{
-				$_CurrentName = $ClsLvls[0]
-				#$dsDiag.Trace("Current Name: $_CurrentName ")
-				#get the index of name in array
-				$i = 0
-				Foreach ($_Name in $_cmbNames)
-				{
-					$_1 = $_cmbNames.count
-					$_2 = $_cmbNames[$i]
-					#$dsDiag.Trace(" Counter: $i von $_1 Value: $_2  and CurrentName: $_CurrentName ")
-					If ($_cmbNames[$i] -eq $_CurrentName)
-					{
-						$_IndexToActivate = $i
-					}
-					$i +=1
-				}
-				#$dsDiag.Trace("Index of current name: $_IndexToActivate ")
-				$cmb.SelectedIndex = $_IndexToActivate
-			} #end if ClsLvls[0]
-
-		}
-	}
-	#endregion
 } # addCoCombo
 
 function mAddClsLevelCmbChild ($data) {
-	$children = mGetCustentClsLevelUsesList -sender $data
+	$children = mGetCustentClsLevelUsesList -mSender $data
 	#$dsDiag.Trace("check data object: $children")
-	if($children -eq $null) { return }
+	if($null -eq $children) { return }
 	#Filter classification levels and classes
 	#mAvlblClsReset
 	$mClassLevelObjects = @() #filtered list for the 4 levels
@@ -465,122 +416,69 @@ function mAddClsLevelCmbChild ($data) {
 
 	if($mClassObjects.Count -gt 0)
 	{
-		$dsWindow.FindName("cmbAvailableClasses").ItemsSource = $mClassObjects
-		$dsWindow.FindName("cmbAvailableClasses").SelectedIndex = 0
-		$dsWindow.FindName("cmbAvailableClasses").IsEnabled = $true
+		$AssignClsWindow.FindName("cmbAvailableClasses").ItemsSource = $mClassObjects
+		$AssignClsWindow.FindName("cmbAvailableClasses").SelectedIndex = 0
+		$AssignClsWindow.FindName("cmbAvailableClasses").IsEnabled = $true
 	}
 	if($mClassObjects.Count -eq 0)
 	{
 		mAvlblClsReset
 	}
 	$children = $mClassLevelObjects
-	$mBreadCrumb = $dsWindow.FindName("wrpClassification2")
+	$mBreadCrumb = $AssignClsWindow.FindName("wrpClassification2")
 	$cmb = New-Object System.Windows.Controls.ComboBox
 	$cmb.Name = "cmbClsBrdCrmb_" + $mBreadCrumb.Children.Count.ToString();
 	$cmb.DisplayMemberPath = "Name";
 	$cmb.ItemsSource = @($children)
-	$cmb.BorderThickness = "1,1,1,1"
+	$cmb.BorderThickness = "0,0,1,0"
 	$cmb.HorizontalContentAlignment = "Center"
 	$cmb.MinWidth = 140
-	$mWindowName = $dsWindow.Name
-		switch($mWindowName)
-		{
-			"CustomObjectTermWindow"
-			{
-				IF (($Prop["_CreateMode"].Value -eq $true) -or ($_Return -eq "Yes")) {$cmb.IsDropDownOpen = $true}
-			}
-			default
-			{
-				if($dsWindow.FindName("cmbAvailableClasses").Items.Count -gt 1)
-				{
-					$dsWindow.FindName("cmbAvailableClasses").IsDropDownOpen = $true
-				}
-				if($dsWindow.FindName("cmbAvailableClasses").Items.Count -eq 0){ $cmb.IsDropDownOpen = $true}
+	$cmb.Height = 26
 
-			}
-		}
+	if($AssignClsWindow.FindName("cmbAvailableClasses").Items.Count -gt 1)
+	{
+		$AssignClsWindow.FindName("cmbAvailableClasses").IsDropDownOpen = $true
+	}
+	if($AssignClsWindow.FindName("cmbAvailableClasses").Items.Count -eq 0){ $cmb.IsDropDownOpen = $true }
+
 	$cmb.add_SelectionChanged({
-			param($sender,$e)
-			#$dsDiag.Trace("next. SelectionChanged, Sender = $sender")
-			mClsLevelCmbSelectionChanged -sender $sender
+			param($mSender,$e)
+			#$dsDiag.Trace("next. SelectionChanged, mSender = $mSender")
+			mClsLevelCmbSelectionChanged -mSender $mSender
 		});
 	$mBreadCrumb.RegisterName($cmb.Name, $cmb) #register the name to activate later via indexed name
 	$mBreadCrumb.Children.Add($cmb)
+	$AssignClsWindow.FindName("btnClsReset2").IsEnabled = $true
 
-	$_i = $mBreadCrumb.Children.Count
-	$_Label = "lblGroup_" + $_i
-	#$dsDiag.Trace("Label to display: $_Label - but not longer used")
-	# 	$dsWindow.FindName("$_Label").Visibility = "Visible"
-
-	#region EditMode for CustomObjectTerm Window
-	If ($dsWindow.Name-eq "CustomObjectTermWindow")
-	{
-		IF ($Prop["_EditMode"].Value -eq $true)
-		{
-			Try
-			{
-				$_cmbNames = @()
-				Foreach ($_cmbItem in $cmb.Items)
-				{
-					#$dsDiag.Trace("---$_cmbItem---")
-					$_cmbNames += $_cmbItem.Name
-				}
-				#$dsDiag.Trace("Combo $index Namelist = $_cmbNames")
-				#get the index of name in array
-				if ($ClsLvls[$_i-2]) #avoid activation of null ;)
-				{
-					$_CurrentName = $ClsLvls[$_i-2] #remember the number of breadcrumb children is +2 (delete button, and the class start with index 0)
-					#$dsDiag.Trace("Current Name: $_CurrentName ")
-					$i = 0
-					Foreach ($_Name in $_cmbNames)
-					{
-						$_1 = $_cmbNames.count
-						$_2 = $_cmbNames[$i]
-						#$dsDiag.Trace(" Counter: $i von $_1 Value: $_2  and CurrentName: $_CurrentName ")
-						If ($_cmbNames[$i] -eq $_CurrentName)
-						{
-							$_IndexToActivate = $i
-						}
-						$i +=1
-					}
-					#$dsDiag.Trace("Index of current name: $_IndexToActivate ")
-					$cmb.SelectedIndex = $_IndexToActivate
-				} #end
-
-			} #end try
-		catch
-		{
-			$dsDiag.Trace("Error activating an existing index in edit mode.")
-		}
-	}
-	}
-	#endregion
 } #addCoComboChild
 
 function mGetCustentClsLevelList ([String] $ClassLevelName) {
 	try {
 		#$dsDiag.Trace(">> mGetCustentClsLevelList started")
-		$srchConds = New-Object autodesk.Connectivity.WebServices.SrchCond[] 1
+		$srchConds = New-Object autodesk.Connectivity.WebServices.SrchCond[] 2
+		
 		$srchCond = New-Object autodesk.Connectivity.WebServices.SrchCond
-		#$propDefs = $vault.PropertyService.GetPropertyDefinitionsByEntityClassId("CUSTENT") global var in ADSK.QS.Classification
-		$propDefs = $Global:mAllCustentPropDefs
-		$propNames = @("CustomEntityName")
-		$propDefIds = @{}
-		foreach($name in $propNames) {
-			$propDef = $propDefs | Where-Object { $_.SysName -eq $name }
-			$propDefIds[$propDef.Id] = $propDef.DispName
-		}
-		$srchCond.PropDefId = $propDef.Id
-		$srchCond.SrchOper = 3
+		$srchCond.PropDefId = ($Global:mAllCustentPropDefs | Where-Object { $_.SysName -eq "CustomEntityName" }).Id
+		$srchCond.SrchOper = 3 #equals
 		$srchCond.SrchTxt = $ClassLevelName
 		$srchCond.PropTyp = [Autodesk.Connectivity.WebServices.PropertySearchType]::SingleProperty
 		$srchCond.SrchRule = [Autodesk.Connectivity.WebServices.SearchRuleType]::Must
 		$srchConds[0] = $srchCond
+
+		$srchCond2 = New-Object autodesk.Connectivity.WebServices.SrchCond
+		$srchCond2.PropDefId = ($Global:mAllCustentPropDefs | Where-Object { $_.DispName -eq "Standard" }).Id
+		$srchCond2.SrchOper = 3 #equals
+		$srchCond2.SrchTxt = $global:mActiveStandard
+		$srchCond2.PropTyp = [Autodesk.Connectivity.WebServices.PropertySearchType]::SingleProperty
+		$srchCond2.SrchRule = [Autodesk.Connectivity.WebServices.SearchRuleType]::Must
+		$srchConds[1] = $srchCond2
+
 		$srchSort = New-Object autodesk.Connectivity.WebServices.SrchSort
 		$searchStatus = New-Object autodesk.Connectivity.WebServices.SrchStatus
 		$bookmark = ""
 		$_CustomEnts = $vault.CustomEntityService.FindCustomEntitiesBySearchConditions($srchConds,$null,[ref]$bookmark,[ref]$searchStatus)
 		#$dsDiag.Trace(".. mGetCustentClsLevelList finished - returns $_CustomEnts <<")
+
 		return $_CustomEnts
 	}
 	catch {
@@ -588,13 +486,14 @@ function mGetCustentClsLevelList ([String] $ClassLevelName) {
 	}
 }
 
-function mGetCustentClsLevelUsesList ($sender) {
+function mGetCustentClsLevelUsesList ($mSender) {
 	try {
 		#$dsDiag.Trace(">> mGetCustentClsLevelUsesList started")
-		$mBreadCrumb = $dsWindow.FindName("wrpClassification2")
+		$mBreadCrumb = $AssignClsWindow.FindName("wrpClassification2")
 		$_i = $mBreadCrumb.Children.Count -1
 		$_CurrentCmbName = "cmbClsBrdCrmb_" + $mBreadCrumb.Children.Count.ToString()
 		$_CurrentClass = $mBreadCrumb.Children[$_i].SelectedValue.Name
+		#[System.Windows.MessageBox]::Show("Currentclass: $_CurrentClass and Level# is $_i")
         switch($_i)
 		        {
 			        0 { $mSearchFilter = "Segment"}
@@ -622,9 +521,9 @@ function mGetCustentClsLevelUsesList ($sender) {
 	catch { $dsDiag.Trace("!! Error in mAddCoComboChild !!") }
 }
 
-function mClsLevelCmbSelectionChanged ($sender) {
-	$mBreadCrumb = $dsWindow.FindName("wrpClassification2")
-	$position = [int]::Parse($sender.Name.Split('_')[1]);
+function mClsLevelCmbSelectionChanged ($mSender) {
+	$mBreadCrumb = $AssignClsWindow.FindName("wrpClassification2")
+	$position = [int]::Parse($mSender.Name.Split('_')[1]);
 	$children = $mBreadCrumb.Children.Count - 1
 	while($children -gt $position )
 	{
@@ -634,69 +533,154 @@ function mClsLevelCmbSelectionChanged ($sender) {
 		$children--;
 	}
 	Try{
-		$Prop["_XLTN_SEGMENT"].Value = $mBreadCrumb.Children[1].SelectedItem.Name
-		$Prop["_XLTN_MAINGROUP"].Value = $mBreadCrumb.Children[2].SelectedItem.Name
-		$Prop["_XLTN_GROUP"].Value = $mBreadCrumb.Children[3].SelectedItem.Name
-		$Prop["_XLTN_SUBGROUP"].Value = $mBreadCrumb.Children[4].SelectedItem.Name
+		# $Prop["_XLTN_SEGMENT"].Value = $mBreadCrumb.Children[1].SelectedItem.Name
+		# $Prop["_XLTN_MAINGROUP"].Value = $mBreadCrumb.Children[2].SelectedItem.Name
+		# $Prop["_XLTN_GROUP"].Value = $mBreadCrumb.Children[3].SelectedItem.Name
+		# $Prop["_XLTN_SUBGROUP"].Value = $mBreadCrumb.Children[4].SelectedItem.Name
 	}
 	catch{}
-	#$dsDiag.Trace("---combo selection = $_selected, Position $position")
 
 	mAvlblClsReset
 
-	mAddClsLevelCmbChild -sender $sender.SelectedItem
+	mAddClsLevelCmbChild -mSender $mSender.SelectedItem
 }
 
 function mResetClassSelection
 {
-    #$dsDiag.Trace(">> Reset Filter started...")
-
-	$mBreadCrumb = $dsWindow.FindName("wrpClassification2")
+	$mBreadCrumb = $AssignClsWindow.FindName("wrpClassification2")
+	$children = @()
+	$children += mGetCustentClsLevelList -ClassLevelName "Segment"
+	$mBreadCrumb.Children[0].ItemsSource = $children 
 	$mBreadCrumb.Children[0].SelectedIndex = -1
-
-	#$dsDiag.Trace("...Reset Filter finished <<")
+	$AssignClsWindow.FindName("btnClsReset2").IsEnabled = $false
+	$AssignClsWindow.FindName("dtgrdClassProps").ItemsSource = $null
 }
 
 function mAvlblClsReset
 {
-	if ($null -ne $dsWindow.FindName("cmbAvailableClasses")) {
-		$dsWindow.FindName("cmbAvailableClasses").ItemsSource = $null
-		$dsWindow.FindName("cmbAvailableClasses").SelectedIndex = -1
-		$dsWindow.FindName("cmbAvailableClasses").IsEnabled = $false
+	if ($null -ne $AssignClsWindow.FindName("cmbAvailableClasses")) {
+		$dsWindow.FindName("txtActiveClass").Text = ""
+		$dsWindow.FindName("dtgrdClassProps").ItemsSource = $null
+		$AssignClsWindow.FindName("cmbAvailableClasses").ItemsSource = $null
+		$AssignClsWindow.FindName("cmbAvailableClasses").SelectedIndex = -1
+		$AssignClsWindow.FindName("cmbAvailableClasses").IsEnabled = $false
 	}
-	$dsWindow.FindName("btnAssignClass").IsEnabled = $false
+	$AssignClsWindow.FindName("btnSelectClass").IsEnabled = $false
 }
 #endregion classification breadcrumb
 
-function mAssignClassification
+function mInitializeClsSelection
 {
 	[xml]$AssignClsXaml = Get-Content "C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\Configuration\ADSK.QS.SelectClassification.xaml"
-    $reader = New-Object System.Xml.XmlNodeReader $AssignClsXaml
-    $AssignClsWindow = [Windows.Markup.XamlReader]::Load($reader) 
-    $AssignClsWindow.DataContext = $dsWindow.DataContext
-
+	$reader = New-Object System.Xml.XmlNodeReader $AssignClsXaml
+	$global:AssignClsWindow = [Windows.Markup.XamlReader]::Load($reader)
+	$AssignClsWindow.DataContext = $dsWindow.DataContext
+	
+	#activate the UI tab according to the classification standard
 	mAssignClsGrdReset -ComboBox $AssignClsWindow.FindName("cmb_ClsStd")
 
+	if (-not $global:mActiveStandard) {
+		$global:mActiveStandard = $AssignClsWindow.FindName("cmb_ClsStd").SelectedItem.Content
+	}
+
+	#todo: integrate search options developed for IEC standard selection
+	#if ($global:mActiveStandard -eq "IEC 61355") {
+	#	mInitializeIEC61355
+	#}
+	#else {
+	#	mInitializeCompClassification
+	#}
+
+	mInitializeCompClassification
+
 	$AssignClsWindow.FindName("cmb_ClsStd").add_SelectionChanged({
-		param ($sender, $e)
+		param ($mSender, $e)
+		#update environment according to the classification standard
 		mAssignClsGrdReset -ComboBox $AssignClsWindow.FindName("cmb_ClsStd")
+		$global:mActiveStandard = $AssignClsWindow.FindName("cmb_ClsStd").SelectedItem.Content
+
+		#if ($global:mActiveStandard -ne "IEC 61355") {
+		#	mInitializeCompClassification
+		#}
+
+		#if ($global:mActiveStandard -eq "IEC 61355") {
+		#	mInitializeIEC61355
+		#}
+
+		mInitializeCompClassification
+
 	})
+
 
 	if ($AssignClsWindow.ShowDialog() -eq "OK") {
         #grab all the values to return
+		$global:AssignClsWindow = $null
         return
-    } else {
+    } 
+	else {
         return $null
     }
+
+}
+
+function mInitializeCompClassification {
+
+	if ($mCompClsInitialized -ne $true) {
+		
+		$AssignClsWindow.FindName("cmbAvailableClasses").add_SelectionChanged({
+			If ($Prop["_ReadOnly"].Value -eq $false -and $AssignClsWindow.FindName("cmbAvailableClasses").SelectedIndex -gt -1) {
+				$AssignClsWindow.FindName("btnSelectClass").IsEnabled = $true
+				#preview the properties of the class
+				mGetFileClsValues
+				mGetClsDfltValues
+			}
+			Else { $AssignClsWindow.FindName("btnSelectClass").IsEnabled = $false }
+		})
+		
+		mAvlblClsReset #reset cmbAvailableClasses
+
+		if($AssignClsWindow.FindName("wrpClassification2")){
+			
+			if($AssignClsWindow.FindName("wrpClassification2").Children.Count -lt 1){
+				#activate command should not add another combo row, if already classe(s) are selected
+				mAddClsLevelCombo -ClassLevelName "Segment"
+			}
+		}
+	}
+	
+	mResetClassSelection #reset wrap panel
+	$mCompClsInitialized = $true
+
 }
 
 function mAssignClsGrdReset ($ComboBox){
-	if ($ComboBox.SelectedIndex -eq "0"){
-			$AssignClsWindow.FindName("grdIEC61355").Visibility = "Visible"
-			$AssignClsWindow.FindName("grdClassification").Visibility = "Collapsed"
-		}
-		Else{
-			$AssignClsWindow.FindName("grdIEC61355").Visibility = "Collapsed"
+	# if ($ComboBox.SelectedIndex -eq "0"){
+	# 		$AssignClsWindow.FindName("grdIEC61355").Visibility = "Visible"
+	# 		$AssignClsWindow.FindName("grdClassification").Visibility = "Collapsed"
+	# 	}
+	# 	Else{
+			#$AssignClsWindow.FindName("grdIEC61355").Visibility = "Collapsed"
 			$AssignClsWindow.FindName("grdClassification").Visibility = "Visible"
+			#reset the combobox wrap panel
+			
+	# 	}
+}
+
+function mUpdateClsPropValues(){
+	try{
+		Foreach($row in $dsWindow.FindName("dtgrdClassProps").Items)
+		{
+			$Prop[$row.Key].Value = $row.Value
 		}
+	}	
+	catch{
+		$dsDiag.Trace("Error writing class properties to file properties")
+	}
+}
+
+function mApplyClsAndCloseFileWindow(){
+	if($dsWindow.FindName("txtActiveClass").Text -ne ""){
+		mApplyClassification
+	}
+	$dsWindow.CloseWindowCommand.Execute($this)
 }

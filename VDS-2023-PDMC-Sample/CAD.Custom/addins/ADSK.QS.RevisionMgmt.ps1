@@ -83,12 +83,22 @@ function InitializeRevisionValidation {
 	if ($null -ne $mFile) {
 		$mFileProperties = @{}
 		$mFileProperties = mGetFilePropValues $mFile.Id
-		$dsWindow.FindName("txtRevision").Text = $mFileProperties.Get_Item("Revision")
-		$dsWindow.FindName("txtStatus").Text = $mFileProperties.Get_Item("State")
-		$dsWindow.FindName("txtCreatedBy").Text = $mFileProperties.Get_Item("Created By")
-		$dsWindow.FindName("LatestRev").IsChecked = $mFileProperties.Get_Item("Latest Released Revision")
-		$dsWindow.FindName("txtLfcDef").Text = $mFileProperties.Get_Item("Lifecycle Definition")
-		$dsWindow.FindName("txtCreateDate").Text = $mFileProperties.Get_Item("Date Version Created").ToString("yyyy-MM-dd HH:mm")
+		$mPropTrans = @{}
+		$mPropTrans = mGetPropTranslations
+		$dsWindow.FindName("txtRevision").Text = $mFileProperties.Get_Item($mPropTrans["REVISION"])
+		$dsWindow.FindName("txtStatus").Text = $mFileProperties.Get_Item($mPropTrans["STATE"])
+		$dsWindow.FindName("txtLfcDef").Text = $mFileProperties.Get_Item($mPropTrans["LIFECLCDEF"])
+		$dsWindow.FindName("txtOriginator").Text = $mFileProperties.Get_Item($mPropTrans["ORIGINATOR"])
+		$mOrigDate = $mFileProperties.Get_Item($mPropTrans["ORIGCREATEDATE"])
+		if ($mOrigDate -ne $NullOrEmpty) {$dsWindow.FindName("txtOrigCreateDate").Text = $mOrigDate.ToString("yyyy-MM-dd HH:mm")}		
+		$dsWindow.FindName("LatestRev").IsChecked = $mFileProperties.Get_Item($mPropTrans["LATESTRELREVISION"])
+		$dsWindow.FindName("txtInitApprover").Text = $mFileProperties.Get_Item($mPropTrans["INITIALAPPROVER"])
+		$mInitDate = $mFileProperties.Get_Item($mPropTrans["INITRELEASEDATE"])
+		if ($mInitDate -ne $NullOrEmpty ) {$dsWindow.FindName("txtInitalRelDate").Text = $mInitDate.ToString("yyyy-MM-dd HH:mm")}
+		$dsWindow.FindName("txtLatestApprover").Text = $mFileProperties.Get_Item($mPropTrans["LATESTAPPROVER"])
+		$mLateDate = $mFileProperties.Get_Item($mPropTrans["LATESTRELEASEDATE"])
+		if ($mLateDate -ne $NullOrEmpty) {$dsWindow.FindName("txtLatestRelDate").Text = $mLateDate.ToString("yyyy-MM-dd HH:mm")}
+		
 		$mInitialApprover = $mFileProperties.Get_Item("Initial Approver") #system property to indicate that the file has been released already
 	}
 

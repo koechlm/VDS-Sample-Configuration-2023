@@ -321,6 +321,22 @@ function Adsk.GroupMemberOf([STRING]$mGroupName)
 	return $false
 }
 
+#function to check that the current user has a Vault behavior config permissions
+function Adsk.CheckCfgAdminPermission()
+{
+	$mAllPermissions = $vault.AdminService.GetPermissionsByUserId($vault.AdminService.Session.User.Id)
+	$mAllPermIds = @()
+	foreach ($item in $mAllPermissions)
+	{
+		$mAllPermIds += $item.Id
+	}
+	if ($mAllPermIds -contains 77 -and $mAllPermIds -contains 76) #76 = Vault Set Options; 77 = Vault Get Options
+	{
+		return $true
+	}
+	return $false
+}
+
 function mSearchCustentOfCat([String]$mCatDispName)
 {
 	$mSearchString = $mCatDispName

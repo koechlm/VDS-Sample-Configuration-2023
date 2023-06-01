@@ -130,7 +130,6 @@
     <None Include="Vault.Custom\addinVault\ADSK.QS.ECOTaskLink.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileBOM.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.FileDocStructure.ps1" />
-    <None Include="Vault.Custom\addinVault\ADSK.QS.FileImport.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.IEC61355.psm1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.ItemLookup.ps1" />
     <None Include="Vault.Custom\addinVault\ADSK.QS.NameValidationCustent.ps1" />
@@ -255,10 +254,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\ADSK.QS.FileImport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Vault.Custom\Configuration\ADSK.QS.Folder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -291,10 +286,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\File\ADSK.QS.DerivationTree.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Vault.Custom\Configuration\File\ADSK.QS.FileDataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,11 +302,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\Group\Adsk.QS.ClassifiedObject.DataSheet.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vault.Custom\Configuration\Item\ADSK.QS.AttachFileImport.xaml">
+    <Page Include="Vault.Custom\Configuration\Group\Adsk.QS.Group.DataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -323,7 +310,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\Main Group\Adsk.QS.ClassifiedObject.DataSheet.xaml">
+    <Page Include="Vault.Custom\Configuration\Main Group\Adsk.QS.MainGroup.DataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -339,7 +326,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vault.Custom\Configuration\Sub Group\Adsk.QS.ClassifiedObject.DataSheet.xaml">
+    <Page Include="Vault.Custom\Configuration\Sub Group\Adsk.QS.SubGroup.DataSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -432,6 +419,60 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vault.Custom\addinVault\VdsSampleUtilities.dll" />
+    <Resource Include="Vault.Custom\IconsLight\RemoveAction_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\RemoveAction_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\RemoveAction_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\RemoveAction_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\BasicSearchSearched_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Create_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Create_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Delete_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Delete_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Edit_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\Edit_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Export_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Export_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Import_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ERP_Import_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_32.ico" />
+    <Resource Include="Vault.Custom\IconsDark\FolderView_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemMaster_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemMaster_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemSave_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\ItemSave_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\Item_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\PackAndGo_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\PackAndGo_32.png" />
+    <Resource Include="Vault.Custom\IconsDark\VirtualComp_16.png" />
+    <Resource Include="Vault.Custom\IconsDark\VirtualComp_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\BasicSearchSearched_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\BasicSearchSearched_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ChangeOrder_List_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ChangeOrder_List_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Create_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Create_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Delete_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Delete_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Edit_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\Edit_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Export_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Export_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Import_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ERP_Import_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_32.ico" />
+    <Resource Include="Vault.Custom\IconsLight\FolderView_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemMaster_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemMaster_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemSave_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\ItemSave_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\Item_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\PackAndGo_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\PackAndGo_32.png" />
+    <Resource Include="Vault.Custom\IconsLight\VirtualComp_16.png" />
+    <Resource Include="Vault.Custom\IconsLight\VirtualComp_32.png" />
     <Resource Include="Vault.Custom\addinVault\VdsSampleUtilities.xml" />
     <Resource Include="CAD.Custom\Configuration\AutoCadDynamicProperties.xml" />
     <Resource Include="CAD.Custom\Configuration\InventorDynamicProperties.xml" />
@@ -700,7 +741,6 @@
     <Resource Include="Vault.Custom\class-info.ico" />
     <Resource Include="Vault.Custom\class.ico" />
     <Resource Include="Vault.Custom\Configuration\ADSK.QS.File.xml" />
-    <Resource Include="Vault.Custom\Configuration\ADSK.QS.FileOffice.xml" />
     <Resource Include="Vault.Custom\Configuration\Eco\Icons\GlobalFolderView_32.png" />
     <Resource Include="Vault.Custom\Configuration\Eco\Icons\task.ico" />
     <Resource Include="Vault.Custom\Configuration\File\Icons\attachment.png" />

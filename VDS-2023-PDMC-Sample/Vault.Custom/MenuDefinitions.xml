@@ -38,12 +38,6 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
       MultiSelectEnabled = "true"/>
     <!--ADSK-File Property Provider-->
 
-    <!--FileImportNnumbering MenuItem Start-->
-    <FileImport Label = "Add Files (DMS)" Description = "Import Files" Hint = "Import Files"
-          PSFile = "ADSK.QS.ImportFiles.ps1" Image="FileImport.ico" ToolbarPaintStyle = "TextAndGlyph"
-          MultiSelectEnabled = "false"/>
-    <!--FileImportNnumbering Menu item end-->
-
     <!--CatalogTermsTranslations-->
     <newTermObject Label = "$UIString[ClassTerms_MNU10]" Description = "$UIString[ClassTerms_MNU11]" Hint = "$UIString[ClassTerms_MNU11]"
           PSFile = "ADSK.QS.CreateCustomObjectClassified.ps1" Image="Term-add.ico" ToolbarPaintStyle = "TextAndGlyph"
@@ -116,7 +110,7 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
 
     <!--Activate Scheduled Task-->
     <ActivateSchedTask Label = "$UIString[ADSK-ActivateSchedTask-00]" Description = "$UIString[ADSK-ActivateSchedTask-00]" Hint = "$UIString[ADSK-ActivateSchedTask-00]"
-     PSFile = "ADSK.QS.ActivateSchedTask.ps1" Image="Vault.ico" ToolbarPaintStyle = "TextAndGlyph"
+     PSFile = "ADSK.QS.ActivateSchedTask.ps1" Image="Service-add.ico" ToolbarPaintStyle = "TextAndGlyph"
      MultiSelectEnabled = "false"/>
     <!--Activate Scheduled Task-->
 
@@ -195,14 +189,12 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
       <Item Name="EditFile"></Item>
       <Item Name="NewProjectECOwFiles"></Item>
       <Item Name="mInsertInvCompCopy"></Item>
-      <Item Name="FileImport"></Item>
     </FileContext>
     <FolderContex Label="myMenu" DeployAsPullDown="False" Location="FolderContextMenu">
       <Item Name="NewFile"></Item>
       <Item Name="NewFolder"></Item>
       <Item Name="EditFolder"></Item>
       <Item Name="NewProjectECO"></Item>
-      <Item Name="FileImport"></Item>
     </FolderContex>
     <ChangeOrderContext Label="ECO-Task" DeployAsPullDown="True" Location="ChangeOrderContextMenu">
       <Item Name="NewCoTask"></Item>

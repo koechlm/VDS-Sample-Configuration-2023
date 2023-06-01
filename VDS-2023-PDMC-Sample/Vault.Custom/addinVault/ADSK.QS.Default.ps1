@@ -72,7 +72,7 @@ function ValidateFolderName
 {
 	if($Prop["_FolderName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
-		return $true;
+		return mValidateUniqueFldrName
 	}
 	return $false;
 }
@@ -83,7 +83,7 @@ function ValidateCustomObjectName
 	{
 		if($Prop["_CustomObjectName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 		{
-			return ValidateCustentName;
+			return ValidateCustentName
 		}
 		return $false;
 	}
@@ -599,163 +599,6 @@ function OnTabContextChanged
 		}
 	#endregion documentstructure
 
-	#region derivation tree
-	if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "FileMaster" -and $xamlFile -eq "ADSK.QS.DerivationTree.xaml")
-	{
-		if($dsWindow.FindName("chkAutoUpdate").IsChecked)
-		{
-			mDerivationTreeUpdateView #$vaultContext.SelectedObject.Id
-			$dsWindow.FindName("btnUpdate").IsEnabled = $false
-		}
-		if($dsWindow.FindName("chkAutoUpdate").IsChecked -eq $false)
-		{ 
-			mDerivationTreeResetView
-		}
-	}
-	#endregion derivation tree
-
-	#region ItemTab-FileImport
-if ($VaultContext.SelectedObject.TypeId.SelectionContext -eq "ItemMaster" -and $xamlFile -eq "ADSK.QS.AttachFileImport.xaml")
-	{
-		$items = $vault.ItemService.GetItemsByIds(@($vaultContext.SelectedObject.Id))
-		$item = $items[0]
-		
-		If (!$item.Locked)
-		{
-			$dsWindow.FindName("mDragAreaEnabled").Source = "C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\DragFilesActive.png"
-			$dsWindow.FindName("mDragAreaEnabled").Visibility = "Visible"
-			$dsWindow.FindName("mDragAreaDisabled").Visibility = "Collapsed"
-			$dsWindow.FindName("txtActionInfo").Visibility = "Visible"
-		}
-		Else
-		{
-			$dsWindow.FindName("mDragAreaDisabled").Source = "C:\ProgramData\Autodesk\Vault 2023\Extensions\DataStandard\Vault.Custom\DragFilesLocked.png"
-			$dsWindow.FindName("mDragAreaDisabled").Visibility = "Visible"
-			$dsWindow.FindName("mDragAreaEnabled").Visibility = "Collapsed"
-			$dsWindow.FindName("txtActionInfo").Visibility = "Collapsed"
-		}
-
-		Try{
-			Import-Module powerVault
-		}
-		catch{
-		   [Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError("This feature requires powerVault installed; check for its availability", "VDS Sample Configuration")
-		   return
-		}
-
-		$dsWindow.FindName("mImportProgress").Value = 0
-		$dsWindow.FindName("mDragAreaEnabled").add_Drop({			
-			param( $sender, $e)
-			$items = $vault.ItemService.GetItemsByIds(@($vaultContext.SelectedObject.Id))
-			$item = $items[0]
-
-			#check that the item is editable for the current user, if not, we shouldn't add the files, before we try to attach
-			try{
-				$vault.ItemService.EditItems(@($item.RevId))
-				$_ItemIsEditable = $true
-			}
-			catch {
-				$_ItemIsEditable = $false
-			}
-			If($_ItemIsEditable)
-			{
-				$vault.ItemService.UndoEditItems(@($item.RevId))
-				$vault.ItemService.DeleteUncommittedItems($true)
-			}
-			
-			[System.Windows.DataObject]$mDragData = $e.Data
-			$mFileList = $mDragData.GetFileDropList()
-			#Filter folders, we attach files directly selected only
-			$mFileList = $mFileList | Where { (get-item $_).PSIsContainer -eq $false }
-			If ($mFileList -and $_ItemIsEditable)
-			{
-				$dsWindow.Cursor = "Wait"
-				$_NumFiles = $mFileList.Count
-				$_n = 0
-				$dsWindow.FindName("mImportProgress").Value = 0
-				$mExtExclude = @(".ipt", ".iam", ".ipn", ".dwg", ".idw", ".slddrw", ".sldprt", ".sldasm")
-				$m_ImpFileList = @() #filepath array of imported files to be attached
-				ForEach ($_file in $mFileList)
-				{
-					$m_FileName = [System.IO.Path]::GetFileNameWithoutExtension($_file)
-					$m_Ext = [System.IO.Path]::GetExtension($_file)
-					If ($mExtExclude -contains $m_Ext){
-						$mCADWarning = $true
-						break;
-					}
-					$m_Dir = [System.IO.Path]::GetDirectoryName($_file)
-					
-					#get new number and create new file name
-					#Adopted from a DocumentService call, which always pulls FILE class numbering schemes
-					[System.Collections.ArrayList]$numSchems = @($vault.NumberingService.GetNumberingSchemes('FILE', 'Activated'))
-					if ($numSchems.Count -gt 1)
-					{							
-						$_DfltNumSchm = $numSchems | Where { $_.Name -eq $UIString["ADSK-ItemFileImport_00"]}
-						if($_DfltNumSchm)
-						{
-							$NumGenArgs = @("")
-							$_newFile=$vault.DocumentService.GenerateFileNumber($_DfltNumSchm.SchmID, $NumGenArgs)
-						}		
-					}
-
-					#add file
-					If($_newFile)
-					{
-						#get appropriate folder number (limit 1k files per folder)
-						Try{
-							$mTargetPath = mGetFolderNumber $_newFile 3 #hand over the file number (name) and number of files / folder
-						}
-						catch { 
-							[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowError($UIString["ADSK-ItemFileImport_01"], "Item-File Attachment Import")
-						}
-						#add extension to number
-						$_newFile = $_newFile + $m_Ext
-						$mFullTargetPath = $mTargetPath + $_newFile
-						Try{
-							$m_ImportedFile = Add-VaultFile -From $_file -To $mFullTargetPath -Comment $UIString["ADSK-ItemFileImport_02"]
-							$m_ImpFileList += $m_ImportedFile._FullPath
-						}
-						Catch {
-							$dsDiag.Trace("Add-VaultFile failed. Check coolOrange powerVault for Vault 2023 availability")
-						}
-						
-					}
-					Else #continue with the given file name
-					{
-						$mTargetPath = "$/xDMS/"
-						$mFullTargetPath = $mTargetPath + $m_FileName
-						Try{
-							$m_ImportedFile = Add-VaultFile -From $_file -To $mFullTargetPath -Comment $UIString["ADSK-ItemFileImport_02"]
-							$m_ImpFileList += $m_ImportedFile._FullPath
-						}
-						Catch {
-							$dsDiag.Trace("Add-VaultFile failed. Check coolOrange powerVault for Vault 2023 availability")
-						}
-					}
-					$_n += 1
-					$dsWindow.FindName("mImportProgress").Value = (($_n/$_NumFiles)*100)-10
-
-				} #for each file
-				#attach file to current item
-				Try{
-					$parent = Get-VaultItem -Number $item.ItemNum	
-					$parentUpdated = Update-VaultItem -Number $parent._Number -AddAttachments $m_ImpFileList -Comment $UIString["ADSK-ItemFileImport_03"]
-				}
-				Catch {
-							$dsDiag.Trace("Get/Update-VaultItem failed. Check coolOrange powerVault for Vault 2023 availability")
-						}
-				$dsWindow.FindName("mImportProgress").Value = (($_n/$_NumFiles)*100)
-				If ($mCADWarning)
-				{
-					[Autodesk.DataManagement.Client.Framework.Forms.Library]::ShowWarning($UIString["ADSK-ItemFileImport_04"], "Item-File Attachment Import", "OK")
-				}
-			}
-			$mFileList = $null
-			$dsWindow.Cursor = "Arrow"
-			$dsWindow.FindName("mDragAreaEnabled").remove_Drop()
-			}) #end drag & drop
-	}
-#endregion ItemTab-FileImport
 }
 
 function GetNewCustomObjectName

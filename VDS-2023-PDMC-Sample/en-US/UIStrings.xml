@@ -339,6 +339,9 @@
   <UIString ID="ADSK-ActivateSchedTask-03">Activate Selected</UIString>
   <UIString ID="ADSK-ActivateSchedTask-04">Close</UIString>
   <UIString ID="ADSK-ActivateSchedTask-05">Put selected Server Task to Job Queue</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-06">Scheduled Synchronization Tasks</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-07">Server Task Name</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-08">Server Task Description</UIString>
   <!--Activate Scheduled Task-->
 
   <!--QuickstartExtensions functions library-->
@@ -365,30 +368,6 @@
   <UIString ID="ADSK-GoToInvSibl_MSG00">Search result is limited to page size {0}; Total number of files found: {1}</UIString>
   <UIString ID="ADSK-GoToInvSibl_MSG01">No Sibling Found!</UIString>
   <!--GoToInvSibling End-->
-
-  <!--Derivation Tree-->
-  <UIString ID="DerivationTree_00">File Copies</UIString>
-  <UIString ID="DerivationTree_01">Copied from - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_02">Lists all file versions/revisions of the copied source</UIString>
-  <UIString ID="DerivationTree_03">Sibling(s) - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_04">Lists all file versions/revisions also copied from the same source file</UIString>
-  <UIString ID="DerivationTree_05">Copy(ies) - All Versions/Revisions</UIString>
-  <UIString ID="DerivationTree_06">Lists all file versions/revisions copied from the selected file</UIString>
-  <UIString ID="DerivationTree_07">State (Historical)</UIString>
-  <UIString ID="DerivationTree_08">Original Create Date</UIString>
-  <UIString ID="DerivationTree_09">Latest Version</UIString>
-  <UIString ID="DerivationTree_10">Latest Released Revision</UIString>
-  <UIString ID="DerivationTree_11">Version Comment</UIString>
-  <UIString ID="DerivationTree_12">Copy File Name to Clipboard</UIString>
-  <UIString ID="DerivationTree_13">Could not find source file</UIString>
-  <UIString ID="DerivationTree_14">Could not find copies with identical source file</UIString>
-  <UIString ID="DerivationTree_15">Could not find any copy matching the selected file as source file</UIString>
-  <UIString ID="DerivationTree_16">Search result is limited to page size {0}; Total number of files found: {1}</UIString>
-  <UIString ID="DerivationTree_17">Update View</UIString>
-  <UIString ID="DerivationTree_18">Auto Update View</UIString>
-  <UIString ID="DerivationTree_19">Run all searches to fill each branch</UIString>
-  <UIString ID="DerivationTree_20">Updates view on selection changed. Note - Delayed response depending on vault and paging size!</UIString>
-  <!--Derivation Tree end-->
 
   <!--Insert CAD Copy-->
   <UIString ID="ADSK-InsertInvCopy_00">Insert CAD: Component Copy</UIString>
@@ -439,6 +418,7 @@
   <UIString ID="Adsk.QS.ItemSearch_29">Properties</UIString>
   <UIString ID="Adsk.QS.ItemSearch_30">Associated Files</UIString>
   <UIString ID="Adsk.QS.ItemSearch_31">File not accessible to current user</UIString>
+  <UIString ID="Adsk.QS.ItemSearch_32">No matching Item(s) found.</UIString>
   <!--ItemMaster Search and Item Tab END-->
 
   <!--Classification start-->
@@ -475,7 +455,7 @@
   <UIString ID="Adsk.QS.Classification_00">Class</UIString>
   <UIString ID="Adsk.QS.Classification_01">Name</UIString>
   <UIString ID="Adsk.QS.Classification_02">Value</UIString>
-  <UIString ID="Adsk.QS.Classification_03">Classification</UIString>
+  <UIString ID="Adsk.QS.Classification_03">Classification Properties</UIString>
   <UIString ID="Adsk.QS.Classification_04">Class Hierarchy</UIString>
   <UIString ID="Adsk.QS.Classification_05">Available Classes</UIString>
   <UIString ID="Adsk.QS.Classification_06">Assigned Class</UIString>
@@ -513,15 +493,15 @@
   <UIString ID="ClassTerms_15">Additional Languages</UIString>
   <UIString ID="ClassTerms_16">Search text to match term definition, use "*" and/or add Languages to widen the scope</UIString>
   <UIString ID="ClassTerms_BTN8">Search</UIString>
-  <UIString ID="ClassTerms_BTN9">Apply Term as Title</UIString>
-  <UIString ID="ClassTerms_BTN10">Apply</UIString>
-  <UIString ID="ClassTerms_TT00">Apply Term(s) as Title DE (EN, FR, IT)</UIString>
+  <UIString ID="ClassTerms_BTN9">Copy Term as Title</UIString>
+  <UIString ID="ClassTerms_BTN10">Copy Term Data</UIString>
+  <UIString ID="ClassTerms_TT00">Copy Term(s) as Title DE (EN, FR, IT)</UIString>
   <UIString ID="ClassTerms_TT01">Limit search to hierarchy level</UIString>
   <UIString ID="ClassTerms_TT02">Name = 'TERM EN' if not typed manually</UIString>
   <UIString ID="ClassTerms_TT03">Assigned by classification</UIString>
   <UIString ID="ClassTerms_TT04">No hand typed terms allowed; select available term from catalog</UIString>
   <UIString ID="ClassTerms_TT05">Activates catalog of terms</UIString>
-  <UIString ID="ClassTerms_TT06">Apply '*' for partial terms</UIString>
+  <UIString ID="ClassTerms_TT06">Use '*' for partial terms</UIString>
   <UIString ID="ClassTerms_TT07">Resets classification</UIString>
   <UIString ID="ClassTerms_MSG01">You are going to change the selected classification, are you sure?"</UIString>
   <UIString ID="ClassTerms_MSG02">Search result displays {0} out of {1}; refine your search.</UIString>
@@ -542,17 +522,6 @@
   <!--AddPdfDsgnRepToQu Snippet-->
   <UIString ID="ADSK-AddPdfDsgnRepToQu-MNU00">Update PDF View</UIString>
   <!--AddPdfDsgnRepToQu Snippet End-->
-
-  <!--Item-File-Importer-->
-  <UIString ID="ADSK-ItemFileImport_00">xDMS</UIString>
-  <UIString ID="ADSK-ItemFileImport_01">Could not get Item-File location path.</UIString>
-  <UIString ID="ADSK-ItemFileImport_02">by Drag and Drop Item File Importer</UIString>
-  <UIString ID="ADSK-ItemFileImport_03">File-Import added attachments</UIString>
-  <UIString ID="ADSK-ItemFileImport_04">At least one CAD file was filtered; use CAD application instead to import before item assignment</UIString>
-  <UIString ID="ADSK-ItemFileImport_05">Drop Files on Upload Symbol below; files are added to Vault and attached to this item.</UIString>
-  <UIString ID="ADSK-ItemFileImport_06">File-Import</UIString>
-  <UIString ID="ADSK-ItemFileImport_07">Drop files to import and attach.</UIString>
-  <!--Item-File-Importer en-->
 
   <!--ADSK-File Property Provider-->
   <UIString ID="ADSKFile-MetaReader-00">Extract ADSK-File Meta Data</UIString>
@@ -585,6 +554,12 @@
   <UIString ID="Adsk.QS.RevTab_10">Customer Approval Required</UIString>
   <UIString ID="Adsk.QS.RevTab_11">Customer Approved By</UIString>
   <UIString ID="Adsk.QS.RevTab_12">Customer Appr. Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_13">Originator</UIString>
+  <UIString ID="Adsk.QS.RevTab_14">Original Create Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_15">Initial Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_16">Initial Release Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_17">Latest Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_18">Latest Released Date</UIString>
   <UIString ID="Engr Date Approved">Engr Approved Date</UIString>
   
   <!--UIStrings for PDMC-Sample Dynamic Grids - Note these mappings are only valid for the original PDMC-Sample Vault!-->

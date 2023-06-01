@@ -337,6 +337,9 @@
   <UIString ID="ADSK-ActivateSchedTask-03">Auswahl aktivieren</UIString>
   <UIString ID="ADSK-ActivateSchedTask-04">Schliessen</UIString>
   <UIString ID="ADSK-ActivateSchedTask-05">Markierte Server Aufgabe als Job aktivieren</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-06">Zeitgesteuerte Aufgaben zur Synchronisierung</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-07">Server Task Name</UIString>
+  <UIString ID="ADSK-ActivateSchedTask-08">Server Task Description</UIString>
   <!--Activate Scheduled Task-->
 
   <!--QuickstartExtensions functions library-->
@@ -363,30 +366,6 @@
   <UIString ID="ADSK-GoToInvSibl_MSG00">Suchergebnis ist auf Seitengröße {0} begrenzt; insgesamt wurden {1} Dateien gefunden.</UIString>
   <UIString ID="ADSK-GoToInvSibl_MSG01">Es wurde keine Schwester-Datei gefunden!</UIString>
   <!--GoToInvSibling End-->
-
-  <!--Derivation Tree-->
-  <UIString ID="DerivationTree_00">Datei-Kopien</UIString>
-  <UIString ID="DerivationTree_01">Kopie von - alle Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_02">Führt alle Versionen/Revisionen der Quelldatei auf</UIString>
-  <UIString ID="DerivationTree_03">Geschwister - alle Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_04">Führt alle Versionen/Revisionen weiterer Kopien der Quelldatei auf</UIString>
-  <UIString ID="DerivationTree_05">Kopie(en) - Versionen/Revisionen</UIString>
-  <UIString ID="DerivationTree_06">Führt alle Datei Versionen/Revisionen auf, die von gewählter Datei ausgehend kopiert wurden</UIString>
-  <UIString ID="DerivationTree_07">Status (Historisch)</UIString>
-  <UIString ID="DerivationTree_08">Ersterstellung</UIString>
-  <UIString ID="DerivationTree_09">Letzte Version</UIString>
-  <UIString ID="DerivationTree_10">Neueste freigegeben Revision</UIString>
-  <UIString ID="DerivationTree_11">Versionskommentar</UIString>
-  <UIString ID="DerivationTree_12">Dateiname in Zwischenablage kopieren</UIString>
-  <UIString ID="DerivationTree_13">Es konnte keine Quelldatei ermittelt werden.</UIString>
-  <UIString ID="DerivationTree_14">Es konnten keine Kopien mit identischer Quellangabe ermittelt werden.</UIString>
-  <UIString ID="DerivationTree_15">Es wurden keine Kopien gefunden werden, die mit selektierter Datei als Quelldatei übereinstimmen.</UIString>
-  <UIString ID="DerivationTree_16">Anzeige auf Seitengröße {0} begrenzt; Gesamtanzahl ermittelter Dateiversionen: {1}</UIString>
-  <UIString ID="DerivationTree_17">Anzeige aktualisieren</UIString>
-  <UIString ID="DerivationTree_18">Anzeige automatisch aktualisieren</UIString>
-  <UIString ID="DerivationTree_19">Alle Suchen ausführen, um jeden Zweig zu ermitteln.</UIString>
-  <UIString ID="DerivationTree_20">Aktualisiert Ansicht mit wechselnder Auswahl. Hinweis - Antwortzeiten variieren je nach Tresor und eingestellter Seitengröße!</UIString>
-  <!--Derivation Tree end-->
 
   <!--Insert CAD Copy-->
   <UIString ID="ADSK-InsertInvCopy_00">Einfügen CAD: Kopie d. Komponente</UIString>
@@ -437,6 +416,7 @@
   <UIString ID="Adsk.QS.ItemSearch_29">Eigenschaften</UIString>
   <UIString ID="Adsk.QS.ItemSearch_30">Verknüpfte Dateien</UIString>
   <UIString ID="Adsk.QS.ItemSearch_31">Datei, für angemeldeten Benutzer nicht zugänglich</UIString>
+  <UIString ID="Adsk.QS.ItemSearch_32">Es wurden keine übereinstimmenden Artikel gefunden.</UIString>
   <!--ItemMaster Search and Item Tab END-->
   
   <!--Classification start-->
@@ -473,7 +453,7 @@
   <UIString ID="Adsk.QS.Classification_00">Klasse</UIString>
   <UIString ID="Adsk.QS.Classification_01">Name</UIString>
   <UIString ID="Adsk.QS.Classification_02">Wert</UIString>
-  <UIString ID="Adsk.QS.Classification_03">Klassifizierung</UIString>
+  <UIString ID="Adsk.QS.Classification_03">Klassen-Eigenschaften</UIString>
   <UIString ID="Adsk.QS.Classification_04">Klassenstruktur</UIString>
   <UIString ID="Adsk.QS.Classification_05">Verfügbare Klassen</UIString>
   <UIString ID="Adsk.QS.Classification_06">Zugewiesene Klasse</UIString>
@@ -511,9 +491,9 @@
   <UIString ID="ClassTerms_15">Zusätzliche Sprachen</UIString>
   <UIString ID="ClassTerms_16">Search text to match term definition, use "*" and/or add Languages to widen the scope</UIString>
   <UIString ID="ClassTerms_BTN8">Suche</UIString>
-  <UIString ID="ClassTerms_BTN9">Begriff in Titel Feld übernehmen</UIString>
-  <UIString ID="ClassTerms_BTN10">Übernehmen</UIString>
-  <UIString ID="ClassTerms_TT00">Begriff(e) in Titel und Titel (EN, FR, IT) übernehmen.</UIString>
+  <UIString ID="ClassTerms_BTN9">Begriff in Titel Feld kopieren</UIString>
+  <UIString ID="ClassTerms_BTN10">Kopieren</UIString>
+  <UIString ID="ClassTerms_TT00">Begriff(e) in Titel und Titel (EN, FR, IT) kopieren.</UIString>
   <UIString ID="ClassTerms_TT01">Suche auf Hierarchieebene begrenzen...</UIString>
   <UIString ID="ClassTerms_TT02">Name = 'Begriff' wenn nicht anders angegeben</UIString>
   <UIString ID="ClassTerms_TT03">Wird über Klassifizierung gefüllt</UIString>
@@ -540,17 +520,6 @@
   <!--AddPdfDsgnRepToQu Snippet-->
   <UIString ID="ADSK-AddPdfDsgnRepToQu-MNU00">PDF Ansicht aktualisieren</UIString>
   <!--AddPdfDsgnRepToQu Snippet End-->
-
-  <!--Item-File-Importer-->
-  <UIString ID="ADSK-ItemFileImport_00">xDMS</UIString>
-  <UIString ID="ADSK-ItemFileImport_01">Pfad zur Dateiablage nicht vorhanden.</UIString>
-  <UIString ID="ADSK-ItemFileImport_02">'Drag and Drop' Import von Artikel-Datei-Import-Tab</UIString>
-  <UIString ID="ADSK-ItemFileImport_03">Anhänge von Datei-Import-Tab ergänzt</UIString>
-  <UIString ID="ADSK-ItemFileImport_04">Es wurde mindestens eine CAD Datei gefiltert, verwenden sie die CAD Anwendung zum Hinzufügen, bevor diese angehängt wird.</UIString>
-  <UIString ID="ADSK-ItemFileImport_05">Ziehen sie Dateien auf das 'Upload' Symbol; Dateien werden importiert und als Anhang an diesen Artikel verknüpft.</UIString>
-  <UIString ID="ADSK-ItemFileImport_06">Datei-Import</UIString>
-  <UIString ID="ADSK-ItemFileImport_07">Ziehen Sie Datein zum Import/Anhang hierher.</UIString>
-  <!--Item-File-Importer de-->
 
   <!--ADSK-File Property Provider-->
   <UIString ID="ADSKFile-MetaReader-00">ADSK-Datei Metadaten auslesen</UIString>
@@ -583,6 +552,13 @@
   <UIString ID="Adsk.QS.RevTab_10">Freigabe Kunde erf.</UIString>
   <UIString ID="Adsk.QS.RevTab_11">Freigabe Kunde von</UIString>
   <UIString ID="Adsk.QS.RevTab_12">Freigabe Kunde Datum</UIString>
+  <UIString ID="Adsk.QS.RevTab_13">Originator</UIString>
+  <UIString ID="Adsk.QS.RevTab_14">Original Create Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_15">Initial Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_16">Initial Release Date</UIString>
+  <UIString ID="Adsk.QS.RevTab_17">Latest Approver</UIString>
+  <UIString ID="Adsk.QS.RevTab_18">Latest Released Date</UIString>
+  <UIString ID="Engr Date Approved">Engr Approved Date</UIString>  
 
   <!--UIStrings for PDMC-Sample Dynamic Grids - Note these mappings are only valid for the original PDMC-Sample Vault!-->
   <UIString ID="1907cfc4-134b-4151-b04b-263627b8d37e">Geprüft am</UIString>

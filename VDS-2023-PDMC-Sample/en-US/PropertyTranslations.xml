@@ -45,10 +45,6 @@
   <PropertyTranslation Name="LASTNAME">Last Name</PropertyTranslation>
   <PropertyTranslation Name="CONTACTNAME">Contact Person</PropertyTranslation>
   <!--VDS-PDMC-Sample 2019 end-->
-
-  <!--VDS-PDMC-Sample 2020.25.1.2-->
-  <PropertyTranslation Name="REVISION">Revision</PropertyTranslation>
-  <!--VDS-PDMC-Sample 2020.25.1.2-->
   
   <!--VDS-PDMC-Sample Extensions start-->
   <PropertyTranslation Name ="ORGANISATION">Organisation</PropertyTranslation>
@@ -78,6 +74,7 @@
   <!--Classification & Terms-->
 
   <!--Revision Property Tab start-->
+  <PropertyTranslation Name="REVISION">Revision</PropertyTranslation>
   <PropertyTranslation Name="LIFECLCDEF">Lifecycle Definition</PropertyTranslation>
   <PropertyTranslation Name="DESIGNER">Designer</PropertyTranslation>
   <PropertyTranslation Name="CHECKEDBY">Checked By</PropertyTranslation>
@@ -89,6 +86,13 @@
   <PropertyTranslation Name="CUSTAPPRVDBY">Customer Approved By</PropertyTranslation>
   <PropertyTranslation Name="CUSTAPPRVDDATE">Cust Approved Date</PropertyTranslation>
   <PropertyTranslation Name="DOCCHCKREQ">Document Check Required</PropertyTranslation>
+  <PropertyTranslation Name="ORIGINATOR">Originator</PropertyTranslation>
+  <PropertyTranslation Name="ORIGCREATEDATE">Original Create Date</PropertyTranslation>
+  <PropertyTranslation Name="INITIALAPPROVER">Initial Approver</PropertyTranslation>
+  <PropertyTranslation Name="INITRELEASEDATE">Initial Release Date</PropertyTranslation>
+  <PropertyTranslation Name="LATESTAPPROVER">Latest Approver</PropertyTranslation>
+  <PropertyTranslation Name="LATESTRELEASEDATE">Latest Released Date</PropertyTranslation>
+  <PropertyTranslation Name="LATESTRELREVISION">Latest Released Revision</PropertyTranslation>
   <!--Revision Property Tab end-->
   
 </PropertyTranslations>
